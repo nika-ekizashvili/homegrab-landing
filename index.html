@@ -1,792 +1,860 @@
-<!DOCTYPE html>
-<html lang="en">
-
+<!doctype html>
+<html lang="ka" dir="ltr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HomeGrab - Real Estate Listing Sync for Georgia (SS.ge & MyHome.ge)</title>
-  <meta name="description"
-    content="HomeGrab is a privacy-first Chrome extension for Georgian real estate agents to scrape, synchronize, and manage listings between SS.ge and MyHome.ge, integrated with Google Sheets.">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HomeGrab — ერთი განცხადება, ორივე საიტი</title>
+<meta name="description" content="HomeGrab კითხულობს განცხადებას ss.ge-ზე ან myhome.ge-ზე და ავსებს მეორე საიტის ფორმას, შემდეგ კი შენს Google ცხრილში ჩაწერს. გამოქვეყნების ღილაკს შენ აჭერ.">
+<link rel="canonical" href="https://homegrab.usectl.com/">
+<meta property="og:title" content="HomeGrab — ერთი განცხადება, ორივე საიტი">
+<meta property="og:description" content="Chrome-ის გაფართოება ქართველი უძრავი ქონების აგენტებისთვის. ss.ge ↔ myhome.ge.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://homegrab.usectl.com/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
 
-  <link rel="icon" type="image/svg+xml"
-    href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='220 445 140 130'><path fill='%232F60F3' d='M343.15,487.7l-17.15-11.32-12.74-8.31-29.38-19.62c-1.3-.87-3.31-1.14-4.69-.22l-37.76,25.2-16.82,11.24-5.69,3.31c-.93.54-1.54,1.5-1.5,2.67v8.13h12.23v63.02c0,2.75,2.81,4.75,5.32,3.64,2.84-1.26,21.52-22.81,21.52-22.81,11.08-14.13,44.07-3.58,55.51-19.34,1.27-1.75,2.48-3.52,3.2-5.56,1.48-4.24,5.76-14.19,14.14-17.29,9.06-3.36,16.06-.48,16.06-4.6v-4.26c-.1-1.58-.93-3.01-2.25-3.88ZM278.64,522.71h-14v-12h14v12ZM278.64,503.82h-14v-13.11h14v13.11ZM298.65,522.71h-14v-12h14v12ZM298.65,503.82h-14v-13.11h14v13.11Z'/><path fill='%2300B972' d='M341.52,553.62c-7.32,10.07-18.31,16.96-32.92,16.96l-66.99.21c-.96,0-1.25-1.07-.71-1.75l8.43-10.62.03-.03,9.44-10.5c4.84-5.39,11.28-7.97,18.64-8.49l9.24-.66c8.7-.62,16.11-1.85,23.71-6.4.83-.5,3-2.04,4.01-1.38,2.61,1.71,2.2,5.56.26,7.79-3.05,3.5-6.93,5.74-10.97,7.98h-.01c-.13.07-4.25,2.11-5.46,3.05-4.43,3.45,12.8-2.17,17.59-5.95,3.36-2.65,6.66-7.69,6.69-13.08.08-15.91,7.28-27.85,11.46-25.28,1.7,1.04,1.86,4.24.77,9.17,0,0-5.11,22-3.99,22.65,1.41.81,4.61-10.92,4.61-10.92l3.98-16.98c.41-1.74,2.28-4.02,4.29-3.58,2.19.48,3.1,3.63,2.68,5.65l-2.57,12.35-3.56,14.15c-.17.68.68,1.19,1.17.68.71-.73,1.21-1.68,1.57-2.67l6.15-16.92c.78-2.15,2.72-5.2,5.65-4.17,2.35.83,2.3,5.1,1.52,7.28l-4.51,12.62c-2.46,6.89-5.88,12.92-10.18,18.85Z'/></svg>">
+<!-- Set the theme before first paint so the page never flashes the wrong one. -->
+<script>
+  (function () {
+    try {
+      var t = localStorage.getItem("hg-theme");
+      if (t === "dark" || t === "light") document.documentElement.dataset.theme = t;
+      var p = new URLSearchParams(location.search).get("lang");
+      var l = p === "en" || p === "ka" ? p : localStorage.getItem("hg-lang");
+      if (l === "en") document.documentElement.lang = "en";
+    } catch (e) {}
+  })();
+</script>
 
-  <!-- Google Fonts: Outfit & Noto Sans Georgian -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Noto+Sans+Georgian:wght@300;400;500;600;700&display=swap"
-    rel="stylesheet">
-
-  <!-- Lucide Icons for premium visual symbols -->
-  <script src="https://unpkg.com/lucide@latest"></script>
-
-  <!-- Main Stylesheet -->
-  <link rel="stylesheet" href="styles.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@400;600;700&family=Outfit:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="/styles.css">
 </head>
+<body>
 
-<body class="lang-en theme-dark">
-  <!-- Glowing background elements for premium feel -->
-  <div class="glow-bg glow-blue"></div>
-  <div class="glow-bg glow-green"></div>
+<a class="skip-link" href="#main" data-i18n="a11y.skip">გადადი მთავარ შიგთავსზე</a>
 
-  <!-- Navigation Bar -->
-  <header class="navbar">
-    <div class="navbar-container">
-      <a href="#home" class="logo" id="nav-logo">
-        <svg id="Layer_1" class="logo-full-svg" xmlns="http://www.w3.org/2000/svg" version="1.1"
-          viewBox="215 440 600 140">
-          <defs>
-            <style>
-              .st0 {
-                fill: #00b972;
-              }
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="/">
+      <img src="/favicon.svg" alt="" width="28" height="28">
+      <span>HomeGrab</span>
+    </a>
 
-              .st1 {
-                fill: #2f60f3;
-              }
+    <nav class="nav-links" id="nav-links" aria-label="მთავარი" data-i18n-attr="aria-label|nav.label">
+      <a href="#how" data-i18n="nav.how">როგორ მუშაობს</a>
+      <a href="#features" data-i18n="nav.features">ფუნქციები</a>
+      <a href="#tracker" data-i18n="nav.tracker">ცხრილი</a>
+      <a href="#privacy" data-i18n="nav.privacy">კონფიდენციალურობა</a>
+      <a href="#pricing" data-i18n="nav.pricing">ფასი</a>
+      <a class="btn btn--primary nav-cta"
+         href="https://chromewebstore.google.com/detail/home-grab/gkafeolkiffkkbbpeceaiefpglfblmkh"
+         rel="noopener" data-i18n="cta.add">დაამატე Chrome-ში</a>
+    </nav>
 
-              .st2 {
-                font-family: Outfit-Bold, Outfit;
-                font-size: 90px;
-                font-weight: 700;
-                letter-spacing: -.03em;
-              }
-
-              .st3 {
-                display: none;
-              }
-            </style>
-          </defs>
-          <g>
-            <g>
-              <path class="st1"
-                d="M343.15,487.7l-17.15-11.32-12.74-8.31-29.38-19.62c-1.3-.87-3.31-1.14-4.69-.22l-37.76,25.2-16.82,11.24-5.69,3.31c-.93.54-1.54,1.5-1.5,2.67v8.13h12.23v63.02c0,2.75,2.81,4.75,5.32,3.64,2.84-1.26,21.52-22.81,21.52-22.81,11.08-14.13,44.07-3.58,55.51-19.34,1.27-1.75,2.48-3.52,3.2-5.56,1.48-4.24,5.76-14.19,14.14-17.29,9.06-3.36,16.06-.48,16.06-4.6v-4.26c-.1-1.58-.93-3.01-2.25-3.88ZM278.64,522.71h-14v-12h14v12ZM278.64,503.82h-14v-13.11h14v13.11ZM298.65,522.71h-14v-12h14v12ZM298.65,503.82h-14v-13.11h14v13.11Z" />
-              <path class="st0"
-                d="M341.52,553.62c-7.32,10.07-18.31,16.96-32.92,16.96l-66.99.21c-.96,0-1.25-1.07-.71-1.75l8.43-10.62.03-.03,9.44-10.5c4.84-5.39,11.28-7.97,18.64-8.49l9.24-.66c8.7-.62,16.11-1.85,23.71-6.4.83-.5,3-2.04,4.01-1.38,2.61,1.71,2.2,5.56.26,7.79-3.05,3.5-6.93,5.74-10.97,7.98h-.01c-.13.07-4.25,2.11-5.46,3.05-4.43,3.45,12.8-2.17,17.59-5.95,3.36-2.65,6.66-7.69,6.69-13.08.08-15.91,7.28-27.85,11.46-25.28,1.7,1.04,1.86,4.24.77,9.17,0,0-5.11,22-3.99,22.65,1.41.81,4.61-10.92,4.61-10.92l3.98-16.98c.41-1.74,2.28-4.02,4.29-3.58,2.19.48,3.1,3.63,2.68,5.65l-2.57,12.35-3.56,14.15c-.17.68.68,1.19,1.17.68.71-.73,1.21-1.68,1.57-2.67l6.15-16.92c.78-2.15,2.72-5.2,5.65-4.17,2.35.83,2.3,5.1,1.52,7.28l-4.51,12.62c-2.46,6.89-5.88,12.92-10.18,18.85Z" />
-            </g>
-            <text class="st2" transform="translate(366.4 556.72)">
-              <tspan class="st1" x="0" y="0">Home</tspan>
-              <tspan class="st0" x="233.91" y="0">Grab</tspan>
-            </text>
-          </g>
-          <g class="st3">
-            <g>
-              <path class="st0"
-                d="M343.15,487.7l-17.15-11.32-12.74-8.31-29.38-19.62c-1.3-.87-3.31-1.14-4.69-.22l-37.76,25.2-16.82,11.24-5.69,3.31c-.93.54-1.54,1.5-1.5,2.67v8.13h12.23v63.02c0,2.75,2.81,4.75,5.32,3.64,2.84-1.26,21.52-22.81,21.52-22.81,11.08-14.13,44.07-3.58,55.51-19.34,1.27-1.75,2.48-3.52,3.2-5.56,1.48-4.24,5.76-14.19,14.14-17.29,9.06-3.36,16.06-.48,16.06-4.6v-4.26c-.1-1.58-.93-3.01-2.25-3.88ZM278.64,522.71h-14v-12h14v12ZM278.64,503.82h-14v-13.11h14v13.11ZM298.65,522.71h-14v-12h14v12ZM298.65,503.82h-14v-13.11h14v13.11Z" />
-              <path class="st1"
-                d="M341.52,553.62c-7.32,10.07-18.31,16.96-32.92,16.96l-66.99.21c-.96,0-1.25-1.07-.71-1.75l8.43-10.62.03-.03,9.44-10.5c4.84-5.39,11.28-7.97,18.64-8.49l9.24-.66c8.7-.62,16.11-1.85,23.71-6.4.83-.5,3-2.04,4.01-1.38,2.61,1.71,2.2,5.56.26,7.79-3.05,3.5-6.93,5.74-10.97,7.98h-.01c-.13.07-4.25,2.11-5.46,3.05-4.43,3.45,12.8-2.17,17.59-5.95,3.36-2.65,6.66-7.69,6.69-13.08.08-15.91,7.28-27.85,11.46-25.28,1.7,1.04,1.86,4.24.77,9.17,0,0-5.11,22-3.99,22.65,1.41.81,4.61-10.92,4.61-10.92l3.98-16.98c.41-1.74,2.28-4.02,4.29-3.58,2.19.48,3.1,3.63,2.68,5.65l-2.57,12.35-3.56,14.15c-.17.68.68,1.19,1.17.68.71-.73,1.21-1.68,1.57-2.67l6.15-16.92c.78-2.15,2.72-5.2,5.65-4.17,2.35.83,2.3,5.1,1.52,7.28l-4.51,12.62c-2.46,6.89-5.88,12.92-10.18,18.85Z" />
-            </g>
-            <text class="st2" transform="translate(366.4 556.72)">
-              <tspan class="st0" x="0" y="0">Home</tspan>
-              <tspan class="st1" x="233.91" y="0">Grab</tspan>
-            </text>
-          </g>
-        </svg>
+    <div class="nav-actions">
+      <button class="icon-btn nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav-links"
+              aria-label="მენიუ" data-i18n-attr="aria-label|nav.menu">
+        <svg aria-hidden="true"><use href="#i-menu"></use></svg>
+      </button>
+      <button class="icon-btn lang-btn" id="lang-toggle" aria-label="Switch to English"
+              data-i18n-attr="aria-label|nav.langAria"><span id="lang-label">EN</span></button>
+      <button class="icon-btn" id="theme-toggle" aria-label="თემის შეცვლა"
+              data-i18n-attr="aria-label|nav.themeAria">
+        <svg aria-hidden="true"><use href="#i-sun"></use></svg>
+      </button>
+      <a class="btn btn--primary" href="https://chromewebstore.google.com/detail/home-grab/gkafeolkiffkkbbpeceaiefpglfblmkh"
+         rel="noopener" data-i18n="cta.add">
+        დაამატე Chrome-ში
       </a>
-
-      <nav class="nav-menu">
-        <a href="#features" class="nav-link">
-          <span data-lang="en">Features</span>
-          <span data-lang="ka">ფუნქციები</span>
-        </a>
-        <a href="#simulator" class="nav-link">
-          <span data-lang="en">Demo</span>
-          <span data-lang="ka">დემო</span>
-        </a>
-        <a href="privacy.html" class="nav-link" id="privacy-nav-link">
-          <span data-lang="en">Privacy & Security</span>
-          <span data-lang="ka">კონფიდენციალურობა</span>
-        </a>
-        <a href="terms.html" class="nav-link" id="terms-nav-link">
-          <span data-lang="en">Terms</span>
-          <span data-lang="ka">წესები</span>
-        </a>
-      </nav>
-
-      <div class="navbar-actions">
-        <!-- Language Switcher -->
-        <button id="lang-switch" class="btn-lang" aria-label="Switch Language">
-          <span class="lang-label" data-lang="en">KA</span>
-          <span class="lang-label" data-lang="ka">EN</span>
-        </button>
-
-        <!-- CTA Button -->
-        <a href="#install" class="btn btn-primary btn-navbar">
-          <i data-lucide="chrome" class="btn-icon"></i>
-          <span data-lang="en">Add to Chrome</span>
-          <span data-lang="ka">დამატება</span>
-        </a>
-      </div>
     </div>
-  </header>
+  </div>
+</header>
 
-  <!-- Hero Section -->
-  <section id="home" class="hero">
-    <div class="container hero-container">
-      <div class="hero-content">
-        <div class="badge">
-          <span data-lang="en">⚡ Privacy-First Real Estate Sync</span>
-          <span data-lang="ka">⚡ დაცული ავტომატიზაცია რეალტორებისთვის</span>
-        </div>
-        <h1 class="hero-title">
-          <span data-lang="en">Double Your Listings,<br><span class="gradient-text">Half the Effort</span></span>
-          <span data-lang="ka">გააორმაგეთ განცხადებები<br><span class="gradient-text">ორჯერ ნაკლებ დროში</span></span>
-        </h1>
-        <p class="hero-subtitle">
-          <span data-lang="en">Scrape, auto-fill, and publish property details between SS.ge and MyHome.ge in seconds.
-            Automatically save listing links to Google Sheets. Secure, local, and OAuth certified.</span>
-          <span data-lang="ka">დააკოპირეთ და გადაიტანეთ განცხადებები SS.ge-სა და MyHome.ge-ს შორის მომენტალურად.
-            ავტომატურად შეინახეთ ბმულები Google Sheets-ში. სრულიად უსაფრთხო, ლოკალური და OAuth დაცული.</span>
+<main id="main">
+
+  <!-- ===================== HERO ===================== -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <span class="pill" data-i18n="hero.pill">v1.0.13 · ბეტა პერიოდში უფასოა</span>
+        <h1 data-i18n="hero.h1">ერთი განცხადება. ორივე საიტი. ერთი კლიკი.</h1>
+        <p class="lede" data-i18n="hero.lede">
+          HomeGrab კითხულობს განცხადებას ss.ge-ზე ან myhome.ge-ზე და ავსებს მეორე
+          საიტის ფორმას — ველები, ჩამონათვალები, ფოტოები, მისამართი და კონტაქტი.
+          შემდეგ რიგს ჩაწერს შენსავე Google ცხრილში.
         </p>
-        <div class="hero-cta-group">
-          <a href="#install" class="btn btn-primary btn-large">
-            <i data-lucide="chrome" class="btn-icon"></i>
-            <span data-lang="en">Install Extension (Free)</span>
-            <span data-lang="ka">დააინსტალირეთ უფასოდ</span>
+        <div class="hero-cta">
+          <a class="btn btn--primary btn--lg"
+             href="https://chromewebstore.google.com/detail/home-grab/gkafeolkiffkkbbpeceaiefpglfblmkh"
+             rel="noopener">
+            <svg aria-hidden="true"><use href="#i-download"></use></svg>
+            <span data-i18n="cta.addFree">დაამატე Chrome-ში — უფასოდ</span>
           </a>
-          <a href="#simulator" class="btn btn-secondary btn-large">
-            <i data-lucide="play" class="btn-icon"></i>
-            <span data-lang="en">Try Interactive Demo</span>
-            <span data-lang="ka">სცადეთ დემო ვერსია</span>
-          </a>
+          <a class="btn btn--ghost btn--lg" href="#how" data-i18n="cta.how">როგორ მუშაობს</a>
         </div>
+        <p class="hero-note">
+          <strong data-i18n="hero.noteStrong">გამოქვეყნების ღილაკს შენ აჭერ.</strong>
+          <span data-i18n="hero.note">HomeGrab ფორმას ავსებს და ჩერდება — გამოქვეყნებას შენ წყვეტ.</span>
+        </p>
       </div>
 
-      <!-- Hero Visual: Simulated Extension UI overlaying Chrome Windows -->
-      <div class="hero-visual">
-        <div class="browser-frame">
-          <div class="browser-header">
-            <div class="browser-dots">
-              <span class="dot red"></span>
-              <span class="dot yellow"></span>
-              <span class="dot green"></span>
-            </div>
-            <div class="browser-url">
-              <i data-lucide="lock" class="url-icon"></i>
-              <span>myhome.ge/ka/pr/10948274/ბინა-საბურთალოზე</span>
-            </div>
+      <div>
+        <!--
+          Popup reproduction, v1.0.13. Every string below is copied from
+          ../adsync-extension/popup/popup.jsx at the cited line. If the popup
+          changes, this block must change with it.
+        -->
+        <div class="popup" role="img"
+             aria-label="HomeGrab-ის პოპაპი განცხადების გვერდზე: ჩანართები „გამოქვეყნება" და „პარამეტრები", და სამი ღილაკი — SS & MyHome, MyHome.ge-ზე, SS.ge-ზე."
+             data-i18n-attr="aria-label|hero.popupAlt">
+          <div class="popup-head">
+            <img src="/favicon.svg" alt="" width="22" height="22">
+            <b>Home Grab</b>
+            <span class="popup-badge">SS.ge</span><!-- popup.jsx:8 platform badge -->
           </div>
-          <div class="browser-body">
-            <!-- Simulated Listing Page Background -->
-            <div class="sim-page">
-              <div class="sim-gallery"></div>
-              <div class="sim-details">
-                <div class="sim-line title"></div>
-                <div class="sim-line price"></div>
-                <div class="sim-grid">
-                  <div class="sim-cell"></div>
-                  <div class="sim-cell"></div>
-                  <div class="sim-cell"></div>
-                </div>
-              </div>
+          <span class="popup-email">agent@gmail.com · <a href="#privacy">გასვლა</a></span><!-- :701 -->
+
+          <div class="popup-tabs" role="tablist" aria-hidden="true">
+            <button class="popup-tab" role="tab" aria-selected="true" tabindex="-1">გამოქვეყნება</button><!-- :712 -->
+            <button class="popup-tab" role="tab" aria-selected="false" tabindex="-1">პარამეტრები</button><!-- :719 -->
+          </div>
+
+          <div class="popup-body">
+            <div class="popup-card">
+              <span class="popup-label">ფასი</span><!-- :889 -->
+              <span class="popup-field is-placeholder">შეუცვლელი</span><!-- :899 -->
+              <span class="popup-label">აღწერა</span><!-- :926 -->
+              <span class="popup-field is-placeholder">…</span>
+              <span class="popup-check">
+                <span aria-hidden="true">✓</span> დამრგვალება (5 მ²)<!-- :916 -->
+              </span>
             </div>
-
-            <!-- Floating Chrome Extension Popup Mockup -->
-            <div class="extension-floating-popup real-ext-popup">
-              <div class="popup-header">
-                <div class="popup-brand">
-                  <svg class="logo-icon-small" viewBox="220 445 140 130" xmlns="http://www.w3.org/2000/svg">
-                    <path fill="#2F60F3"
-                      d="M343.15,487.7l-17.15-11.32-12.74-8.31-29.38-19.62c-1.3-.87-3.31-1.14-4.69-.22l-37.76,25.2-16.82,11.24-5.69,3.31c-.93.54-1.54,1.5-1.5,2.67v8.13h12.23v63.02c0,2.75,2.81,4.75,5.32,3.64,2.84-1.26,21.52-22.81,21.52-22.81,11.08-14.13,44.07-3.58,55.51-19.34,1.27-1.75,2.48-3.52,3.2-5.56,1.48-4.24,5.76-14.19,14.14-17.29,9.06-3.36,16.06-.48,16.06-4.6v-4.26c-.1-1.58-.93-3.01-2.25-3.88ZM278.64,522.71h-14v-12h14v12ZM278.64,503.82h-14v-13.11h14v13.11ZM298.65,522.71h-14v-12h14v12ZM298.65,503.82h-14v-13.11h14v13.11Z" />
-                    <path fill="#00B972"
-                      d="M341.52,553.62c-7.32,10.07-18.31,16.96-32.92,16.96l-66.99.21c-.96,0-1.25-1.07-.71-1.75l8.43-10.62.03-.03,9.44-10.5c4.84-5.39,11.28-7.97,18.64-8.49l9.24-.66c8.7-.62,16.11-1.85,23.71-6.4.83-.5,3-2.04,4.01-1.38,2.61,1.71,2.2,5.56.26,7.79-3.05,3.5-6.93,5.74-10.97,7.98h-.01c-.13.07-4.25,2.11-5.46,3.05-4.43,3.45,12.8-2.17,17.59-5.95,3.36-2.65,6.66-7.69,6.69-13.08.08-15.91,7.28-27.85,11.46-25.28,1.7,1.04,1.86,4.24.77,9.17,0,0-5.11,22-3.99,22.65,1.41.81,4.61-10.92,4.61-10.92l3.98-16.98c.41-1.74,2.28-4.02,4.29-3.58,2.19.48,3.1,3.63,2.68,5.65l-2.57,12.35-3.56,14.15c-.17.68.68,1.19,1.17.68.71-.73,1.21-1.68,1.57-2.67l6.15-16.92c.78-2.15,2.72-5.2,5.65-4.17,2.35.83,2.3,5.1,1.52,7.28l-4.51,12.62c-2.46,6.89-5.88,12.92-10.18,18.85Z" />
-                  </svg>
-                  <span class="logo-text">Home <span>Grab</span></span>
-                </div>
-                <div class="popup-site-badge">SS.GE</div>
-              </div>
-              <div class="popup-body">
-                <div class="popup-section-title-container">
-                  <span class="popup-section-title">პარამეტრები / SETTINGS</span>
-                  <span class="popup-settings-toggle"><span data-lang="en">Full</span><span data-lang="ka">სრული</span>
-                    <i data-lucide="settings" class="inline-cog"></i></span>
-                </div>
-                <div class="popup-card">
-                  <div class="popup-grid">
-                    <div class="popup-field-container">
-                      <label>სახელი / Name</label>
-                      <input type="text" class="popup-input" value="Nika" readonly>
-                    </div>
-                    <div class="popup-field-container">
-                      <label>ტელეფონი / Phone</label>
-                      <input type="text" class="popup-input" value="555555555" readonly>
-                    </div>
-                    <div class="popup-field-container">
-                      <label>ფასის დამატება / Add Price</label>
-                      <input type="text" class="popup-input" value="5" readonly>
-                    </div>
-                    <div class="popup-checkbox-field">
-                      <label class="custom-checkbox-container">
-                        <input type="checkbox" checked disabled>
-                        <span class="custom-checkmark"></span>
-                        <span class="checkbox-label">დამრგვალება (5)</span>
-                      </label>
-                    </div>
-                    <div class="popup-field-container full-width">
-                      <label>აღწერის შაბლონი / Description Template</label>
-                      <textarea class="popup-input" style="height: 48px; resize: none;"
-                        readonly>ბინა ქირავდება ვაკეში, ჭავჭავაძის გამზირზე. ახალი რემონტით, ავეჯითა და ტექნიკით. აგენტი: Nika.</textarea>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="popup-section-title-container" style="margin-top: 10px;">
-                  <span class="popup-section-title">გამოაქვეყნე:</span>
-                </div>
-                <button class="popup-btn-white" disabled>MyHome.ge-ზე</button>
-                <button class="popup-btn-blue" disabled>ორივე პლატფორმაზე</button>
+            <div class="popup-card">
+              <span class="popup-title">გამოაქვეყნე:</span><!-- :943 -->
+              <div class="popup-btns">
+                <span class="popup-btn popup-btn--both">SS &amp; MyHome</span><!-- :950 -->
+                <span class="popup-btn popup-btn--myhome">MyHome.ge-ზე</span><!-- :957 -->
+                <span class="popup-btn popup-btn--ss">SS.ge-ზე</span><!-- :964 -->
               </div>
             </div>
           </div>
         </div>
+        <p class="figure-caption" data-i18n="hero.caption">
+          პოპაპი განცხადების გვერდზე — v1.0.13
+        </p>
       </div>
     </div>
   </section>
 
-  <!-- Interactive Simulator Section -->
-  <section id="simulator" class="simulator-sec">
+  <!-- ===================== HOW IT WORKS ===================== -->
+  <section class="section section--sunken" id="how">
     <div class="container">
-      <div class="section-header text-center">
-        <h2 class="section-title">
-          <span data-lang="en">See it in Action</span>
-          <span data-lang="ka">ნახეთ როგორ მუშაობს</span>
-        </h2>
-        <p class="section-subtitle">
-          <span data-lang="en">Play with the simulator below to experience how HomeGrab extracts, modifies, and injects
-            data between SS.ge and MyHome.ge without leaving your browser.</span>
-          <span data-lang="ka">გამოცადეთ სიმულატორი და ნახეთ, როგორ ხდება მონაცემების ამოღება, რედაქტირება და ავტომატური
-            შევსება SS.ge-სა და MyHome.ge-ს შორის.</span>
+      <div class="section-head">
+        <span class="eyebrow" data-i18n="how.eyebrow">სამ ნაბიჯში</span>
+        <h2 data-i18n="how.h2">გახსენი, დააჭირე, შეამოწმე — გამოქვეყნება შენზეა</h2>
+        <p data-i18n="how.sub">
+          HomeGrab არსად აქვეყნებს განცხადებას თავისით. ის ფორმას ავსებს და გელოდება.
         </p>
       </div>
 
-      <!-- Simulator Interactive Layout -->
-      <div class="simulator-container">
-        <!-- Step 1: Scrape from Source Platform -->
-        <div class="sim-panel pane-source">
-          <div class="panel-header">
-            <span class="source-platform-tag tag-myhome">MyHome.ge</span>
-            <span class="panel-title">
-              <span data-lang="en">Source Listing</span>
-              <span data-lang="ka">ორიგინალი განცხადება</span>
-            </span>
-          </div>
-          <div class="panel-content">
-            <div class="sim-card-listing">
-              <div class="sim-card-image">
-                <span class="photo-badge"><i data-lucide="camera"></i> 8 Photos</span>
-              </div>
-              <div class="sim-card-details">
-                <span class="listing-badge rent">
-                  <span data-lang="en">Rent Monthly</span>
-                  <span data-lang="ka">ქირავდება</span>
-                </span>
-                <h4 class="listing-title">3-Room Apartment in Vake, Chavchavadze Ave.</h4>
-                <div class="listing-meta-row">
-                  <span class="meta-item"><i data-lucide="maximize"></i> <strong>73 m²</strong></span>
-                  <span class="meta-item"><i data-lucide="layers"></i> <strong>4/12 Floor</strong></span>
-                  <span class="meta-item"><i data-lucide="door-closed"></i> <strong>2 Bedrooms</strong></span>
-                </div>
-                <div class="listing-price-container">
-                  <span class="listing-price">$1,200 <small>/ month</small></span>
-                </div>
-                <div class="listing-desc">
-                  Beautiful newly renovated apartment with panoramic views, fully furnished and equipped with modern
-                  home appliances...
-                </div>
-              </div>
-            </div>
-            <button id="sim-scrape-btn" class="btn btn-secondary w-full btn-sim-action">
-              <i data-lucide="copy" class="btn-icon"></i>
-              <span data-lang="en">1. Scrape Listing Data</span>
-              <span data-lang="ka">1. მონაცემების კოპირება</span>
-            </button>
-          </div>
+      <div class="steps">
+        <div class="step">
+          <h3 data-i18n="how.s1t">გახსენი განცხადება</h3>
+          <p data-i18n="how.s1d">
+            გახსენი ერთი კონკრეტული განცხადება ss.ge-ზე ან myhome.ge-ზე და დააჭირე
+            HomeGrab-ის ხატულას. საძიებო შედეგების გვერდზე არ მუშაობს.
+          </p>
+          <p class="step-quote" data-i18n="how.s1q">„გახსენი კონკრეტული განცხადება, რომ გადმოიტანო"</p>
         </div>
-
-        <!-- Step 2: Configure & Trigger via Extension Panel -->
-        <div class="sim-panel pane-extension">
-          <div class="panel-header">
-            <span class="panel-title">
-              <span data-lang="en">HomeGrab Extension</span>
-              <span data-lang="ka">HomeGrab გაფართოება</span>
-            </span>
-          </div>
-          <div class="panel-content" style="padding: 10px;">
-            <div class="real-ext-popup" style="width: 100%; border: none; box-shadow: none; background: transparent;">
-              <div class="popup-header"
-                style="padding: 10px 12px; border-bottom: 1px solid #f3f4f6; display: flex; align-items: center; justify-content: space-between;">
-                <div class="popup-brand">
-                  <svg class="logo-icon-small" viewBox="220 445 140 130" xmlns="http://www.w3.org/2000/svg">
-                    <path fill="#2F60F3"
-                      d="M343.15,487.7l-17.15-11.32-12.74-8.31-29.38-19.62c-1.3-.87-3.31-1.14-4.69-.22l-37.76,25.2-16.82,11.24-5.69,3.31c-.93.54-1.54,1.5-1.5,2.67v8.13h12.23v63.02c0,2.75,2.81,4.75,5.32,3.64,2.84-1.26,21.52-22.81,21.52-22.81,11.08-14.13,44.07-3.58,55.51-19.34,1.27-1.75,2.48-3.52,3.2-5.56,1.48-4.24,5.76-14.19,14.14-17.29,9.06-3.36,16.06-.48,16.06-4.6v-4.26c-.1-1.58-.93-3.01-2.25-3.88ZM278.64,522.71h-14v-12h14v12ZM278.64,503.82h-14v-13.11h14v13.11ZM298.65,522.71h-14v-12h14v12ZM298.65,503.82h-14v-13.11h14v13.11Z" />
-                    <path fill="#00B972"
-                      d="M341.52,553.62c-7.32,10.07-18.31,16.96-32.92,16.96l-66.99.21c-.96,0-1.25-1.07-.71-1.75l8.43-10.62.03-.03,9.44-10.5c4.84-5.39,11.28-7.97,18.64-8.49l9.24-.66c8.7-.62,16.11-1.85,23.71-6.4.83-.5,3-2.04,4.01-1.38,2.61,1.71,2.2,5.56.26,7.79-3.05,3.5-6.93,5.74-10.97,7.98h-.01c-.13.07-4.25,2.11-5.46,3.05-4.43,3.45,12.8-2.17,17.59-5.95,3.36-2.65,6.66-7.69,6.69-13.08.08-15.91,7.28-27.85,11.46-25.28,1.7,1.04,1.86,4.24.77,9.17,0,0-5.11,22-3.99,22.65,1.41.81,4.61-10.92,4.61-10.92l3.98-16.98c.41-1.74,2.28-4.02,4.29-3.58,2.19.48,3.1,3.63,2.68,5.65l-2.57,12.35-3.56,14.15c-.17.68.68,1.19,1.17.68.71-.73,1.21-1.68,1.57-2.67l6.15-16.92c.78-2.15,2.72-5.2,5.65-4.17,2.35.83,2.3,5.1,1.52,7.28l-4.51,12.62c-2.46,6.89-5.88,12.92-10.18,18.85Z" />
-                  </svg>
-                  <span class="logo-text">Home <span>Grab</span></span>
-                </div>
-                <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 2px;">
-                  <div class="popup-site-badge" id="sim-site-badge">SS.GE</div>
-                  <div class="ext-status-container" style="display: flex; align-items: center; gap: 4px;">
-                    <span class="ext-status-dot offline" id="ext-status-light"></span>
-                    <span id="ext-status-text" class="status-txt"
-                      style="font-size: 10px; color: #6b7280; font-weight: 500;">
-                      <span data-lang="en">Ready to Scrape</span>
-                      <span data-lang="ka">მზად არის</span>
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <div class="popup-body" style="padding: 12px 10px;">
-                <!-- Inactive Screen (Shown by default, matches user screenshot) -->
-                <div id="ext-inactive-view" class="popup-inactive-box">
-                  <div data-lang="en">Open a listing page on SS.ge or MyHome.ge to begin</div>
-                  <div data-lang="ka">გახსენი განცხადება SS.ge ან MyHome.ge-ზე დასაწყებად</div>
-                </div>
-
-                <!-- Active Screen (Hidden initially, shown after Scraping) -->
-                <div id="ext-active-view" class="hidden">
-                  <div class="popup-section-title-container">
-                    <span class="popup-section-title">პარამეტრები / SETTINGS</span>
-                    <span class="popup-settings-toggle"><span data-lang="en">Full</span><span
-                        data-lang="ka">სრული</span> <i data-lucide="settings" class="inline-cog"></i></span>
-                  </div>
-
-                  <div class="popup-card" style="margin-bottom: 12px;">
-                    <div class="popup-grid">
-                      <div class="popup-field-container">
-                        <label>სახელი / Name</label>
-                        <input type="text" id="sim-agent" class="popup-input" value="Nika">
-                      </div>
-                      <div class="popup-field-container">
-                        <label>ტელეფონი / Phone</label>
-                        <input type="text" id="sim-phone" class="popup-input" value="555555555">
-                      </div>
-                      <div class="popup-field-container">
-                        <label>ფასის დამატება / Add Price</label>
-                        <input type="number" id="sim-surcharge" class="popup-input" value="5">
-                      </div>
-                      <div class="popup-checkbox-field">
-                        <label class="custom-checkbox-container">
-                          <input type="checkbox" id="sim-round-area" checked>
-                          <span class="custom-checkmark"></span>
-                          <span class="checkbox-label">დამრგვალება (5)</span>
-                        </label>
-                      </div>
-                      <div class="popup-field-container full-width">
-                        <label>აღწერის შაბლონი / Description Template</label>
-                        <textarea id="sim-desc-tmpl" class="popup-input"
-                          style="height: 48px; resize: none;">ბინა ქირავდება ვაკეში, ჭავჭავაძის გამზირზე. ახალი რემონტით, ავეჯითა და ტექნიკით. აგენტი: Nika.</textarea>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="scraped-preview-badge hidden" id="data-preview-badge" style="margin-bottom: 8px;">
-                    <span data-lang="en">Listing Copied! (Chavchavadze Ave, $1,200, 73m²)</span>
-                    <span data-lang="ka">მონაცემები კოპირებულია! (ჭავჭავაძე, $1,200, 73კვ.მ)</span>
-                  </div>
-
-                  <div class="popup-section-title-container" style="margin-top: 6px;">
-                    <span class="popup-section-title">გამოაქვეყნე:</span>
-                  </div>
-
-                  <button id="sim-inject-btn-myhome" class="popup-btn-white" style="margin-bottom: 6px;"
-                    disabled>MyHome.ge-ზე</button>
-                  <button id="sim-inject-btn" class="popup-btn-blue" disabled>ორივე პლატფორმაზე</button>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div class="step">
+          <h3 data-i18n="how.s2t">დააჭირე SS &amp; MyHome</h3>
+          <p data-i18n="how.s2d">
+            იხსნება მეორე საიტის ფორმა და ივსება შვიდ საფეხურად — კატეგორიიდან
+            ფოტოებამდე. „SS &amp; MyHome" ორივეს პარალელურად ავსებს.
+          </p>
+          <p class="step-quote" data-i18n="how.s2q">
+            სესიის შემოწმება · კატეგორია და ტიპი · მდებარეობა · დეტალები ·
+            აღწერა და ფასი · კეთილმოწყობა · ფოტოები
+          </p>
         </div>
-
-        <!-- Step 3: Target Platform & Sheets Sync -->
-        <div class="sim-panel pane-target">
-          <div class="panel-header">
-            <span class="source-platform-tag tag-ss">SS.ge</span>
-            <span class="panel-title">
-              <span data-lang="en">Autofilled Target & Tracker</span>
-              <span data-lang="ka">შევსებული განცხადება & ტრეკერი</span>
-            </span>
-          </div>
-          <div class="panel-content">
-            <div class="sim-target-form">
-              <div class="form-field-row">
-                <span class="form-label">Deal Type:</span>
-                <div class="form-val-box placeholder-val" id="target-deal">--</div>
-              </div>
-              <div class="form-field-row">
-                <span class="form-label">Price:</span>
-                <div class="form-val-box placeholder-val" id="target-price">--</div>
-              </div>
-              <div class="form-field-row">
-                <span class="form-label">Total Area:</span>
-                <div class="form-val-box placeholder-val" id="target-area">--</div>
-              </div>
-              <div class="form-field-row">
-                <span class="form-label">Description:</span>
-                <div class="form-val-box placeholder-val desc-box" id="target-desc">--</div>
-              </div>
-            </div>
-
-            <!-- Simulated Sheets Log Row -->
-            <div class="sim-sheets-tracker">
-              <div class="sheets-title">
-                <i data-lucide="table" class="sheets-icon"></i>
-                <span>HomeGrab Tracker (Google Sheets)</span>
-              </div>
-              <div class="sheets-table-container">
-                <table class="sheets-table">
-                  <thead>
-                    <tr>
-                      <th>Date</th>
-                      <th>Platform</th>
-                      <th>Price</th>
-                      <th>Area</th>
-                      <th>Status</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr id="sheets-row-placeholder">
-                      <td colspan="5" class="text-center text-muted">No synced listings yet. Run simulation to log.</td>
-                    </tr>
-                    <tr id="sheets-row-data" class="hidden">
-                      <td id="sheet-date">19-05-2026</td>
-                      <td><span class="sheet-plat-badge">SS.ge</span></td>
-                      <td id="sheet-price">$1,350</td>
-                      <td id="sheet-area">75 m²</td>
-                      <td><span class="sheet-status-badge">Synced</span></td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
+        <div class="step step--final">
+          <h3 data-i18n="how.s3t">შეამოწმე და გამოაქვეყნე</h3>
+          <p data-i18n="how.s3d">
+            ფორმა შევსებულია, მაგრამ გამოუქვეყნებელი. შენ ამოწმებ მონაცემებს და
+            შენ აჭერ გამოქვეყნების ღილაკს. ID ავტომატურად ჩაიწერება ცხრილში.
+          </p>
+          <p class="step-quote" data-i18n="how.s3q">„გადახედე ფორმა და გამოაქვეყნე ხელით"</p>
         </div>
       </div>
 
-      <!-- Reset Simulator Button -->
-      <div class="text-center simulator-reset-wrapper">
-        <button id="sim-reset-btn" class="btn btn-link">
-          <i data-lucide="rotate-ccw" class="btn-icon"></i>
-          <span data-lang="en">Reset Simulation</span>
-          <span data-lang="ka">სიმულაციის თავიდან დაწყება</span>
-        </button>
-      </div>
+      <figure style="margin:var(--sp-7) 0 0">
+        <div class="shot shot--fade">
+          <img src="/assets/img/myhome-form-filling.webp" width="1287" height="1005" loading="lazy" decoding="async"
+               alt="myhome.ge-ის განცხადების შექმნის ფორმა, რომელსაც HomeGrab ავსებს: არჩეულია ქონების ტიპი „ბინა" და გარიგების ტიპი „ქირავდება"."
+               data-i18n-attr="alt|how.shotAlt">
+        </div>
+        <figcaption class="figure-caption">
+          <img class="toast-shot" src="/assets/img/progress-toast.webp" width="306" height="108" loading="lazy" decoding="async"
+               alt="HomeGrab-ის პროგრესის შეტყობინება: „მდებარეობა (3/7)"."
+               data-i18n-attr="alt|how.toastAlt"
+               style="margin:var(--sp-4) auto var(--sp-3)">
+          <span data-i18n="how.figcap">შევსების მიმდინარეობა ჩანს გვერდზევე — შვიდივე საფეხური.</span>
+        </figcaption>
+      </figure>
     </div>
   </section>
 
-  <!-- Key Features Grid Section -->
-  <section id="features" class="features-sec">
+  <!-- ===================== FEATURES ===================== -->
+  <section class="section" id="features">
     <div class="container">
-      <div class="section-header text-center">
-        <h2 class="section-title">
-          <span data-lang="en">Designed for High-Performance Agents</span>
-          <span data-lang="ka">შექმნილია პროფესიონალი რეალტორებისთვის</span>
-        </h2>
-        <p class="section-subtitle">
-          <span data-lang="en">Save hours of manual copy-pasting. HomeGrab automates listings creation while offering
-            advanced controls and secure workflow protection.</span>
-          <span data-lang="ka">დაზოგეთ საათობით დამღლელი მუშაობა. HomeGrab-ი ავტომატურად გადაიტანს თქვენს განცხადებებს
-            მოწინავე ფუნქციებითა და დაცვით.</span>
-        </p>
+      <div class="section-head">
+        <span class="eyebrow" data-i18n="feat.eyebrow">ფუნქციები</span>
+        <h2 data-i18n="feat.h2">რასაც აკეთებს — და რასაც განზრახ არ აკეთებს</h2>
       </div>
 
-      <div class="features-grid">
-        <!-- Feature 1 -->
-        <div class="feature-card">
-          <div class="feature-icon-wrapper">
-            <i data-lucide="mouse-pointer-click"></i>
+      <div class="groups">
+
+        <div class="group">
+          <div class="group-title">
+            <h3 data-i18n="feat.g1">გადმოტანა</h3>
+            <p data-i18n="feat.g1d">ერთი განცხადება, მეორე საიტის შევსებული ფორმა.</p>
           </div>
-          <h3>
-            <span data-lang="en">One-Click Scrape & Inject</span>
-            <span data-lang="ka">ერთი კლიკით გადატანა</span>
-          </h3>
-          <p>
-            <span data-lang="en">Instantly scrape property attributes from SS.ge or MyHome.ge and autofill the
-              corresponding creation form on the other platform without error.</span>
-            <span data-lang="ka">მომენტალურად დააკოპირეთ ბინის პარამეტრები SS.ge-დან ან MyHome.ge-დან და შეავსეთ მეორე
-              პლატფორმის განცხადების შექმნის ფორმა უშეცდომოდ.</span>
-          </p>
+          <div class="cards">
+            <article class="card">
+              <div class="card-icon"><svg aria-hidden="true"><use href="#i-bolt"></use></svg></div>
+              <h4 data-i18n="feat.f1t">წაიკითხავს ერთს, შეავსებს მეორეს</h4>
+              <p data-i18n="feat.f1d">
+                ველები, ჩამონათვალები, ფოტოები, მისამართი და კონტაქტი — ყველაფერი
+                გადადის მეორე პლატფორმის ფორმაში.
+              </p>
+            </article>
+            <article class="card">
+              <div class="card-icon card-icon--green"><svg aria-hidden="true"><use href="#i-layers"></use></svg></div>
+              <h4 data-i18n="feat.f2t">ორივე საიტი ერთდროულად</h4>
+              <p data-i18n="feat.f2d">
+                „SS &amp; MyHome" ორივე ფორმას ხსნის და პარალელურად ავსებს. ცხრილში
+                ერთი რიგი ჩაიწერება და ორივე ID მასში ჩავარდება.
+              </p>
+            </article>
+            <article class="card">
+              <div class="card-icon card-icon--green"><svg aria-hidden="true"><use href="#i-hand"></use></svg></div>
+              <h4 data-i18n="feat.f3t">არასოდეს აქვეყნებს შენს ნაცვლად</h4>
+              <p data-i18n="feat.f3d">
+                პროცესი განზრახ ჩერდება შევსებულ ფორმაზე. „გამოქვეყნების ღილაკს შენ
+                აჭერ" — ეს შეზღუდვა არ არის, ეს არჩევანია.
+              </p>
+            </article>
+          </div>
         </div>
 
-        <!-- Feature 2 -->
-        <div class="feature-card">
-          <div class="feature-icon-wrapper">
-            <i data-lucide="layers"></i>
+        <div class="group">
+          <div class="group-title">
+            <h3 data-i18n="feat.g2">შენი პირობები</h3>
+            <p data-i18n="feat.g2d">შენი სახელი, შენი ნომერი, შენი ფასი.</p>
           </div>
-          <h3>
-            <span data-lang="en">Concurrent Dual Injection</span>
-            <span data-lang="ka">ორმაგი პარალელური განთავსება</span>
-          </h3>
-          <p>
-            <span data-lang="en">Use the "ორივე პლატფორმაზე" (Both Platforms) option to automate concurrently filling
-              listing info across active creation tabs at the same time.</span>
-            <span data-lang="ka">ღილაკით "ორივე პლატფორმაზე" შეგიძლიათ პარალელურად და ავტომატურად შეავსოთ ფორმები ორივე
-              საიტზე ერთდროულად.</span>
-          </p>
+          <div class="cards">
+            <article class="card">
+              <div class="card-icon"><svg aria-hidden="true"><use href="#i-user"></use></svg></div>
+              <h4 data-i18n="feat.f4t">შენი სახელი და ნომერი</h4>
+              <p data-i18n="feat.f4d">
+                შენახული საკონტაქტო მონაცემები ყველა ახალ ფორმაში ავტომატურად ჩაისმება
+                — ორიგინალის ნაცვლად. ცხრილში კი მესაკუთრის ნომერი შენახული რჩება.
+              </p>
+            </article>
+            <article class="card">
+              <div class="card-icon"><svg aria-hidden="true"><use href="#i-tag"></use></svg></div>
+              <h4 data-i18n="feat.f5t">ფასის დანამატი</h4>
+              <p data-i18n="feat.f5d">
+                ერთხელ მითითებული დანამატი ყოველ ახალ ფორმას ავტომატურად ემატება.
+                ცხრილში ორივე ჩაიწერება — „ორიგინალი / შენი".
+              </p>
+            </article>
+            <article class="card">
+              <div class="card-icon"><svg aria-hidden="true"><use href="#i-ruler"></use></svg></div>
+              <h4 data-i18n="feat.f6t">ფართის დამრგვალება</h4>
+              <p data-i18n="feat.f6d">
+                არჩევითი: ფართს ამრგვალებს 5 მ²-ის ჯერადამდე ზემოთ (47 → 50).
+                მუდმივი პარამეტრია — შემდეგ განცხადებებზეც იმოქმედებს.
+              </p>
+            </article>
+            <article class="card">
+              <div class="card-icon"><svg aria-hidden="true"><use href="#i-text"></use></svg></div>
+              <h4 data-i18n="feat.f7t">აღწერა ხელახლა არ იწერება</h4>
+              <p data-i18n="feat.f7d">
+                შენახული აღწერის ტექსტი ახალ ფორმაში ავტომატურად ჩაიტვირთება. თუ
+                შენახული არაფერია, ჩაისმება ორიგინალის ტექსტი.
+              </p>
+            </article>
+          </div>
         </div>
 
-        <!-- Feature 3 -->
-        <div class="feature-card">
-          <div class="feature-icon-wrapper">
-            <i data-lucide="file-text"></i>
+        <div class="group">
+          <div class="group-title">
+            <h3 data-i18n="feat.g3">აღრიცხვა</h3>
+            <p data-i18n="feat.g3d">რა გადმოიტანე, რა დარჩა ნახევრად.</p>
           </div>
-          <h3>
-            <span data-lang="en">Custom Listing Templates</span>
-            <span data-lang="ka">ინდივიდუალური შაბლონები</span>
-          </h3>
-          <p>
-            <span data-lang="en">Set customized layout formats and descriptions depending on deal type: Sale (იყიდება),
-              Rent (ქირავდება), Daily Rent (ქირავდება დღიურად), or Mortgage (გირავდება).</span>
-            <span data-lang="ka">შექმენით აღწერის უნიკალური შაბლონები გარიგების ტიპის მიხედვით: იყიდება, ქირავდება,
-              დღიურად ქირავდება თუ გირავდება.</span>
-          </p>
+          <div class="cards">
+            <article class="card">
+              <div class="card-icon card-icon--green"><svg aria-hidden="true"><use href="#i-sheet"></use></svg></div>
+              <h4 data-i18n="feat.f8t">Google ცხრილი</h4>
+              <p data-i18n="feat.f8d">
+                ყოველი გადმოტანა ახალ რიგად ჩაიწერება ცხრილში სახელად
+                „HomeGrab Tracker" — შენსავე Google Drive-ზე.
+              </p>
+            </article>
+            <article class="card">
+              <div class="card-icon"><svg aria-hidden="true"><use href="#i-clock"></use></svg></div>
+              <h4 data-i18n="feat.f9t">დაუსრულებელი გადმოტანები</h4>
+              <p data-i18n="feat.f9d">
+                რიგი, რომელსაც არც SS-ის და არც MyHome-ის ID არ აქვს, დაუსრულებელია.
+                პოპაპი მათ ცალკე სიად გიჩვენებს, რომ დაასრულო.
+              </p>
+            </article>
+            <article class="card">
+              <div class="card-icon card-icon--green"><svg aria-hidden="true"><use href="#i-calendar"></use></svg></div>
+              <h4 data-i18n="feat.f10t">დღის ჯამი თავად ითვლება</h4>
+              <p data-i18n="feat.f10d">
+                რიგები დღეების მიხედვით ჯგუფდება <code>Uploaded: N</code> მარკერის
+                ქვეშ, რომლის რიცხვიც ადგილზევე ნახლდება.
+              </p>
+            </article>
+          </div>
         </div>
 
-        <!-- Feature 4 -->
-        <div class="feature-card">
-          <div class="feature-icon-wrapper">
-            <i data-lucide="sparkles"></i>
+        <div class="group">
+          <div class="group-title">
+            <h3 data-i18n="feat.g4">საიმედოობა</h3>
+            <p data-i18n="feat.g4d">ის ნაწილი, რომელიც რეალურ განცხადებებზე გატყდა და გასწორდა.</p>
           </div>
-          <h3>
-            <span data-lang="en">Smart Surcharges & Rounding</span>
-            <span data-lang="ka">ფასის დანამატი და დამრგვალება</span>
-          </h3>
-          <p>
-            <span data-lang="en">Define rules to automatically add flat margins (e.g. agent commission) to listings, and
-              auto-round total area dimensions to the nearest 5 m² for cleaner ads.</span>
-            <span data-lang="ka">ავტომატურად დაამატეთ სასურველი საკომისიო თავდაპირველ ფასს და დაამრგვალეთ ფართობი
-              უახლოეს 5 კვ.მ-მდე უფრო სუფთა ვიზუალისთვის.</span>
-          </p>
+          <div class="cards">
+            <article class="card">
+              <div class="card-icon"><svg aria-hidden="true"><use href="#i-shield"></use></svg></div>
+              <h4 data-i18n="feat.f11t">SS.ge-ის დრაფტის ფანჯარა</h4>
+              <p data-i18n="feat.f11d">
+                ss.ge ზოგჯერ დაუმთავრებელ განცხადებაზე გეკითხება და შევსებულ ფორმას
+                შლის. HomeGrab ამას ამჩნევს, გაფრთხილებას გიგზავნის და გელოდება.
+              </p>
+            </article>
+            <article class="card">
+              <div class="card-icon"><svg aria-hidden="true"><use href="#i-map"></use></svg></div>
+              <h4 data-i18n="feat.f12t">გადამოწმებული შესაბამისობა</h4>
+              <p data-i18n="feat.f12d">
+                66 ქალაქი, 54 რაიონი და ქუჩების დაწერილობა. ყოველი წესი იმიტომ
+                არსებობს, რომ რეალურ განცხადებაზე ერთხელ უკვე გატყდა.
+              </p>
+            </article>
+            <article class="card">
+              <div class="card-icon"><svg aria-hidden="true"><use href="#i-cloud"></use></svg></div>
+              <h4 data-i18n="feat.f13t">პარამეტრები Google ანგარიშზე</h4>
+              <p data-i18n="feat.f13d">
+                „ინახება შენს Google ანგარიშზე, ამიტომ სხვა კომპიუტერზეც აისახება."
+                თავიდან დაყენების შემდეგაც ადგილზეა.
+              </p>
+            </article>
+          </div>
         </div>
 
-        <!-- Feature 5 -->
-        <div class="feature-card">
-          <div class="feature-icon-wrapper">
-            <i data-lucide="alert-circle"></i>
-          </div>
-          <h3>
-            <span data-lang="en">SS.ge Draft Alert Protection</span>
-            <span data-lang="ka">დრაფტებისგან დაცვის სისტემა</span>
-          </h3>
-          <p>
-            <span data-lang="en">Prevents SS.ge's "unfinished draft" prompts from wiping or breaking your injection
-              flow. The extension pauses, fires a notification, and resumes upon confirmation.</span>
-            <span data-lang="ka">სისტემა აჩერებს პროცესს, როდესაც SS.ge გთავაზობთ დაუმთავრებელი დრაფტის აღდგენას, რათა
-              თავიდან აიცილოთ მონაცემების გადაწერა.</span>
-          </p>
-        </div>
-
-        <!-- Feature 6 -->
-        <div class="feature-card">
-          <div class="feature-icon-wrapper">
-            <i data-lucide="table"></i>
-          </div>
-          <h3>
-            <span data-lang="en">Google Sheets Auto-Tracking</span>
-            <span data-lang="ka">ავტომატური ტრეკინგი Sheets-ში</span>
-          </h3>
-          <p>
-            <span data-lang="en">Keep an organized record of all successfully sync'd properties. Instantly logs URLs,
-              dates, categories, and prices directly to your spreadsheet.</span>
-            <span data-lang="ka">შეინახეთ წარმატებით ატვირთული ბინების სრული ბაზა. სისტემა ავტომატურად წერს ლინკებს,
-              თარიღებს და ფასებს თქვენს პირად ფაილში.</span>
-          </p>
-        </div>
       </div>
     </div>
   </section>
 
-  <!-- Privacy First Section (Addressing OAuth & Local-first Security) -->
-  <section id="privacy" class="privacy-sec">
+  <!-- ===================== MAPPING ===================== -->
+  <section class="section section--sunken" id="mapping">
     <div class="container">
-      <div class="privacy-card">
-        <div class="privacy-badge">
-          <i data-lucide="shield-check"></i>
-          <span data-lang="en">Privacy & Security Infrastructure</span>
-          <span data-lang="ka">უსაფრთხოების და კონფიდენციალურობის გარანტია</span>
-        </div>
-        <h2 class="privacy-title">
-          <span data-lang="en">Privacy-First Architecture. No Intermediate Servers.</span>
-          <span data-lang="ka">უსაფრთხოებაზე ორიენტირებული არქიტექტურა</span>
-        </h2>
-        <p class="privacy-desc">
-          <span data-lang="en">We believe your real estate leads, contact databases, and configurations belong
-            exclusively to you. HomeGrab operates entirely client-side on your computer.</span>
-          <span data-lang="ka">ჩვენ გვჯერა, რომ თქვენი განცხადებები, საკონტაქტო ბაზები და პარამეტრები მხოლოდ თქვენ
-            გეკუთვნით. HomeGrab-ი მუშაობს ლოკალურად, თქვენს ბრაუზერში.</span>
+      <div class="section-head">
+        <span class="eyebrow" data-i18n="map.eyebrow">შესაბამისობის ცხრილები</span>
+        <h2 data-i18n="map.h2">ორი საიტი ერთმანეთს ვერაფერზე ეთანხმება</h2>
+        <p data-i18n="map.sub">
+          არც რაიონის სახელზე, არც ქუჩის დაწერილობაზე, არც იმაზე, თუ რას ნიშნავს
+          გარიგების ტიპის ნომერი. თარგმანის ცხრილი HomeGrab-ს აქვს — და ის
+          რეალური განცხადებების გატეხვით დაიწერა.
         </p>
+      </div>
 
-        <div class="security-pillars">
-          <div class="pillar">
-            <div class="pillar-icon"><i data-lucide="key-round"></i></div>
-            <div class="pillar-content">
-              <h4>
-                <span data-lang="en">Google OAuth 2.0 Integration</span>
-                <span data-lang="ka">Google OAuth 2.0 ინტეგრაცია</span>
-              </h4>
-              <p>
-                <span data-lang="en">Connection to Google Sheets uses secure, standard OAuth2.0 authentication. Your
-                  Google access tokens are saved in Chrome's secure storage, never on external servers. We cannot access
-                  your Google Drive or any files outside of the specific tracker sheet.</span>
-                <span data-lang="ka">Google Sheets-თან კავშირი ხორციელდება უსაფრთხო, სტანდარტული OAuth2.0-ით. თქვენი
-                  ტოკენები ინახება ბრაუზერში და არ იგზავნება მესამე მხარის სერვერებზე. ჩვენ არ გვაქვს წვდომა თქვენს სხვა
-                  ფაილებზე.</span>
-              </p>
-            </div>
-          </div>
-
-          <div class="pillar">
-            <div class="pillar-icon"><i data-lucide="database-backup"></i></div>
-            <div class="pillar-content">
-              <h4>
-                <span data-lang="en">Zero Backend Database</span>
-                <span data-lang="ka">არავითარი გარე ბაზები</span>
-              </h4>
-              <p>
-                <span data-lang="en">We do not store your listing descriptions, prices, phone numbers, or property
-                  layouts. All data reading and injections occur locally via browser page scripts. Once you close a tab,
-                  the scraped data is gone.</span>
-                <span data-lang="ka">ჩვენ არ ვინახავთ თქვენი ბინების აღწერას, ფასებს ან ტელეფონის ნომრებს. მონაცემების
-                  დამუშავება ხდება ლოკალურად ბრაუზერში. ტაბის დახურვისთანავე ინფორმაცია იშლება.</span>
-              </p>
-            </div>
-          </div>
-
-          <div class="pillar">
-            <div class="pillar-icon"><i data-lucide="eye-off"></i></div>
-            <div class="pillar-content">
-              <h4>
-                <span data-lang="en">Respecting Cookies & Sessions</span>
-                <span data-lang="ka">ქუქი ფაილების და სესიების პატივისცემა</span>
-              </h4>
-              <p>
-                <span data-lang="en">HomeGrab respects and utilizes your active cookies on SS.ge and MyHome.ge to
-                  execute operations in your browser tabs. It never asks for or stores your cleartext passwords or
-                  credentials.</span>
-                <span data-lang="ka">HomeGrab-ი იყენებს თქვენს არსებულ სესიებს SS.ge-სა და MyHome.ge-ზე. ის არასდროს
-                  გთხოვთ და არ ინახავს თქვენს პაროლებს.</span>
-              </p>
-            </div>
-          </div>
+      <div class="stats">
+        <div class="stat">
+          <b>66</b>
+          <span data-i18n="map.stat1">ქალაქი, რომელიც ორ პლატფორმას შორის შედარებულია</span>
         </div>
-
-        <div class="privacy-buttons">
-          <a href="#privacy-policy-modal" class="btn btn-secondary" id="privacy-policy-link">
-            <i data-lucide="file-text" class="btn-icon"></i>
-            <span data-lang="en">Read Privacy Policy</span>
-            <span data-lang="ka">კონფიდენციალურობის პოლიტიკა</span>
-          </a>
-          <a href="#terms-modal" class="btn btn-secondary" id="terms-link-sec">
-            <i data-lucide="scale" class="btn-icon"></i>
-            <span data-lang="en">Read Terms of Service</span>
-            <span data-lang="ka">მოხმარების წესები</span>
-          </a>
+        <div class="stat">
+          <b>54</b>
+          <span data-i18n="map.stat2">რაიონი — პლუს თბილისის 6 ადმინისტრაციული რაიონი და 6 გარეუბანი</span>
+        </div>
+        <div class="stat">
+          <b>45</b>
+          <span data-i18n="map.stat3">რეალური ქუჩა, რომელზეც დაწერილობის წესები გაიზომა</span>
         </div>
       </div>
-    </div>
-  </section>
 
-  <!-- CTA Download Section -->
-  <section id="install" class="cta-download-sec">
-    <div class="container text-center">
-      <h2 class="cta-title">
-        <span data-lang="en">Streamline Your Listings Workflow Today</span>
-        <span data-lang="ka">გაამარტივეთ მუშაობა დღესვე</span>
-      </h2>
-      <p class="cta-subtitle">
-        <span data-lang="en">Install HomeGrab from the Chrome Web Store and start posting to SS.ge and MyHome.ge in a
-          fraction of the time.</span>
-        <span data-lang="ka">დაამატეთ HomeGrab-ი Chrome Web Store-დან და დაიწყეთ განცხადებების ავტომატური
-          გადატანა.</span>
+      <div class="compare">
+        <div class="compare-row">
+          <div class="compare-side compare-side--ss">
+            <small>SS.ge</small>
+            <code>ალ.ყაზბეგის გამზ.</code>
+          </div>
+          <div class="compare-side compare-side--mh">
+            <small>MyHome.ge</small>
+            <code>ყაზბეგის გამზ.</code>
+          </div>
+          <p class="compare-note" data-i18n="map.note1">
+            ერთი და იგივე ქუჩა. ss.ge სახელის ინიციალს ზედ აწებებს — ამის გარეშე
+            ძებნა ვერაფერს პოულობს.
+          </p>
+        </div>
+        <div class="compare-row">
+          <div class="compare-side compare-side--ss">
+            <small>SS.ge</small>
+            <code>ანგისის ქუჩის მე-3 ჩიხი</code>
+          </div>
+          <div class="compare-side compare-side--mh">
+            <small>MyHome.ge</small>
+            <code>ანგისის 3 ჩიხი</code>
+          </div>
+          <p class="compare-note" data-i18n="map.note2">
+            რიგობითი ჩიხები სამნაირად იწერება. აქვე ისიც საჭიროა, რომ „3 ჩიხი"
+            „2 შესახვევს" არ აერიოს.
+          </p>
+        </div>
+      </div>
+
+      <p style="margin-block-start:var(--sp-5);color:var(--text-muted);font-size:var(--fs-sm)"
+         data-i18n="map.foot">
+        ასევე შედარებულია: გარიგებისა და ქონების ტიპები, შენობის სტატუსი, მდგომარეობა,
+        პროექტი, გათბობა, ცხელი წყალი, ოთახებისა და სველი წერტილების ტიპები,
+        პარკინგი, ავეჯი, კეთილმოწყობა და ვალუტა.
       </p>
-      <div class="cta-actions">
-        <a href="#" class="btn btn-primary btn-large glow-btn">
-          <i data-lucide="chrome" class="btn-icon"></i>
-          <span data-lang="en">Add to Chrome (Free)</span>
-          <span data-lang="ka">ბრაუზერში დამატება (უფასო)</span>
-        </a>
+    </div>
+  </section>
+
+  <!-- ===================== TRACKER ===================== -->
+  <section class="section" id="tracker">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow" data-i18n="tr.eyebrow">HomeGrab Tracker</span>
+        <h2 data-i18n="tr.h2">ყოველი გადმოტანა ერთი რიგია შენს ცხრილში</h2>
+        <p data-i18n="tr.sub">
+          თორმეტი სვეტი, ქართული სათაურებით, შენსავე Google Drive-ზე. სამი ID-ის
+          სვეტი წინ დგას, რომ ერთი შეხედვით დაინახო რა გამოქვეყნდა და სად.
+        </p>
       </div>
-      <div class="cta-meta">
-        <span class="meta-item"><i data-lucide="shield"></i> <span data-lang="en">Safe & Malware Checked</span><span
-            data-lang="ka">უსაფრთხოა და შემოწმებულია</span></span>
-        <span class="meta-item"><i data-lucide="refresh-cw"></i> <span data-lang="en">Auto-Updates via Web
-            Store</span><span data-lang="ka">ავტომატური განახლებები</span></span>
+
+      <div class="sheet-wrap">
+        <div class="sheet-bar">
+          <svg aria-hidden="true"><use href="#i-sheet"></use></svg>
+          <span>HomeGrab Tracker</span>
+        </div>
+        <div class="scroll-x">
+          <table class="sheet">
+            <caption class="visually-hidden" data-i18n="tr.caption">
+              HomeGrab Tracker-ის ცხრილის ნიმუში თორმეტი სვეტით
+            </caption>
+            <thead>
+              <tr>
+                <th scope="col">ორიგინალი ID</th>
+                <th scope="col">SS ID</th>
+                <th scope="col">Myhome ID</th>
+                <th scope="col">მობილური / სახელი</th>
+                <th scope="col">მისამართი</th>
+                <th scope="col">რაიონი</th>
+                <th scope="col">ფასი</th>
+                <th scope="col">ოთახები</th>
+                <th scope="col">საძინებელი</th>
+                <th scope="col">სართული</th>
+                <th scope="col">თარიღი</th>
+                <th scope="col">კომენტარი</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="row-marker">
+                <td>Uploaded: 7</td>
+                <td colspan="9"></td>
+                <td>14.09.2026</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td class="col-id">36104872</td>
+                <td class="col-id id-ss">36118940</td>
+                <td class="col-id id-mh">21548903</td>
+                <td>5XX XX XX XX · ნინო</td>
+                <td>ალ.ყაზბეგის გამზ. 24</td>
+                <td>საბურთალო</td>
+                <td>1250 / 1300</td>
+                <td>3</td>
+                <td>2</td>
+                <td>5 / 12</td>
+                <td>14.09.2026, 18:42</td>
+                <td data-i18n="tr.comment">ფასი შეიცვალა: 1250 → 1300</td>
+              </tr>
+              <tr class="row-unfinished">
+                <td class="col-id">36104913</td>
+                <td class="empty">—</td>
+                <td class="empty">—</td>
+                <td>5XX XX XX XX · გიორგი</td>
+                <td>ანგისის 3 ჩიხი 7</td>
+                <td>აეროპორტის უბანი</td>
+                <td>720</td>
+                <td>2</td>
+                <td>1</td>
+                <td>3 / 5</td>
+                <td>14.09.2026, 19:05</td>
+                <td class="empty"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="legend">
+        <div class="legend-item">
+          <span class="legend-key legend-key--marker" aria-hidden="true"></span>
+          <p>
+            <strong data-i18n="tr.leg1t">Uploaded: 7</strong>
+            <span data-i18n="tr.leg1d">
+              — დღის მარკერი. რიგები დღეების მიხედვით ჯგუფდება და რიცხვი თავად ნახლდება,
+              ასე რომ დღიური შედეგი თვალით ჩანს.
+            </span>
+          </p>
+        </div>
+        <div class="legend-item">
+          <span class="legend-key legend-key--unfinished" aria-hidden="true"></span>
+          <p>
+            <strong data-i18n="tr.leg2t">ცარიელი ID-ები</strong>
+            <span data-i18n="tr.leg2d">
+              — რიგი ჩაიწერება მაშინ, როცა გადმოტანა იწყება; ID-ები კი გამოქვეყნების
+              შემდეგ ჩავარდება. ესე იგი, ორივე ცარიელი ID ნიშნავს, რომ განცხადება
+              ბოლომდე არ გამოქვეყნდა.
+            </span>
+          </p>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="container footer-container">
-      <div class="footer-brand-column">
-        <div class="logo">
-          <svg class="logo-icon" viewBox="220 445 140 130" xmlns="http://www.w3.org/2000/svg">
-            <path fill="#2F60F3"
-              d="M343.15,487.7l-17.15-11.32-12.74-8.31-29.38-19.62c-1.3-.87-3.31-1.14-4.69-.22l-37.76,25.2-16.82,11.24-5.69,3.31c-.93.54-1.54,1.5-1.5,2.67v8.13h12.23v63.02c0,2.75,2.81,4.75,5.32,3.64,2.84-1.26,21.52-22.81,21.52-22.81,11.08-14.13,44.07-3.58,55.51-19.34,1.27-1.75,2.48-3.52,3.2-5.56,1.48-4.24,5.76-14.19,14.14-17.29,9.06-3.36,16.06-.48,16.06-4.6v-4.26c-.1-1.58-.93-3.01-2.25-3.88ZM278.64,522.71h-14v-12h14v12ZM278.64,503.82h-14v-13.11h14v13.11ZM298.65,522.71h-14v-12h14v12ZM298.65,503.82h-14v-13.11h14v13.11Z" />
-            <path fill="#00B972"
-              d="M341.52,553.62c-7.32,10.07-18.31,16.96-32.92,16.96l-66.99.21c-.96,0-1.25-1.07-.71-1.75l8.43-10.62.03-.03,9.44-10.5c4.84-5.39,11.28-7.97,18.64-8.49l9.24-.66c8.7-.62,16.11-1.85,23.71-6.4.83-.5,3-2.04,4.01-1.38,2.61,1.71,2.2,5.56.26,7.79-3.05,3.5-6.93,5.74-10.97,7.98h-.01c-.13.07-4.25,2.11-5.46,3.05-4.43,3.45,12.8-2.17,17.59-5.95,3.36-2.65,6.66-7.69,6.69-13.08.08-15.91,7.28-27.85,11.46-25.28,1.7,1.04,1.86,4.24.77,9.17,0,0-5.11,22-3.99,22.65,1.41.81,4.61-10.92,4.61-10.92l3.98-16.98c.41-1.74,2.28-4.02,4.29-3.58,2.19.48,3.1,3.63,2.68,5.65l-2.57,12.35-3.56,14.15c-.17.68.68,1.19,1.17.68.71-.73,1.21-1.68,1.57-2.67l6.15-16.92c.78-2.15,2.72-5.2,5.65-4.17,2.35.83,2.3,5.1,1.52,7.28l-4.51,12.62c-2.46,6.89-5.88,12.92-10.18,18.85Z" />
-          </svg>
-          <span class="logo-text">Home<span>Grab</span></span>
+  <!-- ===================== SIMULATOR ===================== -->
+  <section class="section section--sunken" id="demo">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow" data-i18n="sim.eyebrow">დემო</span>
+        <h2 data-i18n="sim.h2">გაიარე ნაბიჯები</h2>
+        <p data-i18n="sim.sub">
+          იგივე, რაც ზემოთ წერია — მხოლოდ თანმიმდევრობით. ისრებით ან ღილაკებით.
+        </p>
+      </div>
+
+      <div class="sim">
+        <div class="sim-steps" role="tablist" aria-label="დემოს ნაბიჯები"
+             data-i18n-attr="aria-label|sim.tablist" id="sim-tabs"></div>
+        <div class="sim-body">
+          <div class="sim-panel">
+            <h3 id="sim-title">—</h3>
+            <p id="sim-desc">—</p>
+            <div class="sim-controls">
+              <button class="btn btn--ghost" id="sim-prev" data-i18n="sim.prev">უკან</button>
+              <button class="btn btn--primary" id="sim-next" data-i18n="sim.next">შემდეგი</button>
+              <span class="sim-progress" id="sim-progress"></span>
+            </div>
+          </div>
+          <div class="sim-stage" id="sim-stage" role="region" aria-live="polite"
+               aria-label="დემოს მიმდინარე ნაბიჯი" data-i18n-attr="aria-label|sim.stage"></div>
         </div>
-        <p class="brand-desc">
-          <span data-lang="en">Smart Chrome extension utility for automating real estate listing syndication in Georgia.
-            Privacy-first, local execution.</span>
-          <span data-lang="ka">ჭკვიანი Chrome გაფართოება საქართველოში უძრავი ქონების განცხადებების ავტომატური
-            სინქრონიზაციისთვის.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== PRIVACY ===================== -->
+  <section class="section" id="privacy">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow" data-i18n="pr.eyebrow">კონფიდენციალურობა და უფლებები</span>
+        <h2 data-i18n="pr.h2">შენი განცხადებების მონაცემები შენსავე ცხრილში რჩება</h2>
+      </div>
+
+      <div class="callout">
+        <h3><code>drive.file</code></h3>
+        <p data-i18n="pr.drive">
+          HomeGrab Google Drive-ზე მხოლოდ იმ ფაილს ხედავს და ცვლის, რომელიც თვითონვე
+          შექმნა — ანუ შენს „HomeGrab Tracker" ცხრილს. დანარჩენ Drive-ზე წვდომა
+          არა აქვს. ეს არ არის დაპირება, ეს Google-ის მიერ დაწესებული ზღვარია.
         </p>
       </div>
 
-      <div class="footer-links-column">
-        <h4>
-          <span data-lang="en">Product</span>
-          <span data-lang="ka">პროდუქტი</span>
-        </h4>
-        <a href="#features"><span data-lang="en">Features</span><span data-lang="ka">ფუნქციები</span></a>
-        <a href="#simulator"><span data-lang="en">Interactive Simulator</span><span data-lang="ka">სიმულატორი</span></a>
-        <a href="#install"><span data-lang="en">Download Extension</span><span data-lang="ka">ჩამოტვირთვა</span></a>
+      <div class="stack">
+        <div>
+          <h3 data-i18n="pr.scopesH">Google-ის ოთხი უფლება (OAuth 2.0)</h3>
+          <div class="scroll-x">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th scope="col" data-i18n="pr.thScope">უფლება</th>
+                  <th scope="col" data-i18n="pr.thWhat">რას ნიშნავს</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><th scope="row"><code>drive.file</code></th><td data-i18n="pr.sc1">მხოლოდ იმ ფაილებზე წვდომა, რომლებიც თავად შექმნა — შენი ცხრილი.</td></tr>
+                <tr><th scope="row"><code>openid</code></th><td data-i18n="pr.sc2">შესვლის დადასტურება.</td></tr>
+                <tr><th scope="row"><code>profile</code></th><td data-i18n="pr.sc3">ანგარიშის საბაზისო პროფილი.</td></tr>
+                <tr><th scope="row"><code>email</code></th><td data-i18n="pr.sc4">ელფოსტა, რომელიც პოპაპის თავში ჩანს.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div>
+          <h3 data-i18n="pr.permsH">Chrome-ის ექვსი ნებართვა</h3>
+          <div class="scroll-x">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th scope="col" data-i18n="pr.thPerm">ნებართვა</th>
+                  <th scope="col" data-i18n="pr.thWhy">რისთვის</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><th scope="row"><code>identity</code></th><td data-i18n="pr.p1">Google-ით შესვლა.</td></tr>
+                <tr><th scope="row"><code>storage</code></th><td data-i18n="pr.p2">შენი პარამეტრების შენახვა.</td></tr>
+                <tr><th scope="row"><code>alarms</code></th><td data-i18n="pr.p3">ფონური ამოცანების განრიგი.</td></tr>
+                <tr><th scope="row"><code>notifications</code></th><td data-i18n="pr.p4">გაფრთხილება, როცა შენი ჩარევაა საჭირო.</td></tr>
+                <tr><th scope="row"><code>scripting</code></th><td data-i18n="pr.p5">ფორმის შევსება ss.ge-სა და myhome.ge-ზე.</td></tr>
+                <tr><th scope="row"><code>tabs</code></th><td data-i18n="pr.p6">ფორმის ჩანართის გახსნა და მიდევნება.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div>
+          <h3 data-i18n="pr.hostsH">საიტები, სადაც მუშაობს</h3>
+          <p data-i18n="pr.hostsD">სხვაგან არსად არ ირთვება:</p>
+          <ul class="host-list">
+            <li>ss.ge</li><li>home.ss.ge</li><li>static.ss.ge</li>
+            <li>www.myhome.ge</li><li>statements.myhome.ge</li>
+            <li>api-statements.tnet.ge</li><li>static-statements.tnet.ge</li>
+            <li>static.my.ge</li><li>*.googleapis.com</li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 data-i18n="pr.pwH">პაროლებზე</h3>
+          <p data-i18n="pr.pwD">
+            HomeGrab არასოდეს გთხოვს ss.ge-ის ან myhome.ge-ის პაროლს. ის იყენებს იმ
+            სესიას, რომელშიც ბრაუზერში უკვე შესული ხარ — ისევე, როგორც შენ თვითონ
+            ხსნი ფორმას.
+          </p>
+          <p data-i18n="pr.pwD2">
+            განცხადებების მონაცემები — აღწერა, ფასი, მესაკუთრის ნომერი — შენსავე
+            Google ცხრილში ინახება, შენსავე Drive-ზე.
+          </p>
+          <p>
+            <a href="/privacy.html" data-i18n="pr.linkPrivacy">კონფიდენციალურობის პოლიტიკა</a> ·
+            <a href="/terms.html" data-i18n="pr.linkTerms">მოხმარების პირობები</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== PRICING ===================== -->
+  <section class="section section--sunken" id="pricing">
+    <div class="container">
+      <div class="section-head" style="text-align:center;margin-inline:auto">
+        <span class="eyebrow" data-i18n="pc.eyebrow">ფასი</span>
+        <h2 data-i18n="pc.h2">ამჟამად უფასოა</h2>
       </div>
 
-      <div class="footer-links-column">
-        <h4>
-          <span data-lang="en">Legal & Privacy</span>
-          <span data-lang="ka">იურიდიული</span>
-        </h4>
-        <a href="privacy.html" id="footer-privacy-link">
-          <span data-lang="en">Privacy Policy</span>
-          <span data-lang="ka">კონფიდენციალურობის პოლიტიკა</span>
-        </a>
-        <a href="terms.html" id="footer-terms-link">
-          <span data-lang="en">Terms of Use</span>
-          <span data-lang="ka">მოხმარების წესები</span>
-        </a>
-      </div>
-
-      <div class="footer-links-column">
-        <h4>
-          <span data-lang="en">Disclaimer</span>
-          <span data-lang="ka">პასუხისმგებლობა</span>
-        </h4>
-        <p class="disclaimer-text">
-          <span data-lang="en">HomeGrab is an independent automation tool. It is not affiliated, associated, authorized,
-            endorsed by, or in any way officially connected with SS.ge, MyHome.ge, Google Sheets, or any of their
-            subsidiaries.</span>
-          <span data-lang="ka">HomeGrab არის დამოუკიდებელი დამხმარე ხელსაწყო. იგი არ არის ასოცირებული, ავტორიზებული ან
-            ოფიციალურად დაკავშირებული SS.ge, MyHome.ge ან Google-თან.</span>
+      <div class="price-card">
+        <div class="amount" data-i18n="pc.amount">უფასო</div>
+        <p data-i18n="pc.body">
+          „გადახდები ამჟამად გამორთულია — ყველა ფუნქცია უფასოა." ეს პოპაპშივე წერია.
+          არანაირი ფუნქცია არ არის დაბლოკილი და საგადახდო ბარათი არ იკითხება.
         </p>
+        <ul class="plan-list">
+          <li><span data-i18n="pc.planNote" style="font-weight:600;color:var(--text)">დაგეგმილი ფასები — ჯერ არ ირიცხება</span></li>
+          <li><span data-i18n="pc.p1">დღიური</span> <b>₾1.20</b></li>
+          <li><span data-i18n="pc.p2">თვიური</span> <b>₾15</b></li>
+          <li><span data-i18n="pc.p3">6 თვე</span> <b>₾55</b></li>
+          <li><span data-i18n="pc.p4">წლიური</span> <b>₾95</b></li>
+        </ul>
       </div>
     </div>
+  </section>
 
-    <div class="footer-bottom">
-      <div class="container footer-bottom-container">
-        <p>&copy; 2026 HomeGrab. All rights reserved. <span data-lang="en">Created for agents in Georgia.</span><span
-            data-lang="ka">შექმნილია ქართველი რეალტორებისთვის.</span></p>
+  <!-- ===================== FAQ ===================== -->
+  <section class="section" id="faq">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow" data-i18n="faq.eyebrow">კითხვები</span>
+        <h2 data-i18n="faq.h2">ხშირად კითხულობენ</h2>
+      </div>
+
+      <div class="faq">
+        <details>
+          <summary data-i18n="faq.q1">ავტომატურად აქვეყნებს განცხადებას?</summary>
+          <div class="answer">
+            <p data-i18n="faq.a1">
+              არა. HomeGrab ფორმას ავსებს და ჩერდება. გამოქვეყნების ღილაკს შენ აჭერ.
+            </p>
+            <blockquote class="quote">
+              <span data-i18n="faq.a1q">„ორივე შემთხვევაში იხსნება არჩეული საიტის ფორმა და ავტომატურად ივსება.
+              გამოქვეყნების ღილაკს შენ აჭერ."</span>
+              <cite data-i18n="faq.cite">— HomeGrab-ის პოპაპი</cite>
+            </blockquote>
+          </div>
+        </details>
+
+        <details>
+          <summary data-i18n="faq.q2">ss.ge-ის ან myhome.ge-ის ანგარიში საფრთხეში ხომ არ არის?</summary>
+          <div class="answer">
+            <p data-i18n="faq.a2">
+              HomeGrab ამ საიტების პაროლს არასოდეს ითხოვს. ის მუშაობს იმ სესიაში,
+              რომელშიც ბრაუზერში უკვე შესული ხარ.
+            </p>
+          </div>
+        </details>
+
+        <details>
+          <summary data-i18n="faq.q3">თუ ფორმა არასწორად შეივსო?</summary>
+          <div class="answer">
+            <p data-i18n="faq.a3">
+              გამოქვეყნებამდე შენ ამოწმებ ყველაფერს — სწორედ ამიტომ ჩერდება პროცესი
+              შევსებულ ფორმაზე. მისამართისა და ფასის ცვლილება ცხრილშიც ჩაიწერება.
+            </p>
+            <blockquote class="quote">
+              <span data-i18n="faq.a3q">„ცხრილში ორივე ჩაიწერება „ორიგინალი / შენი" სახით."</span>
+              <cite data-i18n="faq.cite">— HomeGrab-ის პოპაპი</cite>
+            </blockquote>
+          </div>
+        </details>
+
+        <details>
+          <summary data-i18n="faq.q4">სად ინახება ჩემი მონაცემები?</summary>
+          <div class="answer">
+            <p data-i18n="faq.a4">
+              შენსავე Google ცხრილში, შენსავე Drive-ზე. HomeGrab-ს Drive-ზე მხოლოდ
+              იმ ფაილზე აქვს წვდომა, რომელიც თვითონვე შექმნა — ეს <code>drive.file</code>
+              უფლების ზღვარია.
+            </p>
+          </div>
+        </details>
+
+        <details>
+          <summary data-i18n="faq.q5">საძიებო შედეგების გვერდზე მუშაობს?</summary>
+          <div class="answer">
+            <p data-i18n="faq.a5">
+              არა — ჯერ ერთი კონკრეტული განცხადება უნდა გახსნა. პოპაპი ამას პირდაპირ
+              გეუბნება:
+            </p>
+            <blockquote class="quote">
+              <span data-i18n="faq.a5q">„გახსენი კონკრეტული განცხადება, რომ გადმოიტანო"</span>
+              <cite data-i18n="faq.cite">— HomeGrab-ის პოპაპი</cite>
+            </blockquote>
+          </div>
+        </details>
+
+        <details>
+          <summary data-i18n="faq.q6">უფასოა?</summary>
+          <div class="answer">
+            <p data-i18n="faq.a6">
+              დიახ, ამჟამად. გადახდები კოდშივე გამორთულია და არცერთი ფუნქცია არ არის
+              დაბლოკილი. დაგეგმილი ფასები ზემოთ წერია, მაგრამ ჯერ არ ირიცხება.
+            </p>
+          </div>
+        </details>
+
+        <details>
+          <summary data-i18n="faq.q7">Firefox-ზე ან Safari-ზე მუშაობს?</summary>
+          <div class="answer">
+            <p data-i18n="faq.a7">
+              არა. HomeGrab არის Chrome-ის გაფართოება, Manifest V3-ზე.
+            </p>
+          </div>
+        </details>
       </div>
     </div>
-  </footer>
+  </section>
 
-  <!-- Main JavaScript File -->
-  <script src="app.js"></script>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-top">
+      <a class="brand" href="/">
+        <img src="/favicon.svg" alt="" width="28" height="28">
+        <span>HomeGrab</span>
+      </a>
+      <nav class="footer-links" aria-label="ქვედა მენიუ" data-i18n-attr="aria-label|foot.nav">
+        <a href="#features" data-i18n="nav.features">ფუნქციები</a>
+        <a href="#how" data-i18n="nav.how">როგორ მუშაობს</a>
+        <a href="#privacy" data-i18n="nav.privacy">კონფიდენციალურობა</a>
+        <a href="/privacy.html" data-i18n="pr.linkPrivacy">კონფიდენციალურობის პოლიტიკა</a>
+        <a href="/terms.html" data-i18n="pr.linkTerms">მოხმარების პირობები</a>
+        <a href="https://chromewebstore.google.com/detail/home-grab/gkafeolkiffkkbbpeceaiefpglfblmkh"
+           rel="noopener">Chrome Web Store</a>
+      </nav>
+    </div>
+
+    <!-- Legally useful. Keep verbatim in English; the Georgian is a translation
+         shown alongside, never a replacement. -->
+    <p class="disclaimer" data-i18n="foot.disclaimer">
+      HomeGrab დამოუკიდებელი ავტომატიზაციის ხელსაწყოა. ის არ არის დაკავშირებული,
+      ასოცირებული, ავტორიზებული ან რაიმე ოფიციალური კავშირით დაკავშირებული
+      SS.ge-სთან, MyHome.ge-სთან ან Google Sheets-თან.
+    </p>
+    <p class="disclaimer" style="border:0;padding-block-start:var(--sp-2);opacity:.8">
+      HomeGrab is an independent automation tool. It is not affiliated, associated,
+      authorized, endorsed by, or in any way officially connected with SS.ge,
+      MyHome.ge, or Google Sheets.
+    </p>
+
+    <div class="footer-meta">
+      <span>© 2026 HomeGrab</span>
+      <span>v1.0.13</span>
+      <span data-i18n="foot.mv3">Chrome · Manifest V3</span>
+    </div>
+  </div>
+</footer>
+
+<!-- Icon sprite. Inlined rather than pulled from a CDN so the page loads no
+     third-party script and cannot break when an unpinned version changes. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <g id="i-menu" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+      <path d="M3 6h18M3 12h18M3 18h18"/></g>
+    <g id="i-sun" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+      <circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g>
+    <g id="i-moon" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></g>
+    <g id="i-download" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></g>
+    <g id="i-bolt" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M13 2 3 14h9l-1 8 10-12h-9z"/></g>
+    <g id="i-layers" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="m12 2 9 5-9 5-9-5z"/><path d="m3 12 9 5 9-5"/><path d="m3 17 9 5 9-5"/></g>
+    <g id="i-hand" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M18 11V6a2 2 0 0 0-4 0M14 10V4a2 2 0 0 0-4 0v6M10 10.5V6a2 2 0 0 0-4 0v8"/>
+      <path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2a8 8 0 0 1-8-8"/></g>
+    <g id="i-user" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></g>
+    <g id="i-tag" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M20.6 13.4 12 22l-9-9V3h10z"/><circle cx="7.5" cy="7.5" r="1.5"/></g>
+    <g id="i-ruler" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="2" y="8" width="20" height="8" rx="2"/><path d="M6 8v3M10 8v5M14 8v3M18 8v5"/></g>
+    <g id="i-text" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M4 6h16M4 12h16M4 18h10"/></g>
+    <g id="i-sheet" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18"/></g>
+    <g id="i-clock" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></g>
+    <g id="i-calendar" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 11h18"/></g>
+    <g id="i-shield" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 2 4 6v6c0 5 3.4 8.6 8 10 4.6-1.4 8-5 8-10V6z"/></g>
+    <g id="i-map" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="m9 4 6 2 5-2v14l-5 2-6-2-5 2V6z"/><path d="M9 4v14M15 6v14"/></g>
+    <g id="i-cloud" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M17.5 19a4.5 4.5 0 0 0 .5-8.97A6 6 0 0 0 6.2 10.5 4 4 0 0 0 6.5 19z"/></g>
+  </defs>
+</svg>
+
+<script src="/app.js" defer></script>
 </body>
-
 </html>

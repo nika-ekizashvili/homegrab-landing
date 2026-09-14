@@ -1,365 +1,440 @@
-document.addEventListener('DOMContentLoaded', () => {
-  // Initialize Lucide icons
-  if (window.lucide) {
-    window.lucide.createIcons();
-  }
+/* =============================================================================
+   HomeGrab landing page
+   -----------------------------------------------------------------------------
+   Bilingual model: Georgian is written directly into index.html as literal text
+   (it is the primary language and must work with JavaScript disabled). Every
+   translatable node carries data-i18n="key"; this file holds only the English
+   side. Switching to English swaps text in place — there is no duplicated
+   markup, so nothing is hidden-but-present to break layout.
 
-  // ==========================================
-  // LANGUAGE SWITCHER
-  // ==========================================
-  const langSwitchBtn = document.getElementById('lang-switch');
-  const body = document.body;
+   Attributes are translated via data-i18n-attr="attrName|key".
+   ========================================================================== */
 
-  // Retrieve language preference or default to Georgian context
-  let currentLang = localStorage.getItem('homegrab_lang') || 'en';
-  setLanguage(currentLang);
+(function () {
+  "use strict";
 
-  if (langSwitchBtn) {
-    langSwitchBtn.addEventListener('click', () => {
-      currentLang = currentLang === 'en' ? 'ka' : 'en';
-      setLanguage(currentLang);
+  var root = document.documentElement;
+  var store = {
+    get: function (k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+    set: function (k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+  };
+
+  /* --- English strings ---------------------------------------------------- */
+  var EN = {
+    "a11y.skip": "Skip to main content",
+
+    "nav.label": "Main",
+    "nav.how": "How it works",
+    "nav.features": "Features",
+    "nav.tracker": "Tracker",
+    "nav.privacy": "Privacy",
+    "nav.pricing": "Pricing",
+    "nav.menu": "Menu",
+    "nav.langAria": "ქართულად გადართვა",
+    "nav.themeAria": "Switch theme",
+
+    "cta.add": "Add to Chrome",
+    "cta.addFree": "Add to Chrome — free",
+    "cta.how": "How it works",
+
+    "hero.pill": "v1.0.13 · Free while in beta",
+    "hero.h1": "One listing. Both sites. One click.",
+    "hero.lede": "HomeGrab reads a listing on ss.ge or myhome.ge and fills in the other site's create form — fields, dropdowns, photos, address and contact. Then it logs a row to your own Google Sheet.",
+    "hero.noteStrong": "You press publish.",
+    "hero.note": "HomeGrab fills the form and stops. Publishing stays your decision.",
+    "hero.popupAlt": "The HomeGrab popup on a listing page: tabs for Publish and Settings, and three buttons — SS & MyHome, MyHome.ge-ზე, SS.ge-ზე.",
+    "hero.caption": "The popup on a listing page — v1.0.13",
+
+    "how.eyebrow": "Three steps",
+    "how.h2": "Open it, press it, check it — publishing is yours",
+    "how.sub": "HomeGrab never publishes a listing by itself. It fills the form and waits for you.",
+    "how.s1t": "Open a listing",
+    "how.s1d": "Open one specific listing on ss.ge or myhome.ge and click the HomeGrab icon. It does not work on search-result pages.",
+    "how.s1q": "“Open a specific listing to transfer it”",
+    "how.s2t": "Press SS & MyHome",
+    "how.s2d": "The other site's form opens and fills in seven stages — from category through to photos. “SS & MyHome” does both in parallel.",
+    "how.s2q": "Session check · Category and type · Location · Details · Description and price · Amenities · Photos",
+    "how.s3t": "Check it, then publish",
+    "how.s3d": "The form is filled but unpublished. You review the data and you press publish. The listing ID is then written to the sheet automatically.",
+    "how.s3q": "“Review the form and publish it yourself”",
+    "how.shotAlt": "The myhome.ge create-listing form being filled by HomeGrab: property type “ბინა” and deal type “ქირავდება” are already selected.",
+    "how.toastAlt": "HomeGrab progress notification reading “მდებარეობა (3/7)” — Location, step 3 of 7.",
+    "how.figcap": "Progress is visible on the page itself — all seven stages.",
+
+    "feat.eyebrow": "Features",
+    "feat.h2": "What it does — and what it deliberately does not",
+    "feat.g1": "Transfer",
+    "feat.g1d": "One listing, the other site's form already filled.",
+    "feat.f1t": "Reads one, fills the other",
+    "feat.f1d": "Fields, dropdowns, photos, address and contact details — all of it carries over into the other platform's form.",
+    "feat.f2t": "Both sites at once",
+    "feat.f2d": "“SS & MyHome” opens both forms and fills them in parallel. One row is written to the sheet, and both platform IDs land in it.",
+    "feat.f3t": "It never publishes for you",
+    "feat.f3d": "The process deliberately stops at a filled form. “You press the publish button.” That is a choice, not a limitation.",
+
+    "feat.g2": "Your terms",
+    "feat.g2d": "Your name, your number, your price.",
+    "feat.f4t": "Your name and number",
+    "feat.f4d": "Your saved contact details are inserted into every new form in place of the original. The owner's number stays recorded in the sheet.",
+    "feat.f5t": "Price markup",
+    "feat.f5d": "A markup you set once is added to every new form automatically. Both figures are written to the sheet — “original / yours”.",
+    "feat.f6t": "Area rounding",
+    "feat.f6d": "Optional: rounds the area up to the next multiple of 5 m² (47 → 50). It is a persistent setting — it applies to later listings too.",
+    "feat.f7t": "No retyping the description",
+    "feat.f7d": "Your saved description text loads into the new form automatically. If you have not saved one, the original listing's text is used.",
+
+    "feat.g3": "Tracking",
+    "feat.g3d": "What you moved, and what you left half-done.",
+    "feat.f8t": "Google Sheet",
+    "feat.f8d": "Every transfer is written as a new row in a spreadsheet called “HomeGrab Tracker” — in your own Google Drive.",
+    "feat.f9t": "Unfinished transfers",
+    "feat.f9d": "A row with neither an SS nor a MyHome ID is an unfinished transfer. The popup shows them as a separate worklist you can pick up again.",
+    "feat.f10t": "The daily count keeps itself",
+    "feat.f10d": "Rows are grouped by day under an <code>Uploaded: N</code> marker whose number updates in place.",
+
+    "feat.g4": "Reliability",
+    "feat.g4d": "The part that broke on real listings and got fixed.",
+    "feat.f11t": "The SS.ge draft dialog",
+    "feat.f11d": "ss.ge sometimes asks about an unfinished draft, and that can wipe a filled form. HomeGrab detects it, raises a notification, and waits for you.",
+    "feat.f12t": "Ground-truthed mapping",
+    "feat.f12d": "66 cities, 54 districts, and street spellings. Every rule exists because a real listing broke on it once.",
+    "feat.f13t": "Settings follow your Google account",
+    "feat.f13d": "“Stored on your Google account, so it carries over to another computer too.” Still there after a reinstall.",
+
+    "map.eyebrow": "Mapping tables",
+    "map.h2": "The two sites agree on nothing",
+    "map.sub": "Not on district names, not on street spellings, not on what a deal-type ID means. HomeGrab holds the translation table — and it was written by breaking real listings until it stopped.",
+    "map.stat1": "cities mapped between the two platforms",
+    "map.stat2": "districts — plus Tbilisi's 6 administrative districts and 6 suburb villages",
+    "map.stat3": "real streets the spelling rules were measured against",
+    "map.note1": "The same street. ss.ge glues the initial onto the surname — without handling that, the search finds nothing.",
+    "map.note2": "Ordinal lanes are written three different ways. And “3rd lane” must not be confused with “2nd side-street”.",
+    "map.foot": "Also mapped: deal and property types, building status, condition, project type, heating, hot water, room and bathroom types, parking, furniture, amenities and currency.",
+
+    "tr.eyebrow": "HomeGrab Tracker",
+    "tr.h2": "Every transfer is one row in your sheet",
+    "tr.sub": "Twelve columns, Georgian headers, in your own Google Drive. The three ID columns lead, so you can see at a glance what was published and where.",
+    "tr.caption": "Sample of the HomeGrab Tracker sheet, twelve columns",
+    "tr.comment": "Price changed: 1250 → 1300",
+    "tr.leg1t": "Uploaded: 7",
+    "tr.leg1d": " — the day marker. Rows are grouped by day and the number updates itself, so your daily output is visible without counting.",
+    "tr.leg2t": "Empty IDs",
+    "tr.leg2d": " — the row is written when a transfer starts; the IDs land after publishing. So two empty IDs mean the listing was never published.",
+
+    "sim.eyebrow": "Demo",
+    "sim.h2": "Step through it",
+    "sim.sub": "The same thing written above, just in sequence. Use the arrow keys or the buttons.",
+    "sim.tablist": "Demo steps",
+    "sim.prev": "Back",
+    "sim.next": "Next",
+    "sim.stage": "Current demo step",
+
+    "pr.eyebrow": "Privacy and permissions",
+    "pr.h2": "Your listing data stays in your own sheet",
+    "pr.drive": "On Google Drive, HomeGrab can only see and edit the file it created itself — your “HomeGrab Tracker” sheet. It has no access to the rest of your Drive. That is not a promise; it is a boundary Google enforces.",
+    "pr.scopesH": "The four Google permissions (OAuth 2.0)",
+    "pr.thScope": "Scope",
+    "pr.thWhat": "What it means",
+    "pr.sc1": "Access only to files it created itself — your sheet.",
+    "pr.sc2": "Confirms the sign-in.",
+    "pr.sc3": "Basic account profile.",
+    "pr.sc4": "The email address shown at the top of the popup.",
+    "pr.permsH": "The six Chrome permissions",
+    "pr.thPerm": "Permission",
+    "pr.thWhy": "What for",
+    "pr.p1": "Signing in with Google.",
+    "pr.p2": "Storing your settings.",
+    "pr.p3": "Scheduling background work.",
+    "pr.p4": "Alerting you when you need to step in.",
+    "pr.p5": "Filling the form on ss.ge and myhome.ge.",
+    "pr.p6": "Opening and following the form's tab.",
+    "pr.hostsH": "The sites it runs on",
+    "pr.hostsD": "It does not load anywhere else:",
+    "pr.pwH": "About passwords",
+    "pr.pwD": "HomeGrab never asks for your ss.ge or myhome.ge password. It uses the browser session you are already signed into — the same one you use to open the form yourself.",
+    "pr.pwD2": "Listing data — descriptions, prices, owners' phone numbers — is kept in your own Google Sheet, in your own Drive.",
+    "pr.linkPrivacy": "Privacy policy",
+    "pr.linkTerms": "Terms of use",
+
+    "pc.eyebrow": "Pricing",
+    "pc.h2": "Free right now",
+    "pc.amount": "Free",
+    "pc.body": "“Payments are currently disabled — every feature is free.” That is what the popup itself says. Nothing is gated and no card is asked for.",
+    "pc.planNote": "Planned prices — not charged yet",
+    "pc.p1": "Daily",
+    "pc.p2": "Monthly",
+    "pc.p3": "6 months",
+    "pc.p4": "Yearly",
+
+    "faq.eyebrow": "Questions",
+    "faq.h2": "Frequently asked",
+    "faq.q1": "Does it publish the listing automatically?",
+    "faq.a1": "No. HomeGrab fills the form and stops. You press the publish button.",
+    "faq.a1q": "“In both cases the chosen site's form opens and fills automatically. You press the publish button.”",
+    "faq.q2": "Is my ss.ge or myhome.ge account at risk?",
+    "faq.a2": "HomeGrab never asks for those passwords. It works inside the session you are already signed into in your browser.",
+    "faq.q3": "What if the form is filled in wrongly?",
+    "faq.a3": "You check everything before publishing — that is exactly why the process stops at a filled form. Address and price changes are recorded in the sheet as well.",
+    "faq.a3q": "“Both are written to the sheet as ‘original / yours’.”",
+    "faq.q4": "Where is my data kept?",
+    "faq.a4": "In your own Google Sheet, in your own Drive. On Drive, HomeGrab can only reach the file it created itself — that is the limit of the <code>drive.file</code> scope.",
+    "faq.q5": "Does it work on search-result pages?",
+    "faq.a5": "No — open one specific listing first. The popup says so directly:",
+    "faq.a5q": "“Open a specific listing to transfer it”",
+    "faq.q6": "Is it free?",
+    "faq.a6": "Yes, currently. Payments are disabled in the code itself and no feature is locked. The planned prices are listed above, but nothing is charged yet.",
+    "faq.q7": "Does it work on Firefox or Safari?",
+    "faq.a7": "No. HomeGrab is a Chrome extension, built on Manifest V3.",
+
+    "faq.cite": "— the HomeGrab popup, translated from Georgian",
+
+    "foot.nav": "Footer",
+    "foot.disclaimer": "HomeGrab is an independent automation tool. It is not affiliated, associated, authorized, endorsed by, or in any way officially connected with SS.ge, MyHome.ge, or Google Sheets.",
+    "foot.mv3": "Chrome · Manifest V3"
+  };
+
+  /* Keep the Georgian original so we can switch back without a reload. */
+  var KA = {};
+  var KA_ATTR = {};
+
+  function capture() {
+    document.querySelectorAll("[data-i18n]").forEach(function (el) {
+      var k = el.getAttribute("data-i18n");
+      if (!(k in KA)) KA[k] = el.innerHTML;
     });
-  }
-
-  function setLanguage(lang) {
-    localStorage.setItem('homegrab_lang', lang);
-    if (lang === 'ka') {
-      body.classList.remove('lang-en');
-      body.classList.add('lang-ka');
-    } else {
-      body.classList.remove('lang-ka');
-      body.classList.add('lang-en');
-    }
-  }
-
-  // ==========================================
-  // MODALS CONTROL (For backwards compatibility/other views if modals exist)
-  // ==========================================
-  const termsModal = document.getElementById('modal-terms');
-  const privacyModal = document.getElementById('modal-privacy');
-
-  if (termsModal || privacyModal) {
-    // Trigger elements
-    const termsLinks = [
-      document.getElementById('terms-nav-link'),
-      document.getElementById('terms-link-sec'),
-      document.getElementById('footer-terms-link')
-    ];
-
-    const privacyLinks = [
-      document.getElementById('privacy-policy-link'),
-      document.getElementById('footer-privacy-link')
-    ];
-
-    // Close elements
-    const closeTermsBtn = document.getElementById('close-terms-btn');
-    const closePrivacyBtn = document.getElementById('close-privacy-btn');
-    const termsCloseFooterBtn = document.getElementById('terms-close-footer-btn');
-    const privacyCloseFooterBtn = document.getElementById('privacy-close-footer-btn');
-
-    // Event Listeners for opening modals
-    termsLinks.forEach(link => {
-      if (link && termsModal) {
-        link.addEventListener('click', (e) => {
-          e.preventDefault();
-          openModal(termsModal);
-        });
-      }
-    });
-
-    privacyLinks.forEach(link => {
-      if (link && privacyModal) {
-        link.addEventListener('click', (e) => {
-          e.preventDefault();
-          openModal(privacyModal);
-        });
-      }
-    });
-
-    // Event Listeners for closing modals
-    [closeTermsBtn, termsCloseFooterBtn].forEach(btn => {
-      if (btn && termsModal) btn.addEventListener('click', () => closeModal(termsModal));
-    });
-
-    [closePrivacyBtn, privacyCloseFooterBtn].forEach(btn => {
-      if (btn && privacyModal) btn.addEventListener('click', () => closeModal(privacyModal));
-    });
-
-    // Close on outer click
-    window.addEventListener('click', (e) => {
-      if (termsModal && e.target === termsModal) closeModal(termsModal);
-      if (privacyModal && e.target === privacyModal) closeModal(privacyModal);
-    });
-
-    // Close on Escape key
-    window.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        if (termsModal) closeModal(termsModal);
-        if (privacyModal) closeModal(privacyModal);
-      }
-    });
-
-    function openModal(modal) {
-      modal.classList.add('modal-active');
-      body.style.overflow = 'hidden'; // Prevent main page scrolling
-    }
-
-    function closeModal(modal) {
-      modal.classList.remove('modal-active');
-      body.style.overflow = ''; // Re-enable scrolling
-    }
-  }
-
-  // ==========================================
-  // INTERACTIVE SIMULATOR LOGIC
-  // ==========================================
-  const simScrapeBtn = document.getElementById('sim-scrape-btn');
-  if (simScrapeBtn) {
-    const simInjectBtn = document.getElementById('sim-inject-btn');
-    const simInjectMyHomeBtn = document.getElementById('sim-inject-btn-myhome');
-    const simResetBtn = document.getElementById('sim-reset-btn');
-    
-    // Panels
-    const paneSource = document.querySelector('.pane-source');
-    const paneExtension = document.querySelector('.pane-extension');
-    const paneTarget = document.querySelector('.pane-target');
-
-    // Ext controls & statuses
-    const extStatusLight = document.getElementById('ext-status-light');
-    const extStatusText = document.getElementById('ext-status-text');
-    const dataPreviewBadge = document.getElementById('data-preview-badge');
-    const simSurchargeInput = document.getElementById('sim-surcharge');
-    const simRoundAreaChk = document.getElementById('sim-round-area');
-    const simAgentInput = document.getElementById('sim-agent');
-    const simDescInput = document.getElementById('sim-desc-tmpl');
-    const extInactiveView = document.getElementById('ext-inactive-view');
-    const extActiveView = document.getElementById('ext-active-view');
-
-    // Target Form Values
-    const targetDeal = document.getElementById('target-deal');
-    const targetPrice = document.getElementById('target-price');
-    const targetArea = document.getElementById('target-area');
-    const targetDesc = document.getElementById('target-desc');
-
-    // Sheets variables
-    const sheetsRowPlaceholder = document.getElementById('sheets-row-placeholder');
-    const sheetsRowData = document.getElementById('sheets-row-data');
-    const sheetDate = document.getElementById('sheet-date');
-    const sheetPrice = document.getElementById('sheet-price');
-    const sheetArea = document.getElementById('sheet-area');
-
-    // Initial State Setup
-    if (paneSource) {
-      paneSource.classList.add('active-panel');
-    }
-
-    // Step 1: Scrape
-    simScrapeBtn.addEventListener('click', () => {
-      // Disable scrape button and show loading state
-      simScrapeBtn.disabled = true;
-      simScrapeBtn.innerHTML = `<i data-lucide="loader-2" class="btn-icon animate-spin"></i> <span>Scraping listing...</span>`;
-      if (window.lucide) window.lucide.createIcons();
-
-      // Adjust status to busy
-      extStatusLight.className = 'ext-status-dot busy';
-      extStatusText.innerHTML = `<span data-lang="en">Extracting data...</span><span data-lang="ka">მონაცემები გადმოდის...</span>`;
-      setLanguage(currentLang); // force visual localization update
-
-      setTimeout(() => {
-        // Completed scraping
-        simScrapeBtn.innerHTML = `<i data-lucide="check" class="btn-icon"></i> <span>Data Extracted</span>`;
-        simScrapeBtn.classList.remove('btn-secondary');
-        simScrapeBtn.classList.add('btn-primary');
-        if (window.lucide) window.lucide.createIcons();
-
-        // Toggle extension inactive -> active view
-        if (extInactiveView) extInactiveView.classList.add('hidden');
-        if (extActiveView) extActiveView.classList.remove('hidden');
-
-        // Show preview badge & update extension pane status
-        if (dataPreviewBadge) dataPreviewBadge.classList.remove('hidden');
-        extStatusLight.className = 'ext-status-dot active';
-        extStatusText.innerHTML = `<span data-lang="en">Ready to Autofill</span><span data-lang="ka">მზად არის შესავსებად</span>`;
-        
-        // Swap active panel outline highlight
-        if (paneSource) paneSource.classList.remove('active-panel');
-        if (paneExtension) paneExtension.classList.add('active-panel');
-
-        // Enable inject buttons
-        if (simInjectBtn) simInjectBtn.disabled = false;
-        if (simInjectMyHomeBtn) simInjectMyHomeBtn.disabled = false;
-        setLanguage(currentLang);
-      }, 1200);
-    });
-
-    // Step 2: Inject/Sync Function
-    const triggerInject = () => {
-      // Show injecting loader
-      if (simInjectBtn) {
-        simInjectBtn.disabled = true;
-        simInjectBtn.innerHTML = `<i data-lucide="loader-2" class="btn-icon animate-spin"></i> <span>Autofilling...</span>`;
-      }
-      if (simInjectMyHomeBtn) {
-        simInjectMyHomeBtn.disabled = true;
-        simInjectMyHomeBtn.innerHTML = `<span>Autofilling...</span>`;
-      }
-      if (window.lucide) window.lucide.createIcons();
-
-      extStatusLight.className = 'ext-status-dot busy';
-      extStatusText.innerHTML = `<span data-lang="en">Injecting to active tab...</span><span data-lang="ka">შევსება...</span>`;
-      setLanguage(currentLang);
-
-      setTimeout(() => {
-        // Complete injecting
-        if (simInjectBtn) simInjectBtn.innerHTML = `ორივე პლატფორმაზე`;
-        if (simInjectMyHomeBtn) simInjectMyHomeBtn.innerHTML = `MyHome.ge-ზე`;
-        if (window.lucide) window.lucide.createIcons();
-
-        extStatusLight.className = 'ext-status-dot active';
-        extStatusText.innerHTML = `<span data-lang="en">Sync Complete!</span><span data-lang="ka">დასრულებულია!</span>`;
-        setLanguage(currentLang);
-
-        // Calculations based on options selected
-        const surcharge = parseFloat(simSurchargeInput?.value) || 0;
-        const basePrice = 1200;
-        const finalPrice = basePrice + surcharge;
-
-        const baseArea = 73;
-        let finalArea = baseArea;
-        if (simRoundAreaChk && simRoundAreaChk.checked) {
-          // Round to nearest 5
-          finalArea = Math.round(baseArea / 5) * 5;
-        }
-
-        // Update Form UI
-        if (targetDeal) {
-          targetDeal.textContent = currentLang === 'en' ? 'Rent Monthly' : 'ქირავდება';
-          targetDeal.classList.remove('placeholder-val');
-          targetDeal.classList.add('fill-highlight');
-        }
-
-        if (targetPrice) {
-          targetPrice.textContent = `$${finalPrice.toLocaleString()}`;
-          targetPrice.classList.remove('placeholder-val');
-          targetPrice.classList.add('fill-highlight');
-        }
-
-        if (targetArea) {
-          targetArea.textContent = `${finalArea} m²`;
-          targetArea.classList.remove('placeholder-val');
-          targetArea.classList.add('fill-highlight');
-        }
-
-        // Read directly from the description template textarea
-        if (targetDesc && simDescInput) {
-          targetDesc.textContent = simDescInput.value;
-          targetDesc.classList.remove('placeholder-val');
-          targetDesc.classList.add('fill-highlight');
-        }
-
-        // Update Google Sheets row
-        const today = new Date();
-        const dateStr = `${String(today.getDate()).padStart(2, '0')}-${String(today.getMonth() + 1).padStart(2, '0')}-${today.getFullYear()}`;
-        
-        if (sheetDate) sheetDate.textContent = dateStr;
-        if (sheetPrice) sheetPrice.textContent = `$${finalPrice.toLocaleString()}`;
-        if (sheetArea) sheetArea.textContent = `${finalArea} m²`;
-
-        if (sheetsRowPlaceholder) sheetsRowPlaceholder.classList.add('hidden');
-        if (sheetsRowData) sheetsRowData.classList.remove('hidden');
-
-        // Swap active panel
-        if (paneExtension) paneExtension.classList.remove('active-panel');
-        if (paneTarget) paneTarget.classList.add('active-panel');
-
-        // Show Toast Notification
-        showToast(
-          currentLang === 'en' 
-            ? '🎉 Listing injected and recorded to Google Sheets!' 
-            : '🎉 განცხადება წარმატებით გადავიდა და ჩაიწერა Sheets-ში!'
-        );
-      }, 1500);
-    };
-
-    if (simInjectBtn) simInjectBtn.addEventListener('click', triggerInject);
-    if (simInjectMyHomeBtn) simInjectMyHomeBtn.addEventListener('click', triggerInject);
-
-    // Step 3: Reset
-    if (simResetBtn) {
-      simResetBtn.addEventListener('click', () => {
-        // Reset buttons
-        simScrapeBtn.disabled = false;
-        simScrapeBtn.className = 'btn btn-secondary w-full btn-sim-action';
-        simScrapeBtn.innerHTML = `<i data-lucide="copy" class="btn-icon"></i> <span data-lang="en">1. Scrape Listing Data</span><span data-lang="ka">1. მონაცემების კოპირება</span>`;
-
-        if (simInjectBtn) {
-          simInjectBtn.disabled = true;
-          simInjectBtn.innerHTML = `ორივე პლატფორმაზე`;
-        }
-        if (simInjectMyHomeBtn) {
-          simInjectMyHomeBtn.disabled = true;
-          simInjectMyHomeBtn.innerHTML = `MyHome.ge-ზე`;
-        }
-
-        // Reset Extension status & views
-        extStatusLight.className = 'ext-status-dot offline';
-        extStatusText.innerHTML = `<span data-lang="en">Ready to Scrape</span><span data-lang="ka">მზად არის კოპირებისთვის</span>`;
-        if (dataPreviewBadge) dataPreviewBadge.classList.add('hidden');
-        if (extInactiveView) extInactiveView.classList.remove('hidden');
-        if (extActiveView) extActiveView.classList.add('hidden');
-
-        // Reset Inputs
-        if (simSurchargeInput) simSurchargeInput.value = '5';
-        if (simRoundAreaChk) simRoundAreaChk.checked = true;
-        if (simAgentInput) simAgentInput.value = 'Nika';
-        const simPhoneInput = document.getElementById('sim-phone');
-        if (simPhoneInput) simPhoneInput.value = '555555555';
-        if (simDescInput) simDescInput.value = 'ბინა ქირავდება ვაკეში, ჭავჭავაძის გამზირზე. ახალი რემონტით, ავეჯითა და ტექნიკით. აგენტი: Nika.';
-
-        // Reset Target fields
-        [targetDeal, targetPrice, targetArea, targetDesc].forEach(el => {
-          if (el) {
-            el.textContent = '--';
-            el.className = 'form-val-box placeholder-val';
-          }
-        });
-        if (targetDesc) targetDesc.classList.add('desc-box');
-
-        // Reset Sheets table
-        if (sheetsRowPlaceholder) sheetsRowPlaceholder.classList.remove('hidden');
-        if (sheetsRowData) sheetsRowData.classList.add('hidden');
-
-        // Reset active panels
-        if (paneSource) paneSource.classList.add('active-panel');
-        if (paneExtension) paneExtension.classList.remove('active-panel');
-        if (paneTarget) paneTarget.classList.remove('active-panel');
-
-        // Reinitialize Icons
-        if (window.lucide) window.lucide.createIcons();
-        setLanguage(currentLang);
+    document.querySelectorAll("[data-i18n-attr]").forEach(function (el) {
+      el.getAttribute("data-i18n-attr").split(",").forEach(function (pair) {
+        var bits = pair.split("|");
+        var attr = bits[0].trim(), key = bits[1].trim();
+        if (!(key in KA_ATTR)) KA_ATTR[key] = el.getAttribute(attr);
       });
+    });
+  }
+
+  function apply(lang) {
+    var dict = lang === "en" ? EN : KA;
+    document.querySelectorAll("[data-i18n]").forEach(function (el) {
+      var k = el.getAttribute("data-i18n");
+      if (dict[k] != null) el.innerHTML = dict[k];
+    });
+    var adict = lang === "en" ? EN : KA_ATTR;
+    document.querySelectorAll("[data-i18n-attr]").forEach(function (el) {
+      el.getAttribute("data-i18n-attr").split(",").forEach(function (pair) {
+        var bits = pair.split("|");
+        var attr = bits[0].trim(), key = bits[1].trim();
+        if (adict[key] != null) el.setAttribute(attr, adict[key]);
+      });
+    });
+    root.lang = lang;
+    var label = document.getElementById("lang-label");
+    if (label) label.textContent = lang === "en" ? "ქა" : "EN";
+    document.title = lang === "en"
+      ? "HomeGrab — one listing, both sites"
+      : "HomeGrab — ერთი განცხადება, ორივე საიტი";
+    renderSim();
+  }
+
+  /* --- Theme --------------------------------------------------------------- */
+  function currentTheme() {
+    if (root.dataset.theme) return root.dataset.theme;
+    return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  }
+  function paintThemeIcon() {
+    var btn = document.getElementById("theme-toggle");
+    if (!btn) return;
+    var use = btn.querySelector("use");
+    if (use) use.setAttribute("href", currentTheme() === "dark" ? "#i-sun" : "#i-moon");
+  }
+
+  /* --- Simulator -----------------------------------------------------------
+     Keyboard-operable stepper. Everything it demonstrates also exists as static
+     text or a screenshot elsewhere on the page, so nothing depends on it.
+     It ends on a FILLED, UNPUBLISHED form — never on "published".
+     ---------------------------------------------------------------------- */
+  var FILL_KA = ["სესიის შემოწმება", "კატეგორია და ტიპი", "მდებარეობა", "დეტალები",
+                 "აღწერა და ფასი", "კეთილმოწყობა", "ფოტოები"];
+  var FILL_EN = ["Session check", "Category and type", "Location", "Details",
+                 "Description and price", "Amenities", "Photos"];
+
+  function fillList(done, lang) {
+    var names = lang === "en" ? FILL_EN : FILL_KA;
+    return '<ul class="fill-list">' + names.map(function (n, i) {
+      var ok = i < done;
+      return '<li><span class="tick' + (ok ? '' : ' tick--pending') + '" aria-hidden="true">' +
+             (ok ? '✓' : (i + 1)) + '</span>' + n + '</li>';
+    }).join("") + '</ul>';
+  }
+
+  function simSteps(lang) {
+    var en = lang === "en";
+    return [
+      {
+        tab: en ? "Open" : "გახსნა",
+        title: en ? "Open one listing" : "გახსენი ერთი განცხადება",
+        desc: en
+          ? "On ss.ge or myhome.ge, open a single listing — not a search-result page — and click the HomeGrab icon."
+          : "ss.ge-ზე ან myhome.ge-ზე გახსენი ერთი განცხადება — არა საძიებო შედეგები — და დააჭირე HomeGrab-ის ხატულას.",
+        stage:
+          '<div class="popup-card" style="background:var(--surface)">' +
+          '<span class="popup-label">' + (en ? "Listing read" : "წაკითხული განცხადება") + '</span>' +
+          '<span class="popup-field">ID 36104872 · ' + (en ? "SS.ge" : "SS.ge") + '</span>' +
+          '<span class="popup-field">ალ.ყაზბეგის გამზ. 24 · საბურთალო</span>' +
+          '<span class="popup-field">1250 $ · 3 ' + (en ? "rooms" : "ოთახი") + ' · 47 m²</span>' +
+          '</div>'
+      },
+      {
+        tab: en ? "Check" : "შემოწმება",
+        title: en ? "Check the fields" : "შეამოწმე ველები",
+        desc: en
+          ? "Price and description apply to this listing only. Area rounding is a persistent setting: 47 m² becomes 50."
+          : "ფასი და აღწერა მხოლოდ ამ განცხადებისთვისაა. დამრგვალება მუდმივი პარამეტრია: 47 მ² ხდება 50.",
+        stage:
+          '<div class="popup-card" style="background:var(--surface)">' +
+          '<span class="popup-label">ფასი</span>' +
+          '<span class="popup-field">1300</span>' +
+          '<span class="popup-label">აღწერა</span>' +
+          '<span class="popup-field is-placeholder">' + (en ? "your saved text" : "შენახული ტექსტი") + '</span>' +
+          '<span class="popup-check"><span aria-hidden="true">✓</span> დამრგვალება (5 მ²) — 47 → 50</span>' +
+          '</div>'
+      },
+      {
+        tab: en ? "Fill" : "შევსება",
+        title: en ? "The form fills itself" : "ფორმა ივსება",
+        desc: en
+          ? "The other site's create form opens and fills in seven stages. “SS & MyHome” runs both at once."
+          : "იხსნება მეორე საიტის ფორმა და ივსება შვიდ საფეხურად. „SS & MyHome“ ორივეს ერთდროულად ასრულებს.",
+        stage: fillList(3, lang) +
+          '<p style="margin:var(--sp-3) 0 0;font-size:var(--fs-xs);color:var(--text-muted)">' +
+          (en ? "Location (3/7)" : "მდებარეობა (3/7)") + '</p>'
+      },
+      {
+        tab: en ? "Yours" : "შენზეა",
+        title: en ? "Filled — and waiting for you" : "შევსებულია — და გელოდება",
+        desc: en
+          ? "Every stage is done. The form is filled but NOT published. You review it and you press publish; the ID is then written to the sheet."
+          : "ყველა საფეხური დასრულდა. ფორმა შევსებულია, მაგრამ გამოუქვეყნებელი. შენ ამოწმებ და შენ აჭერ — ID შემდეგ ჩაიწერება ცხრილში.",
+        stage: fillList(7, lang) +
+          '<div class="awaiting">' +
+          (en ? "Form filled — review it and publish it yourself"
+              : "ფორმა შევსებულია — გადახედე და გამოაქვეყნე ხელით") +
+          '</div>'
+      }
+    ];
+  }
+
+  var simIndex = 0;
+
+  function renderSim() {
+    var tabsEl = document.getElementById("sim-tabs");
+    if (!tabsEl) return;
+    var lang = root.lang === "en" ? "en" : "ka";
+    var steps = simSteps(lang);
+    if (simIndex >= steps.length) simIndex = 0;
+
+    tabsEl.innerHTML = steps.map(function (s, i) {
+      var sel = i === simIndex;
+      return '<button class="sim-step" role="tab" id="sim-tab-' + i + '"' +
+             ' aria-selected="' + sel + '" tabindex="' + (sel ? 0 : -1) + '"' +
+             ' aria-controls="sim-stage">' +
+             '<b>' + (lang === "en" ? "STEP " : "ნაბიჯი ") + (i + 1) + '</b>' + s.tab + '</button>';
+    }).join("");
+
+    var cur = steps[simIndex];
+    document.getElementById("sim-title").textContent = cur.title;
+    document.getElementById("sim-desc").textContent = cur.desc;
+    document.getElementById("sim-stage").innerHTML = cur.stage;
+    document.getElementById("sim-progress").textContent = (simIndex + 1) + " / " + steps.length;
+
+    var prev = document.getElementById("sim-prev");
+    var next = document.getElementById("sim-next");
+    prev.disabled = simIndex === 0;
+    next.disabled = simIndex === steps.length - 1;
+    prev.style.opacity = prev.disabled ? 0.45 : 1;
+    next.style.opacity = next.disabled ? 0.45 : 1;
+
+    tabsEl.querySelectorAll(".sim-step").forEach(function (btn, i) {
+      btn.addEventListener("click", function () { simIndex = i; renderSim(); focusTab(); });
+      btn.addEventListener("keydown", function (e) {
+        var last = steps.length - 1, moved = true;
+        if (e.key === "ArrowRight" || e.key === "ArrowDown") simIndex = i === last ? 0 : i + 1;
+        else if (e.key === "ArrowLeft" || e.key === "ArrowUp") simIndex = i === 0 ? last : i - 1;
+        else if (e.key === "Home") simIndex = 0;
+        else if (e.key === "End") simIndex = last;
+        else moved = false;
+        if (moved) { e.preventDefault(); renderSim(); focusTab(); }
+      });
+    });
+  }
+
+  function focusTab() {
+    var el = document.getElementById("sim-tab-" + simIndex);
+    if (el) el.focus();
+  }
+
+  /* --- Wiring -------------------------------------------------------------- */
+  function init() {
+    capture();
+
+    var startLang = root.lang === "en" ? "en" : "ka";
+    if (startLang === "en") apply("en"); else renderSim();
+    paintThemeIcon();
+
+    document.getElementById("lang-toggle").addEventListener("click", function () {
+      var next = root.lang === "en" ? "ka" : "en";
+      apply(next);
+      store.set("hg-lang", next);
+    });
+
+    document.getElementById("theme-toggle").addEventListener("click", function () {
+      var next = currentTheme() === "dark" ? "light" : "dark";
+      root.dataset.theme = next;
+      store.set("hg-theme", next);
+      paintThemeIcon();
+    });
+
+    var navToggle = document.getElementById("nav-toggle");
+    var navLinks = document.getElementById("nav-links");
+    navToggle.addEventListener("click", function () {
+      var open = navLinks.classList.toggle("is-open");
+      navToggle.setAttribute("aria-expanded", String(open));
+    });
+    navLinks.addEventListener("click", function (e) {
+      if (e.target.tagName === "A") {
+        navLinks.classList.remove("is-open");
+        navToggle.setAttribute("aria-expanded", "false");
+      }
+    });
+
+    document.getElementById("sim-prev").addEventListener("click", function () {
+      if (simIndex > 0) { simIndex--; renderSim(); }
+    });
+    document.getElementById("sim-next").addEventListener("click", function () {
+      simIndex++; renderSim();
+    });
+
+    /* Subtle, once, and never when reduced motion is requested. */
+    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches &&
+        "IntersectionObserver" in window) {
+      var targets = document.querySelectorAll(".section-head, .card, .step, .stat, .compare-row");
+      targets.forEach(function (el) { el.classList.add("reveal"); });
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (en.isIntersecting) { en.target.classList.add("is-visible"); io.unobserve(en.target); }
+        });
+      }, { rootMargin: "0px 0px -8% 0px" });
+      targets.forEach(function (el) { io.observe(el); });
     }
+
+    /* Parity guard: every Georgian key must have an English counterpart.
+       Logged, not thrown — a missing translation must never break the page. */
+    var missing = Object.keys(KA).concat(Object.keys(KA_ATTR))
+      .filter(function (k) { return !(k in EN); });
+    if (missing.length) console.warn("HomeGrab: missing EN strings for", missing);
   }
 
-  // Custom Toast helper
-  function showToast(message) {
-    const toast = document.createElement('div');
-    toast.className = 'toast-notification';
-    toast.textContent = message;
-    document.body.appendChild(toast);
-
-    // Fade in
-    setTimeout(() => {
-      toast.classList.add('toast-show');
-    }, 100);
-
-    // Fade out and destroy
-    setTimeout(() => {
-      toast.classList.remove('toast-show');
-      setTimeout(() => {
-        toast.remove();
-      }, 300);
-    }, 4000);
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
   }
-});
-
+})();
