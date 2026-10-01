@@ -38,18 +38,19 @@
 
 <main id="main" class="section">
   <div class="container" style="max-width:48rem">
-    <h1>კონფიდენციალურობის პოლიტიკა</h1>
+    <h1 style="overflow-wrap:anywhere">კონფიდენციალურობის პოლიტიკა</h1>
     <p style="color:var(--text-muted)">
-      ბოლო განახლება: 2026 წლის 14 სექტემბერი · ეხება HomeGrab v1.0.13-ს.
+      ბოლო განახლება: 2026 წლის 1 ოქტომბერი · ეხება HomeGrab v1.0.20-ს და შემდეგ ვერსიებს.
     </p>
 
     <div class="callout" style="margin-block:var(--sp-6)">
       <h2 style="font-size:var(--fs-h3);margin-bottom:var(--sp-2)">მოკლედ</h2>
-      <p style="margin:0">
-        შენი განცხადებების მონაცემები ინახება შენსავე Google ცხრილში, შენსავე
-        Google Drive-ზე. HomeGrab Drive-ზე მხოლოდ იმ ერთ ფაილს წვდება, რომელიც
-        თვითონვე შექმნა.
-      </p>
+      <ul style="margin:0">
+        <li>განცხადებების მონაცემები ინახება <strong>მხოლოდ შენს Google ცხრილში</strong>, შენსავე Google Drive-ზე. HomeGrab-ის სერვერზე ისინი არ იგზავნება.</li>
+        <li>HomeGrab-ის სერვერი ინახავს მხოლოდ იმას, რაც ანგარიშის, ტარიფისა და გადახდების სამართავადაა საჭირო — ზუსტი სია ქვემოთაა.</li>
+        <li>ბარათის მონაცემებს ჩვენ ვერ ვხედავთ: გადახდა ხდება საქართველოს ბანკის დაცულ გვერდზე.</li>
+        <li>მონაცემებს არ ვყიდით და რეკლამისთვის არ ვიყენებთ.</li>
+      </ul>
     </div>
 
     <h2>1. რა უფლებებს ითხოვს Google-ისგან</h2>
@@ -63,8 +64,8 @@
           <tr><th scope="row"><code>drive.file</code></th>
               <td>წვდომა მხოლოდ იმ ფაილებზე, რომლებიც თავად გაფართოებამ შექმნა — პრაქტიკაში ეს არის შენი „HomeGrab Tracker" ცხრილი. დანარჩენ Drive-ზე წვდომა არა აქვს.</td></tr>
           <tr><th scope="row"><code>openid</code></th><td>შესვლის დადასტურება.</td></tr>
-          <tr><th scope="row"><code>profile</code></th><td>ანგარიშის საბაზისო პროფილი.</td></tr>
-          <tr><th scope="row"><code>email</code></th><td>ელფოსტის მისამართი, რომელიც პოპაპის თავში ჩანს.</td></tr>
+          <tr><th scope="row"><code>profile</code></th><td>ანგარიშის საბაზისო პროფილი (სახელი).</td></tr>
+          <tr><th scope="row"><code>email</code></th><td>ელფოსტის მისამართი.</td></tr>
         </tbody>
       </table>
     </div>
@@ -85,7 +86,7 @@
       </table>
     </div>
 
-    <h2>3. სად მუშაობს</h2>
+    <h2>3. სად მუშაობს და ვისთან უკავშირდება</h2>
     <p>გაფართოება ირთვება მხოლოდ ამ დომენებზე და სხვაგან არსად:</p>
     <ul class="host-list" style="margin-block-end:var(--sp-5)">
       <li>ss.ge</li><li>home.ss.ge</li><li>static.ss.ge</li>
@@ -93,45 +94,83 @@
       <li>api-statements.tnet.ge</li><li>static-statements.tnet.ge</li>
       <li>static.my.ge</li><li>*.googleapis.com</li>
     </ul>
+    <p>
+      გარდა ამისა, ის უკავშირდება HomeGrab-ის სერვერს
+      (<code>homegrab-api.usectl.com</code>), ხოლო გადახდისას — საქართველოს ბანკის
+      გადახდის გვერდს.
+    </p>
 
-    <h2>4. რა მონაცემები მუშავდება</h2>
+    <h2>4. განცხადებების მონაცემები</h2>
     <p>
       გადმოტანისას მუშავდება ის ინფორმაცია, რომელიც უკვე გამოქვეყნებულ განცხადებაშია:
       მისამართი, რაიონი, ფასი, ფართი, ოთახების რაოდენობა, აღწერა, ფოტოები და
       განცხადებაში მითითებული საკონტაქტო ნომერი. ეს მონაცემები იწერება შენს
-      „HomeGrab Tracker" ცხრილში, რომელიც შენსავე Google Drive-ზეა.
+      „HomeGrab Tracker" ცხრილში, შენსავე Google Drive-ზე, და <strong>HomeGrab-ის
+      სერვერზე არ იგზავნება</strong>.
     </p>
+    <p>შენ მიერ აკრეფილი აღწერის ტექსტი ინახება მხოლოდ შენს კომპიუტერში.</p>
+
+    <h2>5. რას ინახავს HomeGrab-ის სერვერი</h2>
+    <div class="scroll-x">
+      <table class="data-table">
+        <thead><tr><th scope="col">რა</th><th scope="col">რატომ</th></tr></thead>
+        <tbody>
+          <tr><td>Google ანგარიშის იდენტიფიკატორი, ელფოსტა და სახელი</td><td>შესვლა და ანგარიშის ამოცნობა.</td></tr>
+          <tr><td>მოწყობილობის შემთხვევითი იდენტიფიკატორი (იქმნება გაფართოების დაყენებისას; არ არის კომპიუტერის ან აპარატურის მონაცემი), გაფართოების ვერსია, ბოლო გამოყენების დრო</td><td>ერთ ანგარიშზე ერთი აქტიური კომპიუტერის წესი; განახლების შეხსენება.</td></tr>
+          <tr><td>როდის დაყენდა გაფართოება ამ კომპიუტერზე და გამოიყენებოდა თუ არა ფასიან ვერსიამდე (მხოლოდ თარიღები და „კი/არა")</td><td>უფასო საცდელი პერიოდის უფლების განსაზღვრა.</td></tr>
+          <tr><td>პარამეტრების ასლი: აგენტის სახელი, ფასის დანამატი, ფართის დამრგვალება, კეთილმოწყობის ნაკრები, ქალაქი, თემა</td><td>პარამეტრები სხვა კომპიუტერზეც რომ აისახოს.</td></tr>
+          <tr><td>საცდელი პერიოდის თარიღები, ტარიფი, მოქმედების ვადა, სტატუსი, დადასტურებული პირობების ვერსია</td><td>ტარიფის მართვა.</td></tr>
+          <tr><td>გადახდები: ბანკის შეკვეთის ნომერი, თანხა, სტატუსი, გადახდის მეთოდი, ბარათის ბოლო 4 ციფრი და მოქმედების ვადა, ბანკის დადასტურება (ბარათის სრული ნომრის გარეშე)</td><td>გადახდის დადასტურება, ავტომატური განახლება, თანხის დაბრუნება.</td></tr>
+          <tr><td>ანგარიშზე ადმინისტრატორის მოქმედებების ჟურნალი</td><td>უსაფრთხოება და დავების გარჩევა.</td></tr>
+        </tbody>
+      </table>
+    </div>
     <p>
-      ასევე ინახება შენ მიერ მითითებული პარამეტრები — სახელი, ტელეფონი, ფასის
-      დანამატი და აღწერის ტექსტი. ისინი მიბმულია შენს Google ანგარიშზე, ამიტომ
-      სხვა კომპიუტერზეც აისახება.
+      <strong>რას არ ინახავს:</strong> განცხადებების შინაარსს, მესაკუთრეების ტელეფონის
+      ნომრებს, ss.ge-ის ან myhome.ge-ის პაროლებს, ბარათის სრულ ნომერს,
+      ათვალიერების ისტორიას.
     </p>
 
-    <h2>5. პაროლები</h2>
+    <h2>6. ვის ვუზიარებთ</h2>
+    <ul>
+      <li><strong>საქართველოს ბანკი</strong> — გადახდის დამუშავება. ბარათის მონაცემებს შეიყვან უშუალოდ ბანკის გვერდზე.</li>
+      <li><strong>usectl</strong> — ჰოსტინგი, სადაც HomeGrab-ის სერვერი და მონაცემთა ბაზა მუშაობს.</li>
+    </ul>
+    <p>
+      მონაცემებს არავის ვყიდით, რეკლამისთვის არ ვიყენებთ და მესამე მხარეს სხვა
+      მიზნით არ გადავცემთ, თუ ამას კანონი არ მოითხოვს.
+    </p>
+
+    <h2>7. პაროლები</h2>
     <p>
       HomeGrab არასოდეს ითხოვს ss.ge-ის ან myhome.ge-ის პაროლს და არ ინახავს მას.
       ის მუშაობს იმ სესიაში, რომელშიც ბრაუზერში უკვე შესული ხარ.
     </p>
 
-    <h2>6. სერვერები</h2>
+    <h2>8. შენახვის ვადა და წაშლა</h2>
     <p>
-      მიმდინარე ბილდში განცხადებების მონაცემები არ იგზავნება HomeGrab-ის სერვერზე —
-      ისინი შენს Google ცხრილში რჩება. პროექტში არსებობს სასერვერო კომპონენტი
-      (ანგარიშები, გამოწერები, ანონიმური გამოყენების მრიცხველები), მაგრამ ის
-      ამჟამად გამორთულია. თუ ეს შეიცვლება, ეს გვერდი განახლდება მანამ, სანამ
-      ცვლილება ამოქმედდება.
+      ანგარიშის მონაცემები ინახება, სანამ ანგარიში აქტიურია. ანგარიშის წაშლა
+      შეგიძლია მოითხოვო Chrome Web Store-ის გვერდიდან (ქვემოთ). მონაცემებს წავშლით
+      30 დღის განმავლობაში, გარდა გადახდის ჩანაწერებისა, რომლებსაც ვინახავთ
+      იმდენ ხანს, რამდენსაც საქართველოს კანონმდებლობა მოითხოვს.
+    </p>
+    <p>
+      ცხრილი შენია — შეგიძლია ნებისმიერ დროს წაშალო Google Drive-იდან. Google-ის
+      წვდომის გაუქმება შესაძლებელია Google-ის ანგარიშის უსაფრთხოების გვერდიდან,
+      ხოლო კომპიუტერში შენახული მონაცემები იშლება გაფართოების წაშლისას.
     </p>
 
-    <h2>7. წაშლა</h2>
+    <h2>9. Google-ის მონაცემების გამოყენება</h2>
     <p>
-      ცხრილი შენია — შეგიძლია ნებისმიერ დროს წაშალო Google Drive-იდან. წვდომის
-      გაუქმება შესაძლებელია Google-ის ანგარიშის უსაფრთხოების გვერდიდან, ხოლო
-      ლოკალური პარამეტრები იშლება გაფართოების წაშლისას.
+      Google-ის API-ებიდან მიღებული ინფორმაციის გამოყენება შეესაბამება Chrome Web
+      Store-ის მომხმარებლის მონაცემების პოლიტიკას, მათ შორის „Limited Use"
+      მოთხოვნებს.
     </p>
 
-    <h2>8. კონტაქტი</h2>
+    <h2>10. ცვლილებები და კონტაქტი</h2>
     <p>
-      კითხვებისთვის მოგვწერე Chrome Web Store-ის გვერდიდან:
+      არსებით ცვლილებებს წინასწარ გამოვაქვეყნებთ ამ გვერდზე. კითხვებისა და
+      მოთხოვნებისთვის მოგვწერე Chrome Web Store-ის გვერდიდან:
       <a href="https://chromewebstore.google.com/detail/home-grab/gkafeolkiffkkbbpeceaiefpglfblmkh" rel="noopener">Home Grab</a>.
     </p>
 
@@ -139,26 +178,49 @@
 
     <h2 lang="en">In English</h2>
     <p lang="en">
-      HomeGrab signs you in with Google OAuth 2.0 and requests exactly four scopes:
-      <code>drive.file</code>, <code>openid</code>, <code>profile</code> and
-      <code>email</code>. The <code>drive.file</code> scope means the extension can
-      only see and edit files it created itself — your “HomeGrab Tracker”
-      spreadsheet — and has no access to the rest of your Drive.
+      <strong>In short.</strong> Listing data (addresses, prices, photos, owners'
+      phone numbers) is written <strong>only to your own Google Sheet</strong> in your
+      own Google Drive and is never sent to HomeGrab's server. HomeGrab's server keeps
+      only what it needs to run your account, plan and payments. Card details are
+      entered on Bank of Georgia's secure page and never reach us. We do not sell data
+      or use it for advertising.
     </p>
     <p lang="en">
+      HomeGrab signs you in with Google OAuth 2.0 and requests exactly four scopes:
+      <code>drive.file</code> (only files the extension created — your “HomeGrab
+      Tracker” sheet), <code>openid</code>, <code>profile</code> and <code>email</code>.
       It requests six Chrome permissions (<code>identity</code>, <code>storage</code>,
       <code>alarms</code>, <code>notifications</code>, <code>scripting</code>,
-      <code>tabs</code>) and runs only on ss.ge, home.ss.ge, static.ss.ge,
-      www.myhome.ge, statements.myhome.ge, api-statements.tnet.ge,
-      static-statements.tnet.ge, static.my.ge and googleapis.com.
+      <code>tabs</code>), runs only on ss.ge, home.ss.ge, static.ss.ge, www.myhome.ge,
+      statements.myhome.ge, api-statements.tnet.ge, static-statements.tnet.ge,
+      static.my.ge and googleapis.com, and connects to HomeGrab's server
+      (<code>homegrab-api.usectl.com</code>) and, when you pay, Bank of Georgia's
+      payment page.
     </p>
     <p lang="en">
-      Listing data — descriptions, prices and owners' phone numbers — is written to
-      your own Google Sheet in your own Drive. HomeGrab never asks for your ss.ge or
-      myhome.ge password; it uses the browser session you are already signed into.
-      A backend component exists in the project (accounts, subscriptions, anonymous
-      usage counters) but is not enabled in current builds; this page will be updated
-      before that changes.
+      <strong>HomeGrab's server stores:</strong> your Google account ID, email and
+      name; a random device ID created on install (not a hardware identifier), the
+      extension version and when you last used it; when the extension was first
+      installed on this computer and whether it was used before the paid version
+      (dates and a yes/no only, for free-trial eligibility); a backup of your
+      settings (agent name, price addition, area rounding, amenity preset, city,
+      theme); your trial dates, plan, period, status and accepted terms version;
+      payment records (bank order number, amount, status, payment method, the card's
+      last 4 digits and expiry, and the bank's confirmation, never the full card
+      number); and a log of administrator actions on your account. The description
+      text you type stays on your computer only.
+    </p>
+    <p lang="en">
+      <strong>Not stored:</strong> listing contents, owners' phone numbers, your ss.ge
+      or myhome.ge passwords, full card numbers, browsing history.
+      <strong>Shared with:</strong> Bank of Georgia (payment processing) and usectl
+      (hosting). Account data is kept while your account is active; request deletion
+      through the Chrome Web Store page and we delete it within 30 days, except payment
+      records kept as long as Georgian law requires.
+    </p>
+    <p lang="en">
+      The use of information received from Google APIs will adhere to the Chrome Web
+      Store User Data Policy, including the Limited Use requirements.
     </p>
   </div>
 </main>
