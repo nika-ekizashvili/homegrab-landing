@@ -40,13 +40,15 @@
   <div class="container" style="max-width:48rem">
     <h1 style="overflow-wrap:anywhere">კონფიდენციალურობის პოლიტიკა</h1>
     <p style="color:var(--text-muted)">
-      ბოლო განახლება: 2026 წლის 1 ოქტომბერი · ეხება HomeGrab v1.0.20-ს და შემდეგ ვერსიებს.
+      ბოლო განახლება: 2026 წლის 8 ოქტომბერი · ეხება HomeGrab v1.0.20-ს და შემდეგ ვერსიებს;
+      შეცდომების ანგარიშები (§6) — v1.0.23-დან.
     </p>
 
     <div class="callout" style="margin-block:var(--sp-6)">
       <h2 style="font-size:var(--fs-h3);margin-bottom:var(--sp-2)">მოკლედ</h2>
       <ul style="margin:0">
-        <li>განცხადებების მონაცემები ინახება <strong>მხოლოდ შენს Google ცხრილში</strong>, შენსავე Google Drive-ზე. HomeGrab-ის სერვერზე ისინი არ იგზავნება.</li>
+        <li>განცხადებების მონაცემები ინახება <strong>მხოლოდ შენს Google ცხრილში</strong>, შენსავე Google Drive-ზე. მისამართი, ფოტოები, მესაკუთრის ნომერი და აღწერა HomeGrab-ის სერვერზე <strong>არასოდეს</strong> იგზავნება.</li>
+        <li>როცა გადატანა ან გამოქვეყნება ვერ ხერხდება, გაფართოება აგზავნის ტექნიკურ ანგარიშს, რომ შეცდომა გავასწოროთ (§6). პირადი მონაცემები მასში არ არის, და მისი გამორთვა პარამეტრებში შეგიძლია.</li>
         <li>HomeGrab-ის სერვერი ინახავს მხოლოდ იმას, რაც ანგარიშის, ტარიფისა და გადახდების სამართავადაა საჭირო — ზუსტი სია ქვემოთაა.</li>
         <li>ბარათის მონაცემებს ჩვენ ვერ ვხედავთ: გადახდა ხდება საქართველოს ბანკის დაცულ გვერდზე.</li>
         <li>მონაცემებს არ ვყიდით და რეკლამისთვის არ ვიყენებთ.</li>
@@ -106,13 +108,13 @@
       მისამართი, რაიონი, ფასი, ფართი, ოთახების რაოდენობა, აღწერა, ფოტოები და
       განცხადებაში მითითებული საკონტაქტო ნომერი. ეს მონაცემები იწერება შენს
       „HomeGrab Tracker" ცხრილში, შენსავე Google Drive-ზე, და <strong>HomeGrab-ის
-      სერვერზე არ იგზავნება</strong>.
+      სერვერზე არ იგზავნება</strong>, გარდა შეცდომის ანგარიშის ტექნიკური ველებისა (§6).
     </p>
     <p>შენ მიერ აკრეფილი აღწერის ტექსტი ინახება მხოლოდ შენს კომპიუტერში.</p>
 
     <h2>5. რას ინახავს HomeGrab-ის სერვერი</h2>
     <div class="scroll-x">
-      <table class="data-table">
+      <table class="data-table wrap">
         <thead><tr><th scope="col">რა</th><th scope="col">რატომ</th></tr></thead>
         <tbody>
           <tr><td>Google ანგარიშის იდენტიფიკატორი, ელფოსტა და სახელი</td><td>შესვლა და ანგარიშის ამოცნობა.</td></tr>
@@ -126,12 +128,51 @@
       </table>
     </div>
     <p>
-      <strong>რას არ ინახავს:</strong> განცხადებების შინაარსს, მესაკუთრეების ტელეფონის
+      <strong>რას არ ინახავს:</strong> განცხადებების შინაარსს (გარდა §6-ში ჩამოთვლილი
+      ტექნიკური ველებისა), მესაკუთრეების ტელეფონის
       ნომრებს, ss.ge-ის ან myhome.ge-ის პაროლებს, ბარათის სრულ ნომერს,
       ათვალიერების ისტორიას.
     </p>
 
-    <h2>6. ვის ვუზიარებთ</h2>
+    <h2>6. შეცდომების ანგარიშები</h2>
+    <p>
+      როცა განცხადების გადატანა, ფორმის შევსება ან გამოქვეყნება ვერ ხერხდება, ან
+      გაფართოებაში მოულოდნელი შეცდომა ხდება, გაფართოება HomeGrab-ის სერვერზე აგზავნის
+      ტექნიკურ ანგარიშს. ის გამოიყენება მხოლოდ შეცდომების აღმოსაჩენად და
+      გასასწორებლად. წარმატებული გადატანებიც აღირიცხება (საიტები, ეტაპი, შედეგი,
+      ხანგრძლივობა და განცხადების ნომერი), რომ ვიცოდეთ, რამდენად ხშირია შეცდომა.
+    </p>
+    <div class="scroll-x">
+      <table class="data-table wrap">
+        <thead><tr><th scope="col">რა იგზავნება</th><th scope="col">რატომ</th></tr></thead>
+        <tbody>
+          <tr><td>რომელი საიტიდან რომელზე, რომელ ეტაპზე, შედეგი, ხანგრძლივობა და გადმოსატანი განცხადების ნომერი (ID) საიტზე</td><td>შეცდომის ადგილის დადგენა.</td></tr>
+          <tr><td>საიტის (ss.ge / myhome.ge) პასუხი: შეცდომის კოდი და ტექსტი</td><td>რა არ მიიღო საიტმა.</td></tr>
+          <tr><td>შევსებული ფორმის ტექნიკური ველები, მხოლოდ კოდები და რიცხვები: ქონებისა და გარიგების ტიპი, ქალაქის, რაიონისა და ქუჩის კოდი, ფასი, ვალუტა, ფართი, ოთახების რაოდენობა; ფოტოების რაოდენობა; რომელი ველები დარჩა ხელით შესავსები</td><td>შეცდომის გამეორება და გასწორება.</td></tr>
+          <tr><td>ss.ge / myhome.ge ანგარიშის ტიპი (მაგ. ფიზიკური პირი ან აგენტი) და აქტიური განცხადებების რაოდენობა</td><td>საიტის წესების ცვლილების აღმოჩენა. ანგარიშის სახელი, ელფოსტა ან ნომერი არ იგზავნება.</td></tr>
+          <tr><td>გაფართოების შეცდომის ტექსტი და კოდის ადგილი, ფორმაზე ვერ ნაპოვნი ველის სახელი, გაფართოებისა და Chrome-ის ვერსია, ოპერაციული სისტემა</td><td>გაფართოების შეცდომების გასწორება და საიტების ცვლილების დროზე შემჩნევა.</td></tr>
+          <tr><td>შენი HomeGrab ანგარიშისა და მოწყობილობის იდენტიფიკატორი (§5)</td><td>რომ შენს მიმართვაზე გიპასუხოთ, რა მოხდა კონკრეტულ განცხადებასთან.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>
+      <strong>არასოდეს იგზავნება:</strong> მესაკუთრის სახელი და ტელეფონის ნომერი, შენი
+      ტელეფონის ნომერი, აღწერის ტექსტი, ზუსტი მისამართი, კოორდინატები, ფოტოები,
+      ss.ge-ის ან myhome.ge-ის შესვლის მონაცემები (ქუქი-ფაილები, ტოკენები). გაფართოება
+      ამ მონაცემებს შლის გაგზავნამდე.
+    </p>
+    <p>
+      <strong>ვადა:</strong> ანგარიშები ინახება 90 დღე და შემდეგ იშლება. რჩება მხოლოდ
+      შეცდომების ჯამური რაოდენობა, ანგარიშთან კავშირის გარეშე.
+    </p>
+    <p>
+      <strong>გამორთვა:</strong> ანგარიშების გაგზავნა ნაგულისხმევად ჩართულია. გამორთვა
+      შეგიძლია გაფართოების პარამეტრებში („შეცდომების ანგარიშის გაგზავნა"). გამორთვის
+      შემდეგ აღარაფერი იგზავნება, მათ შორის ის ანგარიშებიც, რომლებიც ჯერ არ იყო
+      გაგზავნილი.
+    </p>
+
+    <h2>7. ვის ვუზიარებთ</h2>
     <ul>
       <li><strong>საქართველოს ბანკი</strong> — გადახდის დამუშავება. ბარათის მონაცემებს შეიყვან უშუალოდ ბანკის გვერდზე.</li>
       <li><strong>usectl</strong> — ჰოსტინგი, სადაც HomeGrab-ის სერვერი და მონაცემთა ბაზა მუშაობს.</li>
@@ -141,15 +182,16 @@
       მიზნით არ გადავცემთ, თუ ამას კანონი არ მოითხოვს.
     </p>
 
-    <h2>7. პაროლები</h2>
+    <h2>8. პაროლები</h2>
     <p>
       HomeGrab არასოდეს ითხოვს ss.ge-ის ან myhome.ge-ის პაროლს და არ ინახავს მას.
       ის მუშაობს იმ სესიაში, რომელშიც ბრაუზერში უკვე შესული ხარ.
     </p>
 
-    <h2>8. შენახვის ვადა და წაშლა</h2>
+    <h2>9. შენახვის ვადა და წაშლა</h2>
     <p>
-      ანგარიშის მონაცემები ინახება, სანამ ანგარიში აქტიურია. ანგარიშის წაშლა
+      ანგარიშის მონაცემები ინახება, სანამ ანგარიში აქტიურია, შეცდომების ანგარიშები —
+      90 დღე (§6). ანგარიშის წაშლა
       შეგიძლია მოითხოვო ელფოსტით: <a href="mailto:eqiza99@gmail.com">eqiza99@gmail.com</a>. მონაცემებს წავშლით
       30 დღის განმავლობაში, გარდა გადახდის ჩანაწერებისა, რომლებსაც ვინახავთ
       იმდენ ხანს, რამდენსაც საქართველოს კანონმდებლობა მოითხოვს.
@@ -160,14 +202,14 @@
       ხოლო კომპიუტერში შენახული მონაცემები იშლება გაფართოების წაშლისას.
     </p>
 
-    <h2>9. Google-ის მონაცემების გამოყენება</h2>
+    <h2>10. Google-ის მონაცემების გამოყენება</h2>
     <p>
       Google-ის API-ებიდან მიღებული ინფორმაციის გამოყენება შეესაბამება Chrome Web
       Store-ის მომხმარებლის მონაცემების პოლიტიკას, მათ შორის „Limited Use"
       მოთხოვნებს.
     </p>
 
-    <h2>10. ცვლილებები და კონტაქტი</h2>
+    <h2>11. ცვლილებები და კონტაქტი</h2>
     <p>
       არსებით ცვლილებებს წინასწარ გამოვაქვეყნებთ ამ გვერდზე. სერვისს აწვდის
       „ჰოუმ გრაბი“, ს/კ 400453656. კითხვებისა და მოთხოვნებისთვის:
@@ -180,10 +222,13 @@
 
     <h2 lang="en">In English</h2>
     <p lang="en">
-      <strong>In short.</strong> Listing data (addresses, prices, photos, owners'
-      phone numbers) is written <strong>only to your own Google Sheet</strong> in your
-      own Google Drive and is never sent to HomeGrab's server. HomeGrab's server keeps
-      only what it needs to run your account, plan and payments. Card details are
+      <strong>In short.</strong> Listing data is written <strong>only to your own Google
+      Sheet</strong> in your own Google Drive. Addresses, photos, owners' phone numbers
+      and descriptions are never sent to HomeGrab's server. When a transfer or publish
+      fails, the extension sends a technical error report so we can fix it (see
+      <em>Error reports</em> below); it holds no personal data and you can turn it off in
+      settings. HomeGrab's server otherwise keeps only what it needs to run your
+      account, plan and payments. Card details are
       entered on Bank of Georgia's secure page and never reach us. We do not sell data
       or use it for advertising.
     </p>
@@ -213,10 +258,37 @@
       text you type stays on your computer only.
     </p>
     <p lang="en">
-      <strong>Not stored:</strong> listing contents, owners' phone numbers, your ss.ge
-      or myhome.ge passwords, full card numbers, browsing history.
+      <strong>Not stored:</strong> listing contents (except the technical fields of an
+      error report, below), owners' phone numbers, your ss.ge or myhome.ge passwords,
+      full card numbers, browsing history.
+    </p>
+    <p lang="en">
+      <strong>Error reports (from v1.0.23).</strong> When a transfer, form fill or
+      publish fails, or the extension hits an unexpected error, it sends a technical
+      report to HomeGrab's server, used only to find and fix errors. Successful
+      transfers are recorded too (sites, step, outcome, duration and the listing's ID),
+      so we know how often errors happen. A report contains: which site to which, the
+      step, the outcome, the duration and the source listing's ID on the site; the
+      site's (ss.ge / myhome.ge) error code and message; the technical fields of the
+      form, codes and numbers only (property and deal type, city, district and street
+      codes, price, currency, area, room count), the photo count and which fields were
+      left to fill by hand; the type of your ss.ge / myhome.ge account (e.g. individual
+      or agent) and its number of active listings, with no account name, email or
+      number; the extension's error message and code location, the name of a form field
+      it could not find, the extension and Chrome versions and the operating system;
+      and your HomeGrab account and device IDs, so we can answer you about a specific
+      listing. <strong>Never sent:</strong> owners' names and phone numbers, your own
+      phone number, description text, exact address, coordinates, photos, or ss.ge /
+      myhome.ge login data (cookies, tokens); the extension removes them before sending.
+      Reports are kept for 90 days, then deleted; only error totals remain, not linked
+      to any account. Reporting is on by default and can be turned off in the
+      extension's settings (“Send error reports”); once off, nothing more is sent,
+      including reports not yet sent.
+    </p>
+    <p lang="en">
       <strong>Shared with:</strong> Bank of Georgia (payment processing) and usectl
-      (hosting). Account data is kept while your account is active; request deletion at
+      (hosting). Account data is kept while your account is active and error reports
+      for 90 days; request deletion at
       <a href="mailto:eqiza99@gmail.com">eqiza99@gmail.com</a> and we delete it within
       30 days, except payment records kept as long as Georgian law requires.
     </p>

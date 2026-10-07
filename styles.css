@@ -650,6 +650,10 @@ ul { padding-inline-start: 1.15em; }
 .data-table th { font-weight: 600; white-space: nowrap; }
 .data-table thead th { background: var(--surface-sunken); font-size: var(--fs-xs); text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); }
 .data-table td { color: var(--text-muted); }
+/* Sentences in the cells (privacy: what the server stores, error reports): the
+   table fits the page and the text wraps instead of scrolling sideways. */
+.data-table.wrap { width: 100%; }
+.data-table.wrap td:first-child { width: 62%; }
 .data-table code {
   font-family: var(--font-mono); font-size: 0.8125rem;
   background: var(--surface-inset); border: 1px solid var(--border);
