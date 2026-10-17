@@ -1,0 +1,8 @@
+# Repo files that are not part of the website.
+.git
+.gitignore
+.gitattributes
+.dockerignore
+*.md
+privacy-*.png
+Landing Page Design Ideas

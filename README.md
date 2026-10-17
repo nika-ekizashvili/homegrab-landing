@@ -2,25 +2,35 @@
 
 Static site for [homegrab.usectl.com](https://homegrab.usectl.com/). Plain HTML,
 CSS and JavaScript — **no build step, no dependencies, no CDN scripts.** Deploys
-on push to `main`, and the host serves the whole repo root: never commit anything
-private here (the design export `Landing Page Design Ideas/` is git-ignored for
-that reason — its `uploads/` holds internal docs).
+on push to `main` (usectl machine `private-itswhatever`), and the host serves
+everything the `Dockerfile` copies: never commit anything private here (the design
+export `Landing Page Design Ideas/` is git-ignored for that reason — its `uploads/`
+holds internal docs).
 
 ```
 index.html      the page
-styles.css      design tokens + all components (also styles privacy.html / terms.html)
+styles.css      design tokens + all components (also styles privacy.html / terms.html / 404.html)
 app.js          language switch, theme, mobile menu, scroll reveal, the fill-card animation
 privacy.html    privacy policy (KA + EN)
 terms.html      terms of use (KA + EN)
-assets/img/     the "How it works" screenshots (WebP)
+404.html        not-found page (noindex)
+assets/img/     the "How it works" screenshots and og.png, the 1200x630 link-preview card
 favicon.svg  robots.txt  sitemap.xml
+Dockerfile  nginx.conf  .dockerignore   how the server is built (see "Server")
 ```
 
 **Cloudflare caches static files for 4 hours.** Whenever `styles.css` or `app.js`
-changes, bump the `?v=N` on their tags (`styles.css` in all three pages, `app.js`
-in `index.html`); a new image gets a new file name. And never open a new asset's
-URL on the live site before it is deployed: nginx answers a missing file with
-`index.html` and a 200, and Cloudflare caches that for 4 hours too.
+changes, bump the `?v=N` on their tags (`styles.css` in every page, `app.js` in
+`index.html`); a new image gets a new file name. Don't open a new asset's URL on
+the live site before it is deployed — Cloudflare would cache the 404.
+
+## Server
+
+usectl uses the repo's `Dockerfile` as-is (nginx:alpine + our `nginx.conf`) instead
+of generating one. The config gives unknown addresses a real 404 (`404.html`;
+the generated config answered every address with the homepage and a 200),
+redirects `/privacy`, `/terms` and `/index.html` to their one address, and
+`.dockerignore` keeps `*.md` and other repo files off the site.
 
 Run it locally with any static server (paths are root-absolute, so `file://` won't do):
 
