@@ -45,3 +45,6 @@ yarn-error.log*
 # OS
 Thumbs.db
 .DS_Store
+
+# Design-tool export (its uploads/ holds internal docs; the site serves the repo root)
+/Landing Page Design Ideas/

@@ -2,52 +2,62 @@
 
 Static site for [homegrab.usectl.com](https://homegrab.usectl.com/). Plain HTML,
 CSS and JavaScript — **no build step, no dependencies, no CDN scripts.** Deploys
-on push to `main`.
+on push to `main`, and the host serves the whole repo root: never commit anything
+private here (the design export `Landing Page Design Ideas/` is git-ignored for
+that reason — its `uploads/` holds internal docs).
 
 ```
 index.html      the page
-styles.css      design system + all components
-app.js          language switch, theme, the step-through demo
+styles.css      design tokens + all components (also styles privacy.html / terms.html)
+app.js          language switch, theme, mobile menu, scroll reveal, the fill-card animation
 privacy.html    privacy policy (KA + EN)
 terms.html      terms of use (KA + EN)
-assets/img/     screenshots (WebP)
+assets/img/     the "How it works" screenshots (WebP)
 favicon.svg  robots.txt  sitemap.xml
 ```
 
-Run it locally with any static server:
+Run it locally with any static server (paths are root-absolute, so `file://` won't do):
 
 ```bash
 python3 -m http.server 8000     # then open http://localhost:8000
 ```
 
+## Design
+
+The 2026-10-17 redesign is a port of the Claude Design export "HomeGrab Landing"
+(`Landing Page Design Ideas/HomeGrab Landing.dc.html`, kept locally, not committed).
+That file runs on React + Babel from a CDN; this site reproduces it in plain
+HTML/CSS. Sections: hero · how it works · both sites at once (fill card) · Google
+Sheet · security · pricing (+ agencies) · footer. The security section is not in
+the export; it was added on request, in the export's card style.
+
 ## The rule this site is built on
 
-Every claim on the page is traceable to the shipped extension
-(`../adsync-extension`, v1.0.13). No invented numbers, no testimonials, no user
-counts, no fabricated store ratings. If a section looks thin, it is thin because
-the product does not do that thing yet.
+Every claim on the page is traceable to the shipped extension (`../adsync-extension`,
+v1.0.32) or to a decision already made (prices, trial, agency seats). No testimonials,
+no user counts, no fabricated store ratings.
 
-**Do not source copy from `../adsync-extension/docs/`.** `FEATURES.md`,
-`WATERMARK.md` and `ROADMAP.md` describe *proposals* in the same confident tone as
-shipped behaviour — listing radar, owner CRM, photo watermarking, bulk publishing.
-None of them are built.
+Copy comes from `../adsync-extension/docs/landing-kit/COPY.md` (ka/en, line for line).
+**Do not source copy from the other files in `../adsync-extension/docs/`** — many
+describe *proposals* in the same confident tone as shipped behaviour.
 
 ## Things that must be re-checked when the extension changes
 
 | On the page | Source of truth | Why it matters |
 |---|---|---|
-| The 12 tracker column headers, **in order** | `lib/google-api.js:71` (`HEADER_ROW`) | `findExistingSheet()` adopts a spreadsheet only when its first row matches `HEADER_ROW` **exactly**. If the extension's columns change and the page still shows the old ones, the page is lying about the user's own sheet. |
-| `Uploaded: N` day marker | `lib/day-grouping.js:94` | Format is `Uploaded: ${count}`, written to column A. |
-| The popup mock in the hero | `popup/popup.jsx` | Tab names (`:712`, `:719`), the `გამოაქვეყნე:` title (`:943`) and all three button labels (`:950`, `:957`, `:964`). Each is cited inline in `index.html`. |
-| 66 cities / 54 districts | `lib/location-maps.js` | `CITY_NAME_MAP` L8–78, `DISTRICT_NAME_MAP` L80–183. Re-count, don't assume. |
-| 45 streets | `lib/street-query.js:17` | Measured 2026-08-31. |
-| OAuth scopes + Chrome permissions | `public/manifest.json` | Listed on the page *and* in `privacy.html`. Change both. |
-| Plan prices | `lib/subscription.js` | Listed as **planned, not charged**. If `startCheckout` stops returning `{available:false}`, the pricing section and `terms.html` must change before launch. |
+| The 12 tracker column headers, **in order** | `lib/google-api.js` (`HEADER_ROW`) | The extension adopts a spreadsheet only when its first row matches `HEADER_ROW` exactly. A page showing other columns is wrong about the user's own sheet. |
+| `Uploaded: N` day marker, date in column K | `lib/day-grouping.js` | Marker text and where the block date sits. |
+| The step screenshots (popup buttons, „ფორმა შევსებულია") | `popup/popup.jsx` | They are real captures (landing-kit shots 01, 02/03, 28/29). Recapture when the popup changes. |
+| Fill-card values | the real „SS & MyHome" run on ss.ge 36916024 | ვაკე · ი. ჭავჭავაძის გამზ. 29, ₾897,000, 115 m², 4 rooms. |
+| Security cards | `privacy.html`, `public/manifest.json` (`drive.file`) | "Only the files it created" is the `drive.file` scope. Change the page and `privacy.html` together. |
+| Plan prices, 7-day trial | admin pricing (`docs/ADMIN-API-PLAN.md` §0), `store-assets/subscription-terms-ka.md` §2 | Prices are admin settings, not code. |
+| Agency seats (₾15, ₾13.50 above 100) | `docs/AGENCY-SEATS-PLAN.md` | §9 is still open; keep the card's wording until it closes. |
+| Subscription terms link | backend `GET /terms` (`https://homegrab-api.usectl.com/terms`) | One source: rendered from `subscription-terms-ka.md`. |
 
-### Chrome Web Store URL
+### Links that are hardcoded
 
-Hardcoded in three places in `index.html` (nav CTA, hero CTA, footer) and once in
-`privacy.html`. If the listing URL ever changes:
+Chrome Web Store listing — five places in `index.html` (header, mobile menu, hero,
+pricing, footer band):
 
 ```bash
 grep -rn 'chromewebstore.google.com' *.html
@@ -55,25 +65,14 @@ grep -rn 'chromewebstore.google.com' *.html
 
 Current: `https://chromewebstore.google.com/detail/home-grab/gkafeolkiffkkbbpeceaiefpglfblmkh`
 
-### Version number
-
-`v1.0.13` appears in the footer of all three pages. Bump with the extension.
+Agency contact (pricing section): WhatsApp `https://wa.me/995575778142` and
+`homegrab@gmail.com`.
 
 ## Screenshots
 
-`assets/img/` holds WebP crops of `../adsync-extension/store-assets/walkthrough/step4.png`.
-
-Every other image in `store-assets/` was audited and rejected: `screenshot1.png`
-and `walkthrough/home.png` are screenshots of the *old landing page* (complete with
-a Chrome "Screenshot captured" toast), `screenshot5.png` duplicates `screenshot4.png`,
-`Pasted image.png` duplicates `step4.png`, and `screenshot2/3` + `step1/2` show a
-**stale two-button popup** the product no longer has.
-
-That is also why the hero popup is built in HTML rather than screenshotted — no
-existing image shows the v1.0.13 three-button layout.
-
-> The same stale images are live on the Chrome Web Store listing. Recapturing them
-> is worth doing independently of this site.
+`assets/img/step-*.webp` are the landing-kit shots (`../adsync-extension/docs/landing-kit/`)
+converted with `cwebp -q 80–82` (shot 01 resized to 1200 px wide). Steps 2 and 3
+have a light and a dark capture; CSS shows the one matching the theme.
 
 ## Language
 
@@ -83,6 +82,10 @@ keyed by `data-i18n`. Attributes use `data-i18n-attr="attrName|key"`.
 
 Adding a string means adding it in both places. `app.js` logs a console warning
 listing any key that has no English counterpart.
+
+Stays Georgian in both languages, on purpose: the tracker headers and rows, the
+address in the fill card, and „ფორმა შევსებულია" — that is what the extension and
+the sheet really show.
 
 Georgian runs 25–40% longer than English, so **check both languages at 390px**
 after any copy change.
