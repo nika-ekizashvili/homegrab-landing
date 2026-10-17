@@ -16,6 +16,12 @@ assets/img/     the "How it works" screenshots (WebP)
 favicon.svg  robots.txt  sitemap.xml
 ```
 
+**Cloudflare caches static files for 4 hours.** Whenever `styles.css` or `app.js`
+changes, bump the `?v=N` on their tags (`styles.css` in all three pages, `app.js`
+in `index.html`); a new image gets a new file name. And never open a new asset's
+URL on the live site before it is deployed: nginx answers a missing file with
+`index.html` and a 200, and Cloudflare caches that for 4 hours too.
+
 Run it locally with any static server (paths are root-absolute, so `file://` won't do):
 
 ```bash
