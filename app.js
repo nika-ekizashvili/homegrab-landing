@@ -92,7 +92,7 @@
     "ag.chip": "One seat = one agent",
     "ag.h": "For agencies",
     "ag.body": "Seats for your agents: ₾15 per seat a month. One seat = one agent.",
-    "ag.trial": "Each seat's first 7 days are free — if the agent actually uses it.",
+    "ag.trial": "The first 7 days of your first 5 seats are free.",
     "ag.per": "per seat · month",
     "ag.soon": "Soon",
     "ag.soonBtn": "Coming soon",
