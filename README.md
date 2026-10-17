@@ -56,8 +56,8 @@ describe *proposals* in the same confident tone as shipped behaviour.
 
 ### Links that are hardcoded
 
-Chrome Web Store listing — five places in `index.html` (header, mobile menu, hero,
-pricing, footer band):
+Chrome Web Store listing — six places in `index.html` (header, mobile menu, hero,
+pricing, agency card, footer band):
 
 ```bash
 grep -rn 'chromewebstore.google.com' *.html
@@ -65,7 +65,7 @@ grep -rn 'chromewebstore.google.com' *.html
 
 Current: `https://chromewebstore.google.com/detail/home-grab/gkafeolkiffkkbbpeceaiefpglfblmkh`
 
-Agency contact (pricing section): WhatsApp `https://wa.me/995575778142` and
+Agency card: „გამოწერა" goes to the store like every plan; its „კითხვა გაქვს?" line links WhatsApp `https://wa.me/995575778142` and
 `homegrab@gmail.com`.
 
 ## Screenshots

@@ -94,8 +94,8 @@
     "ag.body": "Seats for your agents: ₾15 per seat a month, or ₾13.50 per seat above 100 seats. One seat = one agent.",
     "ag.per": "per seat · month",
     "ag.bulk": "100+ seats",
-    "ag.cta": "Message us on WhatsApp",
-    "ag.mail": "or email us:",
+    "ag.cta": "Subscribe",
+    "ag.q": "Questions?",
 
     "foot.label": "Footer",
     "foot.privacy": "Privacy",
