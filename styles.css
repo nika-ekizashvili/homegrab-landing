@@ -566,13 +566,10 @@ html:not(.js) .replay { display: none; }
 }
 .agency-trial svg { margin-top: 3px; }
 .seat-prices {
-  display: grid; grid-template-columns: 1fr 1fr;
   border: 1px solid var(--border); border-radius: 14px; overflow: hidden;
 }
 .seat-prices > div { padding: 18px; display: flex; flex-direction: column; gap: 4px; background: var(--surface-sunken); }
-.seat-prices > div + div { background: var(--accent2-wash); border-left: 1px solid var(--border); }
 .seat-prices span { font-size: 13px; color: var(--text-muted); }
-.seat-prices > div + div span { color: var(--accent2-ink); font-weight: 600; }
 .seat-prices b { font-size: 32px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.2; }
 .agency-side .btn { width: 100%; padding: 14px 22px; }
 .agency-mail { margin: -4px 0 0; text-align: center; font-size: 14px; color: var(--text-muted); }

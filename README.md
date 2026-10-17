@@ -68,7 +68,7 @@ describe *proposals* in the same confident tone as shipped behaviour.
 | Fill-card values | the real „SS & MyHome" run on ss.ge 36916024 | ვაკე · ი. ჭავჭავაძის გამზ. 29, ₾897,000, 115 m², 4 rooms. |
 | Security cards | `privacy.html`, `public/manifest.json` (`drive.file`) | "Only the files it created" is the `drive.file` scope. Change the page and `privacy.html` together. |
 | Plan prices, 7-day trial | admin pricing (`docs/ADMIN-API-PLAN.md` §0), `store-assets/subscription-terms-ka.md` §2 | Prices are admin settings, not code. |
-| Agency seats (₾15, ₾13.50 above 100, free week per used seat) | `docs/AGENCY-SEATS-PLAN.md` | **Not sold yet**: the card says „მალე“ and has no buy button. When seats ship, restore a „გამოწერა“ link. |
+| Agency seats (₾15 per seat a month, free week per used seat) | `docs/AGENCY-SEATS-PLAN.md` | **Not sold yet**: the card says „მალე“ and has no buy button. When seats ship, restore a „გამოწერა“ link. |
 | Support page billing (trial, cancel path, refunds) | `store-assets/subscription-terms-ka.md` §2, §6, §7 | Quoted nearly word for word; change both together. |
 | Subscription terms link | backend `GET /terms` (`https://homegrab-api.usectl.com/terms`) | One source: rendered from `subscription-terms-ka.md`. |
 
