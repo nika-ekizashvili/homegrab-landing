@@ -95,14 +95,58 @@
     "ag.trial": "Each seat's first 7 days are free — if the agent actually uses it.",
     "ag.per": "per seat · month",
     "ag.bulk": "100+ seats",
-    "ag.cta": "Subscribe",
-    "ag.q": "Questions?",
+    "ag.soon": "Soon",
+    "ag.soonBtn": "Coming soon",
+    "ag.q": "Interested? Write to us:",
+
+    "sup.pill": "Support",
+    "sup.h1": "How can we help?",
+    "sup.sub": "Write to us on WhatsApp or by email — or first check the most common cases below.",
+    "sup.wa": "Message us on WhatsApp",
+    "sup.mailT": "Email",
+    "sup.mail": "Send us an email",
+    "sup.sendT": "To sort it out fast, send us:",
+    "sup.send1": "the link to the ad;",
+    "sup.send2": "which site you were copying to — ss.ge or myhome.ge;",
+    "sup.send3": "a screenshot, and what you pressed.",
+    "sup.fixH": "Quick fixes",
+    "sup.f1t": "The buttons don't show",
+    "sup.f1d": "HomeGrab works on one specific ad's page — from search results or a list, open one ad first.",
+    "sup.f2t": "Signing in to ss.ge and myhome.ge",
+    "sup.f2d": "HomeGrab uses the session you're already signed into. If the session has expired, sign in again and retry. Without signing in to myhome.ge, MyHome shows only 5 phone numbers a day — the rest are saved masked in the sheet.",
+    "sup.f3t": "Some fields didn't fill",
+    "sup.f3d": "They are listed in a yellow panel: „ეს ველები ვერ შეივსო — დააჭირე და გადახვალ ველზე“ (click one to jump to it). Fill them by hand, then publish.",
+    "sup.f4t": "Switching computers",
+    "sup.f4d": "One account works on one computer at a time. On the new computer, press „აქ გამოყენება“ (Use here).",
+    "sup.f5t": "Publishing is yours",
+    "sup.f5d": "HomeGrab fills the form and stops. Check it, press publish — the ID is written to your sheet automatically.",
+    "sup.f6t": "The page doesn't respond",
+    "sup.f6d": "Reload the page (F5) and try again. If that doesn't help, write to us.",
+    "sup.payH": "Subscription and payment",
+    "sup.b1t": "7 days free",
+    "sup.b1d": "New users get a 7-day free trial with no card — once per Google account.",
+    "sup.b2t": "Cancelling",
+    "sup.b2d": "Any time, in the extension: Settings → Subscription → Cancel. HomeGrab keeps working until the end of the paid period, and nothing more is charged.",
+    "sup.b3t": "Refunds",
+    "sup.b3d": "A partly used period is not refunded. We refund in full if you were charged twice, charged after cancelling, or couldn't use the service because of our fault. Email eqiza99@gmail.com within 14 days of the charge.",
+    "sup.b4t": "Payment",
+    "sup.b4d": "Payment is on Bank of Georgia's secure page — we never see your card details.",
+    "sup.terms": "Full subscription terms",
+    "sup.reports": "Error reports carry no personal data; switch them off in Settings → „შეცდომების ანგარიშის გაგზავნა“ (Send error reports).",
 
     "foot.label": "Footer",
+    "foot.support": "Support",
     "foot.privacy": "Privacy",
     "foot.terms": "Terms",
     "foot.sub": "Subscription terms",
     "foot.disc": "HomeGrab is an independent automation tool. It is not affiliated, associated, authorized, endorsed by, or in any way officially connected with SS.ge, MyHome.ge, or Google Sheets."
+  };
+
+  /* Page titles [ka, en], by <body data-page>. */
+  var TITLES = {
+    home: ["HomeGrab — განცხადების გადატანა ss.ge ⇄ myhome.ge ერთი დაჭერით",
+           "HomeGrab — move ads between ss.ge and myhome.ge in one click"],
+    support: ["მხარდაჭერა — HomeGrab", "Support — HomeGrab"]
   };
 
   /* Keep the Georgian original so we can switch back without a reload. */
@@ -144,9 +188,8 @@
     document.querySelectorAll(".lang button").forEach(function (b) {
       b.setAttribute("aria-pressed", String(b.getAttribute("data-lang") === lang));
     });
-    document.title = lang === "en"
-      ? "HomeGrab — move ads between ss.ge and myhome.ge in one click"
-      : "HomeGrab — განცხადების გადატანა ss.ge ⇄ myhome.ge ერთი დაჭერით";
+    var titles = TITLES[document.body.getAttribute("data-page") || "home"] || TITLES.home;
+    document.title = titles[lang === "en" ? 1 : 0];
   }
 
   /* --- Theme --------------------------------------------------------------- */

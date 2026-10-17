@@ -474,6 +474,25 @@ html:not(.js) .replay { display: none; }
 .safe-card p { margin: 0; color: var(--text-muted); font-size: 15px; line-height: 1.55; }
 .safe-note { margin: 0; text-align: center; font-size: 14px; color: var(--text-muted); line-height: 1.6; }
 
+/* --- Support page ------------------------------------------------------------ */
+.support-hero { padding-bottom: 8px; }
+.wrap.narrow { max-width: 760px; display: flex; flex-direction: column; gap: 28px; }
+.sup-contact { padding-top: 32px; }
+.contact-grid {
+  display: grid; gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+}
+.safe-card .contact-value { color: var(--text); font-size: 20px; font-weight: 700; letter-spacing: -0.01em; }
+.safe-card .btn { align-self: flex-start; margin-top: 6px; padding: 11px 18px; font-size: 15px; }
+.send-list { color: var(--text-muted); font-size: 15px; line-height: 1.6; }
+.send-list p { margin: 0 0 6px; color: var(--text); font-weight: 600; }
+.send-list ul { margin: 0; padding-inline-start: 1.2em; }
+.sup-grid { grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); }
+.sec .wrap > .sup-grid { margin-top: 36px; }
+.sup-grid-2 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr)); max-width: 920px; margin-inline: auto; }
+.sec .wrap > .sup-grid + .safe-note { margin-top: 28px; }
+.sec .wrap > .safe-note + .sup-note2 { margin-top: 6px; }
+
 /* --- Pricing --------------------------------------------------------------- */
 .pricing { padding-bottom: clamp(80px, 11vw, 120px); border-bottom: 0; }
 .pricing .wrap { max-width: 1080px; display: flex; flex-direction: column; gap: 40px; }
@@ -533,6 +552,13 @@ html:not(.js) .replay { display: none; }
 .seats i:nth-child(4) { background: var(--green-300); }
 .agency-tags .pill { padding: 4px 10px; }
 .agency h3 { margin: 0; font-weight: 700; font-size: 26px; letter-spacing: -0.02em; line-height: 1.25; }
+.agency-title { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; }
+.pill-soon { background: var(--surface-inset); color: var(--text); border: 1px solid var(--border-strong); padding: 4px 10px; }
+/* The agency plan is not sold yet: a button-shaped label, not a link. */
+.btn-soon {
+  background: var(--surface-inset); color: var(--text-muted); border-color: var(--border);
+  cursor: default;
+}
 .agency-copy p { margin: 0; color: var(--text-muted); font-size: 15px; line-height: 1.55; max-width: 420px; }
 .agency-copy .agency-trial {
   display: flex; align-items: flex-start; gap: 8px;

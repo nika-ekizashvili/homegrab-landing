@@ -34,7 +34,7 @@
       "@id": "https://homegrab.usectl.com/#org",
       "name": "HomeGrab",
       "url": "https://homegrab.usectl.com/",
-      "email": "homegrab@gmail.com"
+      "email": "eqiza99@gmail.com"
     },
     {
       "@type": "WebSite",
@@ -86,8 +86,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Noto+Sans+Georgian:wght@400;500;600;700&display=swap">
-<link rel="stylesheet" href="/styles.css?v=4">
-<script src="/app.js?v=5" defer></script>
+<link rel="stylesheet" href="/styles.css?v=5">
+<script src="/app.js?v=6" defer></script>
 </head>
 <body>
 
@@ -387,7 +387,10 @@
               <span class="seats" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
               <span class="pill pill-blue" data-i18n="ag.chip">ერთი ადგილი = ერთი აგენტი</span>
             </div>
-            <h3 data-i18n="ag.h">სააგენტოებისთვის</h3>
+            <div class="agency-title">
+              <h3 data-i18n="ag.h">სააგენტოებისთვის</h3>
+              <span class="pill pill-soon" data-i18n="ag.soon">მალე</span>
+            </div>
             <p data-i18n="ag.body">ადგილები შენი აგენტებისთვის: 15 ₾ ადგილზე თვეში, 100 ადგილზე მეტის შემთხვევაში — 13.50 ₾. ერთი ადგილი = ერთი აგენტი.</p>
             <p class="agency-trial">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
@@ -399,11 +402,9 @@
               <div><span data-i18n="ag.per">ადგილზე · თვეში</span><b>₾15</b></div>
               <div><span data-i18n="ag.bulk">100+ ადგილი</span><b>₾13.50</b></div>
             </div>
-            <a class="btn btn-primary" href="https://chromewebstore.google.com/detail/home-grab/gkafeolkiffkkbbpeceaiefpglfblmkh">
-              <span data-i18n="ag.cta">გამოწერა</span>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-            </a>
-            <p class="agency-mail"><span data-i18n="ag.q">კითხვა გაქვს?</span> <a href="https://wa.me/995575778142" target="_blank" rel="noopener">WhatsApp</a> · <a href="mailto:homegrab@gmail.com">homegrab@gmail.com</a></p>
+            <!-- Not sold yet (docs/AGENCY-SEATS-PLAN.md): no button that pretends it is. -->
+            <span class="btn btn-soon" data-i18n="ag.soonBtn">მალე ხელმისაწვდომი</span>
+            <p class="agency-mail"><span data-i18n="ag.q">გაინტერესებს? მოგვწერე:</span> <a href="https://wa.me/995575778142" target="_blank" rel="noopener">WhatsApp</a> · <a href="mailto:eqiza99@gmail.com">eqiza99@gmail.com</a></p>
           </div>
         </div>
       </div>
@@ -427,6 +428,7 @@
       </a>
       <div class="hdr-gap"></div>
       <nav class="ftr-links" aria-label="ქვედა მენიუ" data-i18n-attr="aria-label|foot.label">
+        <a href="/support.html" data-i18n="foot.support">მხარდაჭერა</a>
         <a href="/privacy.html" data-i18n="foot.privacy">კონფიდენციალურობა</a>
         <a href="/terms.html" data-i18n="foot.terms">პირობები</a>
         <a href="https://homegrab-api.usectl.com/terms" data-i18n="foot.sub">გამოწერის პირობები</a>
