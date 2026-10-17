@@ -144,8 +144,8 @@
       b.setAttribute("aria-pressed", String(b.getAttribute("data-lang") === lang));
     });
     document.title = lang === "en"
-      ? "HomeGrab — one ad, both sites"
-      : "HomeGrab — ერთი განცხადება, ორივე საიტი";
+      ? "HomeGrab — move ads between ss.ge and myhome.ge in one click"
+      : "HomeGrab — განცხადების გადატანა ss.ge ⇄ myhome.ge ერთი დაჭერით";
   }
 
   /* --- Theme --------------------------------------------------------------- */

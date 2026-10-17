@@ -3,14 +3,68 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>HomeGrab — ერთი განცხადება, ორივე საიტი</title>
+<title>HomeGrab — განცხადების გადატანა ss.ge ⇄ myhome.ge ერთი დაჭერით</title>
 <meta name="description" content="HomeGrab იღებს განცხადებას ss.ge-დან ან myhome.ge-დან და მეორე საიტის ფორმას თავად ავსებს — ფოტოებით, მისამართით, ფასით და აღწერით. შენ მხოლოდ ამოწმებ და აქვეყნებ.">
 <link rel="canonical" href="https://homegrab.usectl.com/">
-<meta property="og:title" content="HomeGrab — ერთი განცხადება, ორივე საიტი">
-<meta property="og:description" content="Chrome-ის გაფართოება უძრავი ქონების აგენტებისთვის. ss.ge ⇄ myhome.ge, ერთი დაჭერით.">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#07090e" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+
+<!-- Link previews (WhatsApp, Facebook, Messenger, X) -->
+<meta property="og:site_name" content="HomeGrab">
+<meta property="og:locale" content="ka_GE">
+<meta property="og:locale:alternate" content="en_US">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://homegrab.usectl.com/">
-<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta property="og:title" content="HomeGrab — განცხადების გადატანა ss.ge ⇄ myhome.ge ერთი დაჭერით">
+<meta property="og:description" content="Chrome-ის გაფართოება უძრავი ქონების აგენტებისთვის: განცხადება ერთი საიტიდან მეორეზე — ფოტოებით, მისამართით და ფასით. 7 დღე უფასოდ.">
+<meta property="og:image" content="https://homegrab.usectl.com/assets/img/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="HomeGrab: ერთი განცხადება — ორივე საიტზე, ერთი დაჭერით. ss.ge ⇄ myhome.ge">
+<meta name="twitter:card" content="summary_large_image">
+
+<!-- Structured data. No ratings or review counts: there are none to show. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://homegrab.usectl.com/#org",
+      "name": "HomeGrab",
+      "url": "https://homegrab.usectl.com/",
+      "email": "homegrab@gmail.com"
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://homegrab.usectl.com/#website",
+      "name": "HomeGrab",
+      "url": "https://homegrab.usectl.com/",
+      "inLanguage": "ka",
+      "publisher": { "@id": "https://homegrab.usectl.com/#org" }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "name": "HomeGrab",
+      "url": "https://homegrab.usectl.com/",
+      "description": "Chrome-ის გაფართოება, რომელიც განცხადებას ss.ge-დან ან myhome.ge-დან მეორე საიტის ფორმაში თავად ავსებს — ფოტოებით, მისამართით, ფასით და აღწერით.",
+      "applicationCategory": "BrowserApplication",
+      "operatingSystem": "Google Chrome",
+      "installUrl": "https://chromewebstore.google.com/detail/home-grab/gkafeolkiffkkbbpeceaiefpglfblmkh",
+      "image": "https://homegrab.usectl.com/assets/img/og.png",
+      "inLanguage": ["ka", "en", "ru"],
+      "publisher": { "@id": "https://homegrab.usectl.com/#org" },
+      "offers": [
+        { "@type": "Offer", "name": "1 დღე", "price": "2.00", "priceCurrency": "GEL" },
+        { "@type": "Offer", "name": "1 კვირა", "price": "6.00", "priceCurrency": "GEL" },
+        { "@type": "Offer", "name": "1 თვე", "price": "17.50", "priceCurrency": "GEL" },
+        { "@type": "Offer", "name": "3 თვე", "price": "45.00", "priceCurrency": "GEL" }
+      ]
+    }
+  ]
+}
+</script>
 
 <!-- Before first paint: saved theme and language, and whether to animate. -->
 <script>
@@ -33,7 +87,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Noto+Sans+Georgian:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="/styles.css?v=3">
-<script src="/app.js?v=3" defer></script>
+<script src="/app.js?v=4" defer></script>
 </head>
 <body>
 
