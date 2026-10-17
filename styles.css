@@ -534,6 +534,11 @@ html:not(.js) .replay { display: none; }
 .agency-tags .pill { padding: 4px 10px; }
 .agency h3 { margin: 0; font-weight: 700; font-size: 26px; letter-spacing: -0.02em; line-height: 1.25; }
 .agency-copy p { margin: 0; color: var(--text-muted); font-size: 15px; line-height: 1.55; max-width: 420px; }
+.agency-copy .agency-trial {
+  display: flex; align-items: flex-start; gap: 8px;
+  color: var(--accent2-ink); font-size: 14px; font-weight: 600;
+}
+.agency-trial svg { margin-top: 3px; }
 .seat-prices {
   display: grid; grid-template-columns: 1fr 1fr;
   border: 1px solid var(--border); border-radius: 14px; overflow: hidden;
