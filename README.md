@@ -66,10 +66,10 @@ describe *proposals* in the same confident tone as shipped behaviour.
 | `Uploaded: N` day marker, date in column K | `lib/day-grouping.js` | Marker text and where the block date sits. |
 | The step screenshots (popup buttons, „ფორმა შევსებულია") | `popup/popup.jsx` | They are real captures (landing-kit shots 01, 02/03, 28/29). Recapture when the popup changes. |
 | Fill-card values | the real „SS & MyHome" run on ss.ge 36916024 | ვაკე · ი. ჭავჭავაძის გამზ. 29, ₾897,000, 115 m², 4 rooms. |
-| Security cards | `privacy.html`, `public/manifest.json` (`drive.file`) | "Only the files it created" is the `drive.file` scope. Change the page and `privacy.html` together. |
-| Plan prices, 7-day trial | admin pricing (`docs/ADMIN-API-PLAN.md` §0), `store-assets/subscription-terms-ka.md` §2 | Prices are admin settings, not code. |
-| Agency seats (₾15 per seat a month, min 5 seats; first 7 days free for the first 5 seats) | `docs/AGENCY-SEATS-PLAN.md` | **Not sold yet**: the card says „მალე“ and has no buy button. When seats ship, restore a „გამოწერა“ link. |
-| Support page billing (trial, cancel path, refunds) | `store-assets/subscription-terms-ka.md` §2, §6, §7 | Quoted nearly word for word; change both together. |
+| Security cards (3) | `privacy.html` | Never publishes, no password, data in your own Sheet. The Drive-scope card was removed on 2026-10-18 (user); `privacy.html` still explains `drive.file`. |
+| Plan prices, 7-day trial (pricing cards, JSON-LD, `terms.html` §5) | admin pricing (`docs/ADMIN-API-PLAN.md` §0), `store-assets/subscription-terms-ka.md` §2–3 | Prices are admin settings, not code. The 3-month card's struck price (₾52.50) is 3 × the 1-month price — change it with the month price. The cards show no "one-time / renews" label: since 2026-10-18 the buyer chooses auto-renew at checkout on every plan. |
+| Agency seats (₾15 per seat a month, min 5 seats; the agency's first 7 days after registration free for all its agents) | `docs/AGENCY-SEATS-PLAN.md` §0 | **Not sold yet**: the card says „მალე“ and has no buy button. When seats ship, restore a „გამოწერა“ link. |
+| Support page billing (trial, auto-renew switch „პარამეტრები → ავტომატური განახლება", refunds within 48 hours, card / Apple Pay / Google Pay) | `store-assets/subscription-terms-ka.md` §2, §4, §5–7 | Quoted nearly word for word; change both together. |
 | Subscription terms link | backend `GET /terms` (`https://homegrab-api.usectl.com/terms`) | One source: rendered from `subscription-terms-ka.md`. |
 
 ### Links that are hardcoded

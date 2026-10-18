@@ -86,8 +86,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Noto+Sans+Georgian:wght@400;500;600;700&display=swap">
-<link rel="stylesheet" href="/styles.css?v=5">
-<script src="/app.js?v=7" defer></script>
+<link rel="stylesheet" href="/styles.css?v=6">
+<script src="/app.js?v=8" defer></script>
 </head>
 <body>
 
@@ -328,11 +328,6 @@
           <h3 data-i18n="sec.c3t">მონაცემები შენს ცხრილშია</h3>
           <p data-i18n="sec.c3d">განცხადებების მონაცემები მხოლოდ შენს Google ცხრილში ინახება, შენსავე Drive-ზე.</p>
         </div>
-        <div class="safe-card" data-reveal style="--i:3">
-          <span class="safe-icon green"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span>
-          <h3 data-i18n="sec.c4t">Drive-ზე — მხოლოდ თავისი ფაილები</h3>
-          <p data-i18n="sec.c4d">შენს Drive-ზე HomeGrab ხედავს მხოლოდ იმ ფაილებს, რომლებიც თავად შექმნა.</p>
-        </div>
       </div>
       <p class="safe-note" data-reveal>
         <span data-i18n="sec.note">შეცდომების ტექნიკური ანგარიში პირად მონაცემებს არ შეიცავს და პარამეტრებში ითიშება.</span>
@@ -352,31 +347,28 @@
       <div class="plans">
         <div class="plan" data-reveal>
           <div class="plan-name" data-i18n="plan.day">1 დღე</div>
-          <div class="plan-kind" data-i18n="plan.once">ერთჯერადი</div>
           <div class="plan-price">₾2</div>
         </div>
         <div class="plan" data-reveal style="--i:1">
           <div class="plan-name" data-i18n="plan.week">1 კვირა</div>
-          <div class="plan-kind" data-i18n="plan.once">ერთჯერადი</div>
           <div class="plan-price">₾6</div>
         </div>
         <div class="plan rec" data-reveal style="--i:2">
           <span class="plan-badge" data-i18n="plan.rec">რეკომენდებული</span>
           <div class="plan-name" data-i18n="plan.month">1 თვე</div>
-          <div class="plan-kind" data-i18n="plan.renew">ავტომატური განახლება</div>
           <div class="plan-price">₾17.50</div>
         </div>
         <div class="plan" data-reveal style="--i:3">
           <div class="plan-name" data-i18n="plan.quarter">3 თვე</div>
-          <div class="plan-kind" data-i18n="plan.renew">ავტომატური განახლება</div>
-          <div class="plan-price">₾45</div>
+          <!-- Struck price = 3 × the 1-month price; update both when prices change (README). -->
+          <div class="plan-price">₾45<span class="plan-was"><s aria-hidden="true">₾52.50</s><span class="vh" data-i18n="plan.was">52.50 ₾-ის ნაცვლად</span></span></div>
         </div>
       </div>
 
       <div class="pricing-cta" data-reveal>
         <a class="btn btn-primary" href="https://chromewebstore.google.com/detail/home-grab/gkafeolkiffkkbbpeceaiefpglfblmkh" data-i18n="price.start">დაიწყე უფასოდ</a>
         <div class="trial" data-i18n="price.trial">7 დღე უფასოდ, ბარათის გარეშე. გაუქმება ნებისმიერ დროს.</div>
-        <div class="fine" data-i18n="price.fine">ფასები ლარშია, დღგ-ს ჩათვლით. გადახდა ხდება საქართველოს ბანკის დაცულ გვერდზე.</div>
+        <div class="fine" data-i18n="price.fine">ფასები ლარშია, დღგ-ს ჩათვლით. გადახდა ხდება საქართველოს ბანკის დაცულ გვერდზე — ბარათით, Apple Pay-ით ან Google Pay-ით.</div>
       </div>
 
       <div class="agency" data-reveal>
@@ -394,7 +386,7 @@
             <p data-i18n="ag.body">ადგილები შენი აგენტებისთვის: 15 ₾ ადგილზე თვეში. ერთი ადგილი = ერთი აგენტი.</p>
             <p class="agency-trial">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
-              <span data-i18n="ag.trial">პირველი 5 ადგილის პირველი 7 დღე უფასოა.</span>
+              <span data-i18n="ag.trial">რეგისტრაციიდან პირველი 7 დღე სააგენტოს ყველა აგენტისთვის უფასოა.</span>
             </p>
           </div>
           <div class="agency-side">

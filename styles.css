@@ -410,12 +410,15 @@ html:not(.js) .replay { display: none; }
 .gs-title { display: flex; flex-direction: column; gap: 1px; line-height: 1.3; }
 .gs-title b { font-size: 15px; font-weight: 500; }
 .gs-title small { font-size: 12px; color: #5f6368; }
-.gs-scroll { overflow-x: auto; font-size: 12.5px; }
-.gs-grid { min-width: max-content; }
+.gs-scroll { overflow-x: auto; font-size: 12px; }
+/* All 12 columns fit the desktop card, like the real sheet at 100 % (the day's
+   date in K included); below 1136px the card scrolls sideways. */
+.gs-grid { min-width: 1136px; }
 .gs-r {
   --step: 40ms;
   display: grid;
-  grid-template-columns: 44px 118px 98px 104px 150px 190px 120px 96px 74px 92px 80px 190px 170px;
+  grid-template-columns: 40px minmax(0, 100fr) minmax(0, 76fr) minmax(0, 86fr) minmax(0, 104fr) minmax(0, 150fr)
+    minmax(0, 96fr) minmax(0, 76fr) minmax(0, 70fr) minmax(0, 92fr) minmax(0, 70fr) minmax(0, 90fr) minmax(0, 86fr);
 }
 .gs-r > span {
   padding: 0 8px; height: 30px; display: flex; align-items: center;
@@ -510,8 +513,10 @@ html:not(.js) .replay { display: none; }
 }
 .plan:hover { transform: translateY(-3px); border-color: var(--border-strong); }
 .plan-name { font-weight: 600; font-size: 16px; }
-.plan-kind { color: var(--text-muted); font-size: 14px; }
 .plan-price { font-size: 38px; font-weight: 700; letter-spacing: -0.02em; margin-top: 14px; line-height: 1.2; }
+/* The 3-month card's price without the discount, struck through beside it. */
+.plan-was { margin-left: 10px; font-size: 17px; font-weight: 500; letter-spacing: 0; color: var(--text-muted); vertical-align: 0.35em; white-space: nowrap; }
+.vh { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 .plan.rec { border: 2px solid var(--accent); padding: 23px; box-shadow: var(--shadow); }
 .plan.rec:hover { border-color: var(--accent); }
 .plan-badge {
