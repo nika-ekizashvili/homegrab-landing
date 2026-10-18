@@ -26,7 +26,10 @@
     "a11y.skip": "Skip to main content",
     "nav.label": "Main",
     "nav.how": "How it works",
+    "nav.security": "Security",
     "nav.pricing": "Pricing",
+    "nav.support": "Support",
+    "nav.back": "← Back",
     "nav.lang": "Language",
     "nav.theme": "Switch theme",
     "nav.menu": "Menu",
@@ -113,7 +116,7 @@
     "sup.f3t": "Some fields didn't fill",
     "sup.f3d": "They are listed in a yellow panel: „ეს ველები ვერ შეივსო — დააჭირე და გადახვალ ველზე“ (click one to jump to it). Fill them by hand, then publish.",
     "sup.f4t": "Switching computers",
-    "sup.f4d": "One account works on one computer at a time. On the new computer, press „აქ გამოყენება“ (Use here).",
+    "sup.f4d": "One HomeGrab account can't be used on two different computers at the same time. When you sign in to HomeGrab on a new computer, the active session on the old one ends automatically.",
     "sup.f5t": "Publishing is yours",
     "sup.f5d": "HomeGrab fills the form and stops. Check it, press publish — the ID is written to your sheet automatically.",
     "sup.f6t": "The page doesn't respond",
@@ -265,6 +268,22 @@
     });
   }
 
+  /* --- Back link (subpages) ------------------------------------------------ */
+  // Back to the page you came from when it was on this site; otherwise (a new
+  // tab opened from the extension, a search result) the link's own href: home.
+  function initBack() {
+    document.querySelectorAll("[data-back]").forEach(function (a) {
+      a.addEventListener("click", function (e) {
+        var ref = "";
+        try { ref = document.referrer ? new URL(document.referrer).origin : ""; } catch (err) {}
+        if (ref === location.origin && history.length > 1) {
+          e.preventDefault();
+          history.back();
+        }
+      });
+    });
+  }
+
   /* --- Wiring -------------------------------------------------------------- */
   function init() {
     capture();
@@ -287,6 +306,7 @@
     initMenu();
     initReveal();
     initFill();
+    initBack();
 
     /* Parity guard: every Georgian key must have an English counterpart.
        Logged, not thrown — a missing translation must never break the page. */

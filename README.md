@@ -72,6 +72,20 @@ describe *proposals* in the same confident tone as shipped behaviour.
 | Support page billing (trial, auto-renew switch „პარამეტრები → ავტომატური განახლება", refunds within 48 hours, card / Apple Pay / Google Pay) | `store-assets/subscription-terms-ka.md` §2, §4, §5–7 | Quoted nearly word for word; change both together. |
 | Subscription terms link | backend `GET /terms` (`https://homegrab-api.usectl.com/terms`) | One source: rendered from `subscription-terms-ka.md`. |
 
+### One layout on every page
+
+`index.html`, `support.html`, `privacy.html`, `terms.html` and `404.html` share one header
+(logo · როგორ მუშაობს · უსაფრთხოება · ფასები · მხარდაჭერა · language · theme · Chrome button;
+the menu button below 1080px) and one footer (support · privacy · terms · subscription terms).
+Privacy is a footer link only. Every page but the home page starts with „← უკან" (`data-back`:
+back to the previous page on this site, else home). Change the header or footer in all five.
+
+**The server's subscription terms** (`https://homegrab-api.usectl.com/terms`,
+`../adsync-extension/backend/src/routes/terms.js`) wear this site's design too: they load
+`styles.css?v=N` from here and carry a copy of the header and footer with absolute links. When
+`styles.css` changes, bump `LANDING_CSS` there as well — and push this repo first, so the new
+`?v=` exists before the server links to it.
+
 ### Links that are hardcoded
 
 Chrome Web Store listing — five places in `index.html` (header, mobile menu, hero,
