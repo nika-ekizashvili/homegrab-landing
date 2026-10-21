@@ -70,7 +70,7 @@ describe *proposals* in the same confident tone as shipped behaviour.
 | Plan prices, 7-day trial (pricing cards, JSON-LD, `terms.html` §5) | admin pricing (`docs/ADMIN-API-PLAN.md` §0), `store-assets/subscription-terms-ka.md` §2–3 | Prices are admin settings, not code. The 3-month card's struck price (₾52.50) is 3 × the 1-month price — change it with the month price. The cards show no "one-time / renews" label: since 2026-10-18 the buyer chooses auto-renew at checkout on every plan. |
 | Agency seats (₾15 per seat a month, min 5 seats; the agency's first 7 days after registration free for all its agents) | `docs/AGENCY-SEATS-PLAN.md` §0 | **Not sold yet**: the card says „მალე“ and has no buy button. When seats ship, restore a „გამოწერა“ link. |
 | Support page billing (trial, auto-renew switch „პარამეტრები → ავტომატური განახლება", refunds within 48 hours, card / Apple Pay / Google Pay) | `store-assets/subscription-terms-ka.md` §2, §4, §5–7 | Quoted nearly word for word; change both together. |
-| Subscription terms link | backend `GET /terms` (`https://homegrab-api.usectl.com/terms`) | One source: rendered from `subscription-terms-ka.md`. |
+| Subscription terms link | `https://homegrab.ge/subscription-terms`: nginx proxies it to the server's `GET /terms` | One source: rendered from `subscription-terms-ka.md`. The server's own `/terms` address stays for older extensions. |
 
 ### One layout on every page
 
@@ -80,7 +80,7 @@ the menu button below 1080px) and one footer (support · privacy · terms · sub
 Privacy is a footer link only. Every page but the home page starts with „← უკან" (`data-back`:
 back to the previous page on this site, else home). Change the header or footer in all five.
 
-**The server's subscription terms** (`https://homegrab-api.usectl.com/terms`,
+**The server's subscription terms** (`https://homegrab.ge/subscription-terms`, proxied by `nginx.conf` from the server's `/terms`;
 `../adsync-extension/backend/src/routes/terms.js`) wear this site's design too: they load
 `styles.css?v=N` from here and carry a copy of the header and footer with absolute links. When
 `styles.css` changes, bump `LANDING_CSS` there as well — and push this repo first, so the new
