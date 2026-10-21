@@ -82,8 +82,8 @@
     <div class="lang-ka">
     <h1 style="overflow-wrap:anywhere">კონფიდენციალურობის პოლიტიკა</h1>
     <p style="color:var(--text-muted)">
-      ბოლო განახლება: 2026 წლის 8 ოქტომბერი · ეხება HomeGrab v1.0.20-ს და შემდეგ ვერსიებს;
-      შეცდომების ანგარიშები (§6) — v1.0.23-დან.
+      ბოლო განახლება: 2026 წლის 21 ოქტომბერი · ეხება HomeGrab v1.0.20-ს და შემდეგ ვერსიებს;
+      შეცდომების ანგარიშები (§6) — v1.0.23-დან; <code>cookies</code> ნებართვა — v1.0.27-დან.
     </p>
 
     <div class="callout" style="margin-block:var(--sp-6)">
@@ -115,7 +115,7 @@
     </div>
 
     <h2>2. Chrome-ის ნებართვები</h2>
-    <p>გაფართოება ითხოვს ექვს ნებართვას:</p>
+    <p>გაფართოება ითხოვს შვიდ ნებართვას:</p>
     <div class="scroll-x">
       <table class="data-table">
         <thead><tr><th scope="col">ნებართვა</th><th scope="col">რისთვის</th></tr></thead>
@@ -126,6 +126,7 @@
           <tr><th scope="row"><code>notifications</code></th><td>გაფრთხილება, როცა შენი ჩარევაა საჭირო — მაგალითად, ss.ge-ის დრაფტის ფანჯარაზე.</td></tr>
           <tr><th scope="row"><code>scripting</code></th><td>ფორმის შევსება ss.ge-სა და myhome.ge-ზე.</td></tr>
           <tr><th scope="row"><code>tabs</code></th><td>ფორმის ჩანართის გახსნა და მდგომარეობის მიდევნება.</td></tr>
+          <tr><th scope="row"><code>cookies</code></th><td>შენი myhome.ge-ის შესვლის ქუქი-ფაილის წაკითხვა შენსავე ბრაუზერში, რომ MyHome-ის „ჩემი განცხადებების" სიიდან გავიგოთ, შენი რომელი განცხადება გამოქვეყნდა, და მისი ნომერი შენს Google ცხრილში ჩავწეროთ. ქუქი-ფაილი იგზავნება მხოლოდ MyHome-ის საკუთარ API-ზე (api-statements.tnet.ge), HomeGrab-ის სერვერზე არასოდეს, და არსად ინახება.</td></tr>
         </tbody>
       </table>
     </div>
@@ -265,7 +266,7 @@
     <div class="lang-en" lang="en" id="en">
     <h1 style="overflow-wrap:anywhere">Privacy policy</h1>
     <p style="color:var(--text-muted)">
-      Last updated: 8 October 2026 · applies to HomeGrab v1.0.20 and later; error reports (§6) from v1.0.23.
+      Last updated: 21 October 2026 · applies to HomeGrab v1.0.20 and later; error reports (§6) from v1.0.23; the <code>cookies</code> permission from v1.0.27.
     </p>
     <p lang="en">
       <strong>In short.</strong> Listing data is written <strong>only to your own Google
@@ -282,13 +283,19 @@
       HomeGrab signs you in with Google OAuth 2.0 and requests exactly four scopes:
       <code>drive.file</code> (only files the extension created — your “HomeGrab
       Tracker” sheet), <code>openid</code>, <code>profile</code> and <code>email</code>.
-      It requests six Chrome permissions (<code>identity</code>, <code>storage</code>,
+      It requests seven Chrome permissions (<code>identity</code>, <code>storage</code>,
       <code>alarms</code>, <code>notifications</code>, <code>scripting</code>,
-      <code>tabs</code>), runs only on ss.ge, home.ss.ge, static.ss.ge, www.myhome.ge,
+      <code>tabs</code>, <code>cookies</code>), runs only on ss.ge, home.ss.ge, static.ss.ge, www.myhome.ge,
       statements.myhome.ge, api-statements.tnet.ge, static-statements.tnet.ge,
       static.my.ge and googleapis.com, and connects to HomeGrab's server
       (<code>homegrab-api.usectl.com</code>) and, when you pay, Bank of Georgia's
       payment page.
+    </p>
+    <p lang="en">
+      <code>cookies</code> reads your own myhome.ge login cookie in your browser, so the
+      extension can ask MyHome's “my statements” list which of your ads went live and
+      write its number to your Google Sheet. The cookie is sent only to MyHome's own API
+      (api-statements.tnet.ge), never to HomeGrab's server, and is not stored anywhere.
     </p>
     <p lang="en">
       <strong>HomeGrab's server stores:</strong> your Google account ID, email and
