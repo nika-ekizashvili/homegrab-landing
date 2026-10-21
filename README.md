@@ -22,8 +22,12 @@ Dockerfile  nginx.conf  .dockerignore   how the server is built (see "Server")
 
 **Cloudflare caches static files for 4 hours.** Whenever `styles.css` or `app.js`
 changes, bump the `?v=N` on their tags (`styles.css` in every page, `app.js` in
-`index.html`); a new image gets a new file name. Don't open a new asset's URL on
-the live site before it is deployed — Cloudflare would cache the 404.
+every page); a new image gets a new file name. Don't open a new `?v=` on the
+live site before the new files are actually served: Cloudflare caches whatever it
+gets first under that URL, a 404 or the OLD file. usectl reports a deploy "live"
+about 16 minutes before the container switches (2026-10-21), so wait until a page
+on homegrab.ge shows the new HTML, then open its assets and push anything that
+links to them (the server's subscription terms page).
 
 ## Server
 
