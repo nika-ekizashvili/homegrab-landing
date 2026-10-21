@@ -272,6 +272,10 @@ html:not(.js) .replay { display: none; }
 .sprite { position: absolute; }
 /* Legal pages carry both languages; the ქარ / EN switch shows one. */
 html[lang="en"] .lang-ka, html:not([lang="en"]) .lang-en { display: none; }
+/* Pages without a hero (legal pages, the server's subscription terms): the
+   same spot as on the hero pages, 20px under the header, by the logo. */
+.back-bar { max-width: 1160px; margin: 0 auto; padding: 20px 20px 0; }
+.back-bar + .section { padding-top: clamp(1.5rem, 3vw, 2.5rem); }
 .hero .back-bar {
   position: absolute; top: 20px; left: 0; right: 0; z-index: 1;
   max-width: 1160px; margin: 0 auto; padding: 0 20px;
