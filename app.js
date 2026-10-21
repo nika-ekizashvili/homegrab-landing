@@ -30,6 +30,9 @@
     "nav.pricing": "Pricing",
     "nav.support": "Support",
     "nav.back": "← Back",
+    "nf.title": "Page not found",
+    "nf.sub": "This address doesn't exist on HomeGrab.",
+    "nf.home": "Back to the home page",
     "nav.lang": "Language",
     "nav.theme": "Switch theme",
     "nav.menu": "Menu",
@@ -145,7 +148,11 @@
   var TITLES = {
     home: ["HomeGrab — განცხადების გადატანა ss.ge ⇄ myhome.ge ერთი დაჭერით",
            "HomeGrab — move ads between ss.ge and myhome.ge in one click"],
-    support: ["მხარდაჭერა — HomeGrab", "Support — HomeGrab"]
+    support: ["მხარდაჭერა — HomeGrab", "Support — HomeGrab"],
+    privacy: ["კონფიდენციალურობის პოლიტიკა — HomeGrab", "Privacy policy — HomeGrab"],
+    terms: ["მოხმარების პირობები — HomeGrab", "Terms of use — HomeGrab"],
+    subterms: ["გამოწერის პირობები — HomeGrab", "Subscription terms — HomeGrab"],
+    notfound: ["გვერდი ვერ მოიძებნა — HomeGrab", "Page not found — HomeGrab"]
   };
 
   /* Keep the Georgian original so we can switch back without a reload. */

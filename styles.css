@@ -267,6 +267,8 @@ html:not(.js) .replay { display: none; }
 }
 .back-link:hover { color: var(--text); }
 .section a.back-link { text-decoration: none; }
+/* Legal pages carry both languages; the ქარ / EN switch shows one. */
+html[lang="en"] .lang-ka, html:not([lang="en"]) .lang-en { display: none; }
 .hero .back-bar {
   position: absolute; top: 20px; left: 0; right: 0; z-index: 1;
   max-width: 1160px; margin: 0 auto; padding: 0 20px;
