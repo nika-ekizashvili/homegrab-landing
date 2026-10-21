@@ -127,7 +127,7 @@
     "sup.b2t": "Cancelling",
     "sup.b2d": "You choose auto-renewal when you buy. Switch it off any time in the extension: Settings → Auto-renewal. HomeGrab keeps working until the end of the paid period, and nothing more is charged.",
     "sup.b3t": "Refunds",
-    "sup.b3d": "A partly used period is not refunded. We refund in full if you were charged twice, charged after cancelling, or couldn't use the service because of our fault. Email eqiza99@gmail.com within 48 hours of the charge.",
+    "sup.b3d": "A partly used period is not refunded. We refund in full if you were charged twice, charged after cancelling, or couldn't use the service because of our fault. Email homegrab.support@gmail.com within 48 hours of the charge.",
     "sup.b4t": "Payment",
     "sup.b4d": "Payment is on Bank of Georgia's secure page — by card, Apple Pay or Google Pay. We never see your card details.",
     "sup.terms": "Full subscription terms",

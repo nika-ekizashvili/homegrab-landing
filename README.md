@@ -1,6 +1,6 @@
 # HomeGrab landing page
 
-Static site for [homegrab.usectl.com](https://homegrab.usectl.com/). Plain HTML,
+Static site for [homegrab.ge](https://homegrab.ge/). Plain HTML,
 CSS and JavaScript — **no build step, no dependencies, no CDN scripts.** Deploys
 on push to `main` (usectl machine `private-itswhatever`), and the host serves
 everything the `Dockerfile` copies: never commit anything private here (the design
@@ -97,9 +97,10 @@ grep -rn 'chromewebstore.google.com' *.html
 
 Current: `https://chromewebstore.google.com/detail/home-grab/gkafeolkiffkkbbpeceaiefpglfblmkh`
 
-Contacts: WhatsApp `https://wa.me/995575778142` and, for now, `eqiza99@gmail.com`
-(agency card, support page, JSON-LD `Organization.email`, privacy.html, the subscription
-terms). A future project address replaces it everywhere: `grep -rn eqiza99 .`
+Contacts: WhatsApp `https://wa.me/995575778142` and `homegrab.support@gmail.com`
+(agency card, support page, JSON-LD `Organization.email`, privacy.html, terms.html, and the
+subscription terms in the extension repo). Site: `https://homegrab.ge` since 2026-10-21;
+`homegrab.usectl.com` is gone. To change either, `grep -rn` both repos.
 
 ## Screenshots
 
