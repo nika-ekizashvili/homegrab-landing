@@ -82,8 +82,9 @@
     <div class="lang-ka">
     <h1 style="overflow-wrap:anywhere">კონფიდენციალურობის პოლიტიკა</h1>
     <p style="color:var(--text-muted)">
-      ბოლო განახლება: 2026 წლის 21 ოქტომბერი · ეხება HomeGrab v1.0.20-ს და შემდეგ ვერსიებს;
-      შეცდომების ანგარიშები (§6) — v1.0.23-დან; <code>cookies</code> ნებართვა — v1.0.27-დან.
+      ბოლო განახლება: 2026 წლის 23 ოქტომბერი · ეხება HomeGrab v1.0.20-ს და შემდეგ ვერსიებს;
+      შეცდომების ანგარიშები (§6) — v1.0.23-დან; <code>cookies</code> ნებართვა — v1.0.27-დან;
+      სააგენტოს ადგილზე გამოქვეყნებების დათვლა (§7) — v1.0.38-დან.
     </p>
 
     <div class="callout" style="margin-block:var(--sp-6)">
@@ -91,6 +92,7 @@
       <ul style="margin:0">
         <li>განცხადებების მონაცემები ინახება <strong>მხოლოდ შენს Google ცხრილში</strong>, შენსავე Google Drive-ზე. მისამართი, ფოტოები, მესაკუთრის ნომერი და აღწერა HomeGrab-ის სერვერზე <strong>არასოდეს</strong> იგზავნება.</li>
         <li>როცა გადატანა ან გამოქვეყნება ვერ ხერხდება, გაფართოება აგზავნის ტექნიკურ ანგარიშს, რომ შეცდომა გავასწოროთ (§6). პირადი მონაცემები მასში არ არის, და მისი გამორთვა პარამეტრებში შეგიძლია.</li>
+        <li>თუ სააგენტოს ადგილზე ხარ, სააგენტო ხედავს შენს სახელს, ელფოსტას, როდის გამოიყენე HomeGrab ბოლოს და რამდენი განცხადება გამოაქვეყნე — <strong>მხოლოდ რაოდენობას</strong>. განცხადებების შინაარსს ის ვერ ხედავს (§7).</li>
         <li>HomeGrab-ის სერვერი ინახავს მხოლოდ იმას, რაც ანგარიშის, ტარიფისა და გადახდების სამართავადაა საჭირო — ზუსტი სია ქვემოთაა.</li>
         <li>ბარათის მონაცემებს ჩვენ ვერ ვხედავთ: გადახდა ხდება საქართველოს ბანკის დაცულ გვერდზე.</li>
         <li>მონაცემებს არ ვყიდით და რეკლამისთვის არ ვიყენებთ.</li>
@@ -171,6 +173,10 @@
       </table>
     </div>
     <p>
+      თუ სააგენტოს ადგილზე ხარ ან სააგენტოს მფლობელი ხარ, სერვერი ამას გარდა ინახავს
+      §7-ში ჩამოთვლილს.
+    </p>
+    <p>
       <strong>რას არ ინახავს:</strong> განცხადებების შინაარსს (გარდა §6-ში ჩამოთვლილი
       ტექნიკური ველებისა), მესაკუთრეების ტელეფონის
       ნომრებს, ss.ge-ის ან myhome.ge-ის პაროლებს, ბარათის სრულ ნომერს,
@@ -184,6 +190,7 @@
       ტექნიკურ ანგარიშს. ის გამოიყენება მხოლოდ შეცდომების აღმოსაჩენად და
       გასასწორებლად. წარმატებული გადატანებიც აღირიცხება (საიტები, ეტაპი, შედეგი,
       ხანგრძლივობა და განცხადების ნომერი), რომ ვიცოდეთ, რამდენად ხშირია შეცდომა.
+      შეცდომების ანგარიშებს შენი სააგენტო ვერ ხედავს.
     </p>
     <div class="scroll-x">
       <table class="data-table wrap">
@@ -215,8 +222,71 @@
       გაგზავნილი.
     </p>
 
-    <h2>7. ვის ვუზიარებთ</h2>
+    <h2>7. სააგენტოები</h2>
+    <p>
+      სააგენტოს შეუძლია HomeGrab იყიდოს თავისი აგენტებისთვის manager.homegrab.ge-ზე.
+      სააგენტო ამატებს აგენტის Google ელფოსტას, და ამ ელფოსტით შესული HomeGrab მუშაობს
+      სააგენტოს ტარიფით.
+    </p>
+    <h3>თუ სააგენტოს ადგილზე ხარ (აგენტი)</h3>
+    <div class="scroll-x">
+      <table class="data-table wrap">
+        <thead><tr><th scope="col">სააგენტო ხედავს</th><th scope="col">საიდან</th></tr></thead>
+        <tbody>
+          <tr><td>შენს ელფოსტას</td><td>თავად სააგენტომ დაამატა.</td></tr>
+          <tr><td>შენს სახელს</td><td>შენი Google ანგარიშიდან, როცა HomeGrab-ში შეხვალ.</td></tr>
+          <tr><td>შესული ხარ თუ არა HomeGrab-ში ამ ელფოსტით, და როდის გამოიყენე ბოლოს</td><td>§5-ის „ბოლო გამოყენების დრო".</td></tr>
+          <tr><td>v1.0.38-დან: რამდენი განცხადება გამოაქვეყნე HomeGrab-ით, დღეებისა და საიტების (ss.ge / myhome.ge) მიხედვით</td><td>გაფართოება აგზავნის მხოლოდ თარიღს, საიტს და რიცხვს.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>
+      <strong>სააგენტო ვერ ხედავს:</strong> განცხადებების შინაარსს (მისამართი, ფასი, ფოტოები,
+      აღწერა, ტელეფონის ნომრები), შენს Google ცხრილს, შენს პარამეტრებს, შეცდომების
+      ანგარიშებს (§6), შენს პირად ტარიფსა და გადახდებს.
+    </p>
+    <p>
+      <strong>დათვლა:</strong> გამოქვეყნებები ითვლება მხოლოდ მაშინ, როცა სააგენტოს ადგილზე
+      ხარ. გაფართოების ფანჯარაში ჯერ ამის შესახებ შეტყობინებას ნახავ, და დათვლა იწყება მხოლოდ
+      მას შემდეგ, რაც „გასაგებია"-ს დააჭერ. დათვლა
+      შეცდომების ანგარიშებისგან ცალკეა: „შეცდომების ანგარიშის გაგზავნის" გამორთვა მას არ
+      აჩერებს. რიცხვები ინახება 12 თვე და შემდეგ იშლება. თუ სააგენტო ადგილიდან მოგხსნის,
+      ის ისევ ხედავს რიცხვებს იმ დროისთვის, როცა მის ადგილზე იყავი, ახალი კი აღარ ემატება.
+    </p>
+    <p>
+      <strong>თუ არ გინდა, რომ სააგენტომ ეს დაინახოს,</strong> სთხოვე სააგენტოს, ადგილიდან
+      მოგხსნას. HomeGrab-ით სარგებლობა შეგიძლია პირადი ტარიფით — მაშინ სააგენტო ახალს
+      აღარაფერს ხედავს.
+    </p>
+    <h3>თუ სააგენტოს მფლობელი ხარ</h3>
+    <div class="scroll-x">
+      <table class="data-table wrap">
+        <thead><tr><th scope="col">რა</th><th scope="col">რატომ</th></tr></thead>
+        <tbody>
+          <tr><td>სააგენტოს სახელი, საიდენტიფიკაციო კოდი (ს/კ) და ანგარიშსწორების ელფოსტა</td><td>ანგარიში და ინვოისი; ს/კ — რომ უფასო კვირა ერთ ს/კ-ზე ერთხელ იყოს.</td></tr>
+          <tr><td>შენი Google ანგარიშის იდენტიფიკატორი, ელფოსტა და სახელი</td><td>manager.homegrab.ge-ზე შესვლა. იქ Google-ისგან ვითხოვთ მხოლოდ <code>openid</code>-ს, <code>profile</code>-სა და <code>email</code>-ს; Drive-ზე წვდომა არ გვაქვს.</td></tr>
+          <tr><td>აგენტების ელფოსტები, როდის დაემატნენ ან მოიხსნენ და ვინ დაამატა</td><td>ადგილებისა და გადასახადის დათვლა.</td></tr>
+          <tr><td>ადგილების რაოდენობა, ტარიფი, პერიოდი, სტატუსი და გადახდები (როგორც §5-ში)</td><td>ტარიფის მართვა და გადახდა.</td></tr>
+          <tr><td>ცვლილებების ჟურნალი: ვინ დაამატა ან მოხსნა აგენტი, ვინ შეცვალა სააგენტოს მონაცემები</td><td>უსაფრთხოება და დავების გარჩევა.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>
+      manager.homegrab.ge-ზე HomeGrab-ის ერთადერთი ქუქი-ფაილი შესვლის სესიაა (30 დღე).
+      ანალიტიკისა და რეკლამის ქუქი-ფაილებს არ ვიყენებთ. Google-ით შესვლის ღილაკს Google
+      ტვირთავს, საკუთარი წესებით.
+    </p>
+    <p>
+      <strong>სააგენტოს წაშლა:</strong> მფლობელს შეუძლია სააგენტო წაშალოს
+      manager.homegrab.ge-ზე; ყველა ადგილი თავისუფლდება. ვინახავთ სააგენტოს სახელს, ს/კ-ს,
+      გადახდის ჩანაწერებს და ცვლილებების ჟურნალს — რომ უფასო კვირა ერთსა და იმავე ს/კ-ზე
+      ორჯერ არ გამოიყენონ, და გადახდებისთვის იმდენ ხანს, რამდენსაც საქართველოს
+      კანონმდებლობა მოითხოვს.
+    </p>
+
+    <h2>8. ვის ვუზიარებთ</h2>
     <ul>
+      <li><strong>შენს სააგენტოს</strong> — მხოლოდ თუ მის ადგილზე ხარ, და მხოლოდ §7-ში ჩამოთვლილს.</li>
       <li><strong>საქართველოს ბანკი</strong> — გადახდის დამუშავება. ბარათის მონაცემებს შეიყვან უშუალოდ ბანკის გვერდზე.</li>
       <li><strong>usectl</strong> — ჰოსტინგი, სადაც HomeGrab-ის სერვერი და მონაცემთა ბაზა მუშაობს.</li>
     </ul>
@@ -225,19 +295,20 @@
       მიზნით არ გადავცემთ, თუ ამას კანონი არ მოითხოვს.
     </p>
 
-    <h2>8. პაროლები</h2>
+    <h2>9. პაროლები</h2>
     <p>
       HomeGrab არასოდეს ითხოვს ss.ge-ის ან myhome.ge-ის პაროლს და არ ინახავს მას.
       ის მუშაობს იმ სესიაში, რომელშიც ბრაუზერში უკვე შესული ხარ.
     </p>
 
-    <h2>9. შენახვის ვადა და წაშლა</h2>
+    <h2>10. შენახვის ვადა და წაშლა</h2>
     <p>
-      ანგარიშის მონაცემები ინახება, სანამ ანგარიში აქტიურია, შეცდომების ანგარიშები —
-      90 დღე (§6). ანგარიშის წაშლა
+      ანგარიშის მონაცემები ინახება, სანამ ანგარიში აქტიურია; შეცდომების ანგარიშები —
+      90 დღე (§6); გამოქვეყნებების რიცხვები — 12 თვე (§7). ანგარიშის წაშლა
       შეგიძლია მოითხოვო ელფოსტით: <a href="mailto:homegrab.support@gmail.com">homegrab.support@gmail.com</a>. მონაცემებს წავშლით
       30 დღის განმავლობაში, გარდა გადახდის ჩანაწერებისა, რომლებსაც ვინახავთ
-      იმდენ ხანს, რამდენსაც საქართველოს კანონმდებლობა მოითხოვს.
+      იმდენ ხანს, რამდენსაც საქართველოს კანონმდებლობა მოითხოვს, და წაშლილი
+      სააგენტოს იმ მონაცემებისა, რომლებიც §7-შია ჩამოთვლილი.
     </p>
     <p>
       ცხრილი შენია — შეგიძლია ნებისმიერ დროს წაშალო Google Drive-იდან. Google-ის
@@ -245,14 +316,14 @@
       ხოლო კომპიუტერში შენახული მონაცემები იშლება გაფართოების წაშლისას.
     </p>
 
-    <h2>10. Google-ის მონაცემების გამოყენება</h2>
+    <h2>11. Google-ის მონაცემების გამოყენება</h2>
     <p>
       Google-ის API-ებიდან მიღებული ინფორმაციის გამოყენება შეესაბამება Chrome Web
       Store-ის მომხმარებლის მონაცემების პოლიტიკას, მათ შორის „Limited Use"
       მოთხოვნებს.
     </p>
 
-    <h2>11. ცვლილებები და კონტაქტი</h2>
+    <h2>12. ცვლილებები და კონტაქტი</h2>
     <p>
       არსებით ცვლილებებს წინასწარ გამოვაქვეყნებთ ამ გვერდზე. სერვისს აწვდის
       „ჰოუმ გრაბი“, ს/კ 400453656. კითხვებისა და მოთხოვნებისთვის:
@@ -266,7 +337,7 @@
     <div class="lang-en" lang="en" id="en">
     <h1 style="overflow-wrap:anywhere">Privacy policy</h1>
     <p style="color:var(--text-muted)">
-      Last updated: 21 October 2026 · applies to HomeGrab v1.0.20 and later; error reports (§6) from v1.0.23; the <code>cookies</code> permission from v1.0.27.
+      Last updated: 23 October 2026 · applies to HomeGrab v1.0.20 and later; error reports from v1.0.23; the <code>cookies</code> permission from v1.0.27; listing counts for agency seats from v1.0.38.
     </p>
     <p lang="en">
       <strong>In short.</strong> Listing data is written <strong>only to your own Google
@@ -274,8 +345,10 @@
       and descriptions are never sent to HomeGrab's server. When a transfer or publish
       fails, the extension sends a technical error report so we can fix it (see
       <em>Error reports</em> below); it holds no personal data and you can turn it off in
-      settings. HomeGrab's server otherwise keeps only what it needs to run your
-      account, plan and payments. Card details are
+      settings. If you are on an agency's seat, the agency sees your name, your email,
+      when you last used HomeGrab and how many listings you published (numbers only,
+      never their contents; see <em>Agencies</em>). HomeGrab's server otherwise keeps
+      only what it needs to run your account, plan and payments. Card details are
       entered on Bank of Georgia's secure page and never reach us. We do not sell data
       or use it for advertising.
     </p>
@@ -307,8 +380,9 @@
       theme); your trial dates, plan, period, status and accepted terms version;
       payment records (bank order number, amount, status, payment method, the card's
       last 4 digits and expiry, and the bank's confirmation, never the full card
-      number); and a log of administrator actions on your account. The description
-      text you type stays on your computer only.
+      number); a log of administrator actions on your account; and, if you are on an
+      agency's seat or own an agency, what is listed under <em>Agencies</em>. The
+      description text you type stays on your computer only.
     </p>
     <p lang="en">
       <strong>Not stored:</strong> listing contents (except the technical fields of an
@@ -334,16 +408,63 @@
       phone number, description text, exact address, coordinates, photos, or ss.ge /
       myhome.ge login data (cookies, tokens); the extension removes them before sending.
       Reports are kept for 90 days, then deleted; only error totals remain, not linked
-      to any account. Reporting is on by default and can be turned off in the
-      extension's settings (“Send error reports”); once off, nothing more is sent,
-      including reports not yet sent.
+      to any account. Your agency never sees error reports. Reporting is on by default
+      and can be turned off in the extension's settings (“Send error reports”); once
+      off, nothing more is sent, including reports not yet sent.
     </p>
     <p lang="en">
-      <strong>Shared with:</strong> Bank of Georgia (payment processing) and usectl
-      (hosting). Account data is kept while your account is active and error reports
-      for 90 days; request deletion at
-      <a href="mailto:homegrab.support@gmail.com">homegrab.support@gmail.com</a> and we delete it within
-      30 days, except payment records kept as long as Georgian law requires.
+      <strong>Agencies.</strong> An agency can buy HomeGrab for its agents at
+      manager.homegrab.ge by adding their Google emails; HomeGrab signed in with that
+      email then runs on the agency's plan.
+    </p>
+    <p lang="en">
+      <em>If you are on an agency's seat,</em> the agency sees: your email (the agency
+      added it); your name, from your Google account once you sign in; whether you have
+      signed in to HomeGrab with that email and when you last used it; and, from
+      v1.0.38, how many listings you published with HomeGrab per day and per site
+      (ss.ge / myhome.ge) — the extension sends only the date, the site and the number.
+      The agency never sees listing contents (addresses, prices, photos, descriptions,
+      phone numbers), your Google Sheet, your settings, your error reports, or your
+      personal plan and payments. Publishes are counted only while you are on a seat,
+      and only after you press “Got it” on the notice the extension shows you first. Counting is
+      separate from error reports: turning off “Send error reports” does not stop it.
+      Counts are kept for 12 months, then deleted. If the agency removes you, it still
+      sees the counts from your time on its seat, and nothing new is added. If you don't
+      want your agency to see this, ask it to remove you; you can use HomeGrab on a
+      personal plan instead.
+    </p>
+    <p lang="en">
+      <em>If you own an agency,</em> the server stores: the agency's name, company ID
+      (ს/კ) and billing email, for the account and invoices (the company ID also keeps
+      the free week to once per company); your Google account ID, email and name, to
+      sign you in at manager.homegrab.ge (Google sign-in there asks only for
+      <code>openid</code>, <code>profile</code> and <code>email</code>, with no Drive
+      access); the agents' emails, when they were added or removed and by whom, to count
+      seats and the bill; seats, plan, period, status and payments (as above); and a log
+      of changes (who added or removed an agent, who changed the agency's details), for
+      security and disputes. HomeGrab's only cookie on manager.homegrab.ge is a 30-day
+      sign-in session; we use no analytics or advertising cookies. The Google sign-in
+      button is loaded by Google, under Google's own terms. When an agency is deleted,
+      all its seats are freed; we keep its name, company ID, payment records and change
+      log, so the free week can't be used twice for the same company ID, and payment
+      records as long as Georgian law requires.
+    </p>
+    <p lang="en">
+      <strong>Shared with:</strong> your agency (only if you are on its seat, and only
+      what is listed under <em>Agencies</em>), Bank of Georgia (payment processing) and
+      usectl (hosting). We do not sell data, use it for advertising, or pass it to anyone
+      else unless the law requires it. HomeGrab never asks for or stores your ss.ge or
+      myhome.ge password; it works in the session you are already signed in to.
+    </p>
+    <p lang="en">
+      <strong>Retention and deletion.</strong> Account data is kept while your account is
+      active, error reports for 90 days, and listing counts for 12 months. Request
+      deletion at <a href="mailto:homegrab.support@gmail.com">homegrab.support@gmail.com</a>
+      and we delete it within 30 days, except payment records kept as long as Georgian
+      law requires and a deleted agency's details listed under <em>Agencies</em>. Your
+      sheet is yours to delete from Google Drive at any time; you can revoke Google
+      access from your Google account's security page, and data stored on your computer
+      is removed when you uninstall the extension.
     </p>
     <p lang="en">
       The use of information received from Google APIs will adhere to the Chrome Web
