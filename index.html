@@ -87,7 +87,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Noto+Sans+Georgian:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="/styles.css?v=10">
-<script src="/app.js?v=12" defer></script>
+<script src="/app.js?v=14" defer></script>
 </head>
 <body>
 
@@ -371,7 +371,7 @@
 
       <div class="pricing-cta" data-reveal>
         <a class="btn btn-primary" href="https://chromewebstore.google.com/detail/home-grab/gkafeolkiffkkbbpeceaiefpglfblmkh" data-i18n="price.start">დაიწყე უფასოდ</a>
-        <div class="trial" data-i18n="price.trial">7 დღე უფასოდ, ბარათის გარეშე. გაუქმება ნებისმიერ დროს.</div>
+        <div class="trial" data-i18n="price.trial">7 დღე უფასოდ, ბარათის გარეშე. ავტომატური ჩამოჭრა არ არის.</div>
         <div class="fine" data-i18n="price.fine">ფასები ლარშია, დღგ-ს ჩათვლით. გადახდა ხდება საქართველოს ბანკის დაცულ გვერდზე — ბარათით, Apple Pay-ით ან Google Pay-ით.</div>
       </div>
 
@@ -385,7 +385,6 @@
             </div>
             <div class="agency-title">
               <h3 data-i18n="ag.h">სააგენტოებისთვის</h3>
-              <span class="pill pill-soon" data-i18n="ag.soon">მალე</span>
             </div>
             <p data-i18n="ag.body">ადგილები შენი აგენტებისთვის: 15 ₾ ადგილზე თვეში. ერთი ადგილი = ერთი აგენტი.</p>
             <p class="agency-trial">
@@ -397,9 +396,9 @@
             <div class="seat-prices">
               <div><span data-i18n="ag.per">ადგილზე · თვეში</span><b>₾15</b></div>
             </div>
-            <!-- Not sold yet (docs/AGENCY-SEATS-PLAN.md): no button that pretends it is. -->
-            <span class="btn btn-soon" data-i18n="ag.soonBtn">მალე ხელმისაწვდომი</span>
-            <p class="agency-mail"><span data-i18n="ag.q">გაინტერესებს? მოგვწერე:</span> <a href="https://wa.me/995575778142" target="_blank" rel="noopener">WhatsApp</a> · <a href="mailto:homegrab.support@gmail.com">homegrab.support@gmail.com</a></p>
+            <!-- Registration + the owner's pages live on the agency site (adsync-extension admin/src/agency). -->
+            <a class="btn btn-primary" href="https://manager.homegrab.ge/?lang=ka" data-i18n="ag.go" data-i18n-attr="href|ag.goHref">სააგენტოს რეგისტრაცია</a>
+            <p class="agency-mail"><span data-i18n="ag.q">კითხვა გაქვს? მოგვწერე:</span> <a href="https://wa.me/995575778142" target="_blank" rel="noopener">WhatsApp</a> · <a href="mailto:homegrab.support@gmail.com">homegrab.support@gmail.com</a></p>
           </div>
         </div>
       </div>

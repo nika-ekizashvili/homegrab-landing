@@ -574,12 +574,6 @@ html[lang="en"] .lang-ka, html:not([lang="en"]) .lang-en { display: none; }
 .agency-tags .pill { padding: 4px 10px; }
 .agency h3 { margin: 0; font-weight: 700; font-size: 26px; letter-spacing: -0.02em; line-height: 1.25; }
 .agency-title { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; }
-.pill-soon { background: var(--surface-inset); color: var(--text); border: 1px solid var(--border-strong); padding: 4px 10px; }
-/* The agency plan is not sold yet: a button-shaped label, not a link. */
-.btn-soon {
-  background: var(--surface-inset); color: var(--text-muted); border-color: var(--border);
-  cursor: default;
-}
 .agency-copy p { margin: 0; color: var(--text-muted); font-size: 15px; line-height: 1.55; max-width: 420px; }
 .agency-copy .agency-trial {
   display: flex; align-items: flex-start; gap: 8px;
